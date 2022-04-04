@@ -4,7 +4,7 @@
 
 | Student's name | SCIPER |
 | -------------- | ------ |
-| Duan Yingxuan | |
+| Duan Yingxuan | 282512 |
 | Liu Zimi | 343914 |
 | Tseng Chun-Hung | 340758 |
 
