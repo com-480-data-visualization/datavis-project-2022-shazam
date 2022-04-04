@@ -6,7 +6,9 @@ from tokenize import Double
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
-from dataclasses import dataclass, field
+import dataclasses
+from dataclasses import dataclass
+from dataclasses import field
 from bs4 import BeautifulSoup
 import requests
 import plotly.express as px
@@ -379,7 +381,9 @@ def get_albums_for_artist(artist_id: str):
     while results:
         for i, item in enumerate(results['items']):
             # print(f"name: {item['name']}, id: {item['id']}, release_date: {item['release_date']}")
-            ret.append(Album(item['name'], item['id'], item['release_date']))
+            album = Album(item['name'], item['id'], item['release_date'])
+            album.name = album.name.replace("/", " ") # issue: 'out/Miley Cyrus/Heart Of Glass / Midnight Sky.svg'
+            ret.append(album)
         
         if results['next']:
             results = sp.next(results)
@@ -466,10 +470,10 @@ def get_audio_features_for_tracks(tracks: list[Track]):
 # searchForArtist("JJ Lin") # JJ Lin, 7Dx7RhX0mFuXhCOUgB01uM, spotify:artist:7Dx7RhX0mFuXhCOUgB01uM
 
 singers = [
-    Singer("Taylor Swift", "06HL4z0CvFAxyc27GXpf02", "spotify:artist:06HL4z0CvFAxyc27GXpf02"),
-    Singer("Justin Bieber", "1uNFoZAHBGtllmzznpCI3s", "spotify:artist:1uNFoZAHBGtllmzznpCI3s"),
-    Singer("Sia", "5WUlDfRSoLAfcVSX1WnrxN", "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"),
-    Singer("Miley Cyrus", "5YGY8feqx7naU7z4HrwZM6", "spotify:artist:5YGY8feqx7naU7z4HrwZM6"),
+    # Singer("Taylor Swift", "06HL4z0CvFAxyc27GXpf02", "spotify:artist:06HL4z0CvFAxyc27GXpf02"),
+    # Singer("Justin Bieber", "1uNFoZAHBGtllmzznpCI3s", "spotify:artist:1uNFoZAHBGtllmzznpCI3s"),
+    # Singer("Sia", "5WUlDfRSoLAfcVSX1WnrxN", "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"),
+    # Singer("Miley Cyrus", "5YGY8feqx7naU7z4HrwZM6", "spotify:artist:5YGY8feqx7naU7z4HrwZM6"),
     Singer("Jay Chou", "2elBjNSdBE2Y3f0j1mjrql", "spotify:artist:2elBjNSdBE2Y3f0j1mjrql"),
     Singer("JJ Lin", "7Dx7RhX0mFuXhCOUgB01uM", "spotify:artist:7Dx7RhX0mFuXhCOUgB01uM"),
 ]
@@ -575,10 +579,18 @@ for singer in singers:
         # pp.pprint(tracks)
     
     # pp.pprint(singer)
+    
+    # https://stackoverflow.com/questions/51286748/make-the-python-json-encoder-support-pythons-new-dataclasses
+    class EnhancedJSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if dataclasses.is_dataclass(o):
+                return dataclasses.asdict(o)
+            return super().default(o)
+
+    json_string = json.dumps(singer, cls=EnhancedJSONEncoder)
+    os.system(f"mkdir -p data")
+    with open(f'data/{singer.name}.json', 'w') as outfile:
+        outfile.write(json_string)
+    
     draw_audio_feature_of_all_songs_from_a_singer(singer=singer)
     draw_audio_feature_of_all_albums_from_a_singer(singer=singer)
-
-json_string = json.dumps(singers)
-os.system(f"mkdir -p data")
-with open('data/singers.json', 'w') as outfile:
-    outfile.write(json_string)
