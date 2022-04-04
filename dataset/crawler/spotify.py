@@ -29,8 +29,10 @@ country_codes= ['AD', 'AR', 'AU', 'AT', 'BE', 'BO', 'BR', 'BG', 'CA', 'CL', 'CO'
 # API reference
 # https://spotipy.readthedocs.io/en/2.19.0/#api-reference
 
+
 def getFeaturedPlaylists():
-    playlists = sp.featured_playlists(locale="en_US", country="US", timestamp=None, limit=50)
+    playlists = sp.featured_playlists(
+        locale="en_US", country="US", timestamp=None, limit=50)
     # pp.pprint(playlists)
 
     while playlists:
@@ -40,6 +42,7 @@ def getFeaturedPlaylists():
             playlists = sp.next(playlists)
         else:
             playlists = None
+
 
 def getCategories():
     categories = sp.categories(locale="en_US", country="US", limit=50)
@@ -53,8 +56,10 @@ def getCategories():
         else:
             categories = None
 
+
 def getCategoryPlaylists():
-    playlists = sp.category_playlists(locale="en_US", country="US", timestamp=None, limit=50)
+    playlists = sp.category_playlists(
+        locale="en_US", country="US", timestamp=None, limit=50)
     # pp.pprint(playlists)
 
     while playlists:
@@ -72,6 +77,7 @@ def getCategoryPlaylists():
 ### for Zimi ###
 
 # https://stackoverflow.com/questions/35988/c-like-structures-in-python
+
 
 @dataclass
 class Track:
@@ -281,7 +287,7 @@ class Track:
         'uri': 'spotify:track:4qUijfYU8EoIWiY6oSyrgT'
     }
     """
-    
+
     """
     {   
         'acousticness': 0.315,
@@ -310,15 +316,17 @@ class Track:
     danceability: float = 0.0
     duration_ms: float = 0.0
     energy: float = 0.0
-    instrumentalness: float = 0.0 # Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
-    key: int = -1 # E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
+    instrumentalness: float = 0.0  # Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+    # E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
+    key: int = -1
     liveness: float = 0.0
     loudness: float = 0.0
-    mode: int = 0 # Major is represented by 1 and minor is 0.
+    mode: int = 0  # Major is represented by 1 and minor is 0.
     speechiness: float = 0.0
     tempo: float = 0.0
     time_signature: int = 0
     valence: float = 0.0
+
 
 @dataclass
 class Album:
@@ -357,12 +365,15 @@ class Album:
     id: str
     release_date: str
     tracks: list[Track] = field(default_factory=list[Track])
+
+
 @dataclass
 class Singer:
     name: str
     id: str
     link: str
     albums: list[Album] = field(default_factory=list[Album])
+
 
 def search_for_artist(name: str):
     results = sp.search(q='artist:' + name, type='artist')
@@ -373,8 +384,10 @@ def search_for_artist(name: str):
         artist = items[0]
         print(f"{artist['name']}, {artist['id']}, {artist['uri']}")
 
+
 def get_albums_for_artist(artist_id: str):
-    results = sp.artist_albums(artist_id=artist_id, album_type="album,single", limit=50)
+    results = sp.artist_albums(
+        artist_id=artist_id, album_type="album,single", limit=50)
     # pp.pprint(results)
 
     ret = []
@@ -382,15 +395,17 @@ def get_albums_for_artist(artist_id: str):
         for i, item in enumerate(results['items']):
             # print(f"name: {item['name']}, id: {item['id']}, release_date: {item['release_date']}")
             album = Album(item['name'], item['id'], item['release_date'])
-            album.name = album.name.replace("/", " ") # issue: 'out/Miley Cyrus/Heart Of Glass / Midnight Sky.svg'
+            # issue: 'out/Miley Cyrus/Heart Of Glass / Midnight Sky.svg'
+            album.name = album.name.replace("/", " ")
             ret.append(album)
-        
+
         if results['next']:
             results = sp.next(results)
         else:
             results = None
-    
+
     return ret
+
 
 def get_album_tracks(album: Album):
     results = sp.album_tracks(album_id=album.id, limit=50)
@@ -401,18 +416,21 @@ def get_album_tracks(album: Album):
         for i, item in enumerate(results['items']):
             # print(f"name: {item['name']}, id: {item['id']}")
             ret.append(Track(item['name'], item['id']))
-        
+
         if results['next']:
             results = sp.next(results)
         else:
             results = None
-    
+
     return ret
 
-def get_lyrics_for_track(artistname, songname): # currently broken
-    artistname2 = str(artistname.replace(' ','-')) if ' ' in artistname else str(artistname)
-    songname2 = str(songname.replace(' ','-')) if ' ' in songname else str(songname)
-    url = 'https://genius.com/'+ artistname2 + '-' + songname2 + '-' + 'lyrics'
+
+def get_lyrics_for_track(artistname, songname):  # currently broken
+    artistname2 = str(artistname.replace(' ', '-')
+                      ) if ' ' in artistname else str(artistname)
+    songname2 = str(songname.replace(' ', '-')
+                    ) if ' ' in songname else str(songname)
+    url = 'https://genius.com/' + artistname2 + '-' + songname2 + '-' + 'lyrics'
     page = requests.get(url)
     html = BeautifulSoup(page.text, 'html.parser')
     lyrics1 = html.find("div", class_="lyrics")
@@ -428,11 +446,12 @@ def get_lyrics_for_track(artistname, songname): # currently broken
         lyrics = None
     return lyrics
 
+
 def get_audio_features_for_tracks(tracks: list[Track]):
     track_ids = []
     for track in tracks:
         track_ids.append(track.id)
-    
+
     assert(len(track_ids) <= 100)
 
     results = sp.audio_features(tracks=track_ids)
@@ -446,11 +465,14 @@ def get_audio_features_for_tracks(tracks: list[Track]):
                 track.danceability = item['danceability']
                 track.duration_ms = item['duration_ms']
                 track.energy = item['energy']
-                track.instrumentalness = item['instrumentalness'] # Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
-                track.key = item['key'] # E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
+                # Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+                track.instrumentalness = item['instrumentalness']
+                # E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
+                track.key = item['key']
                 track.liveness = item['liveness']
                 track.loudness = item['loudness']
-                track.mode = item['mode'] # Major is represented by 1 and minor is 0.
+                # Major is represented by 1 and minor is 0.
+                track.mode = item['mode']
                 track.speechiness = item['speechiness']
                 track.tempo = item['tempo']
                 track.time_signature = item['time_signature']
@@ -458,9 +480,9 @@ def get_audio_features_for_tracks(tracks: list[Track]):
 
                 ok = True
                 break
-        
+
         assert(ok is True)
-        
+
 
 # searchForArtist("Taylor Swift") # Taylor Swift, 06HL4z0CvFAxyc27GXpf02, spotify:artist:06HL4z0CvFAxyc27GXpf02
 # searchForArtist("Justin Bieber") # Justin Bieber, 1uNFoZAHBGtllmzznpCI3s, spotify:artist:1uNFoZAHBGtllmzznpCI3s
@@ -474,46 +496,49 @@ singers = [
     # Singer("Justin Bieber", "1uNFoZAHBGtllmzznpCI3s", "spotify:artist:1uNFoZAHBGtllmzznpCI3s"),
     # Singer("Sia", "5WUlDfRSoLAfcVSX1WnrxN", "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"),
     # Singer("Miley Cyrus", "5YGY8feqx7naU7z4HrwZM6", "spotify:artist:5YGY8feqx7naU7z4HrwZM6"),
-    Singer("Jay Chou", "2elBjNSdBE2Y3f0j1mjrql", "spotify:artist:2elBjNSdBE2Y3f0j1mjrql"),
-    Singer("JJ Lin", "7Dx7RhX0mFuXhCOUgB01uM", "spotify:artist:7Dx7RhX0mFuXhCOUgB01uM"),
+    Singer("Jay Chou", "2elBjNSdBE2Y3f0j1mjrql",
+           "spotify:artist:2elBjNSdBE2Y3f0j1mjrql"),
+    Singer("JJ Lin", "7Dx7RhX0mFuXhCOUgB01uM",
+           "spotify:artist:7Dx7RhX0mFuXhCOUgB01uM"),
 ]
+
 
 def draw_audio_feature_of_all_songs_from_a_singer(singer: Singer):
     categories = [
-            'acousticness', 
-            'danceability', 
-            'energy', 
-            'instrumentalness', 
-            'liveness', 
-            'speechiness', 
-            'valence'
-        ]
+        'acousticness',
+        'danceability',
+        'energy',
+        'instrumentalness',
+        'liveness',
+        'speechiness',
+        'valence'
+    ]
     fig = go.Figure()
 
     for album in singer.albums:
         for track in album.tracks:
             fig.add_trace(go.Scatterpolar(
-            r=[
-            track.acousticness, 
-            track.danceability, 
-            track.energy, 
-            track.instrumentalness, 
-            track.liveness, 
-            track.speechiness, 
-            track.valence
-            ],
-            theta=categories,
-            fill='toself',
-            name=f"{track.name}"
-        ))
+                r=[
+                    track.acousticness,
+                    track.danceability,
+                    track.energy,
+                    track.instrumentalness,
+                    track.liveness,
+                    track.speechiness,
+                    track.valence
+                ],
+                theta=categories,
+                fill='toself',
+                name=f"{track.name}"
+            ))
 
     fig.update_layout(
-    polar=dict(
-        radialaxis=dict(
-        visible=True,
-        range=[0, 1]
-    )),
-    showlegend=False
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 1]
+            )),
+        showlegend=False
     )
 
     fig.update_layout(title_text=f"{singer.name}")
@@ -521,48 +546,50 @@ def draw_audio_feature_of_all_songs_from_a_singer(singer: Singer):
     os.system(f"mkdir -p out/radar")
     fig.write_image(f"out/radar/{singer.name}.svg")
 
+
 def draw_audio_feature_of_all_albums_from_a_singer(singer: Singer):
     categories = [
-            'acousticness', 
-            'danceability', 
-            'energy', 
-            'instrumentalness', 
-            'liveness', 
-            'speechiness', 
-            'valence'
-        ]
+        'acousticness',
+        'danceability',
+        'energy',
+        'instrumentalness',
+        'liveness',
+        'speechiness',
+        'valence'
+    ]
     fig = go.Figure()
 
     for album in singer.albums:
         for track in album.tracks:
             fig.add_trace(go.Scatterpolar(
-            r=[
-            track.acousticness, 
-            track.danceability, 
-            track.energy, 
-            track.instrumentalness, 
-            track.liveness, 
-            track.speechiness, 
-            track.valence
-            ],
-            theta=categories,
-            fill='toself',
-            name=f"{track.name}"
-        ))
+                r=[
+                    track.acousticness,
+                    track.danceability,
+                    track.energy,
+                    track.instrumentalness,
+                    track.liveness,
+                    track.speechiness,
+                    track.valence
+                ],
+                theta=categories,
+                fill='toself',
+                name=f"{track.name}"
+            ))
 
         fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-            visible=True,
-            range=[0, 1]
-        )),
-        showlegend=False
+            polar=dict(
+                radialaxis=dict(
+                    visible=True,
+                    range=[0, 1]
+                )),
+            showlegend=False
         )
 
         fig.update_layout(title_text=f"{singer.name} - {album.name}")
         # fig.show()
         os.system(f"mkdir -p \"out/{singer.name}\"")
         fig.write_image(f"out/{singer.name}/{album.name}.svg")
+
 
 for singer in singers:
     print(f"Processing {singer.name}")
@@ -573,13 +600,13 @@ for singer in singers:
         album.tracks = tracks
 
         # for track in tracks:
-            # get_lyrics_for_track(singer.name, track.name)
+        # get_lyrics_for_track(singer.name, track.name)
         get_audio_features_for_tracks(tracks=tracks)
-        
+
         # pp.pprint(tracks)
-    
+
     # pp.pprint(singer)
-    
+
     # https://stackoverflow.com/questions/51286748/make-the-python-json-encoder-support-pythons-new-dataclasses
     class EnhancedJSONEncoder(json.JSONEncoder):
         def default(self, o):
@@ -591,6 +618,6 @@ for singer in singers:
     os.system(f"mkdir -p data")
     with open(f'data/{singer.name}.json', 'w') as outfile:
         outfile.write(json_string)
-    
+
     draw_audio_feature_of_all_songs_from_a_singer(singer=singer)
     draw_audio_feature_of_all_albums_from_a_singer(singer=singer)
