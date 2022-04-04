@@ -1,3 +1,4 @@
+from cmath import sin
 from curses.ascii import US
 import locale
 from re import search
@@ -8,6 +9,11 @@ import pprint
 from dataclasses import dataclass, field
 from bs4 import BeautifulSoup
 import requests
+import plotly.express as px
+import pandas as pd
+import plotly.graph_objects as go
+import os
+import json
 
 # authenticate
 auth_manager = SpotifyClientCredentials()
@@ -468,7 +474,94 @@ singers = [
     Singer("JJ Lin", "7Dx7RhX0mFuXhCOUgB01uM", "spotify:artist:7Dx7RhX0mFuXhCOUgB01uM"),
 ]
 
+def draw_audio_feature_of_all_songs_from_a_singer(singer: Singer):
+    categories = [
+            'acousticness', 
+            'danceability', 
+            'energy', 
+            'instrumentalness', 
+            'liveness', 
+            'speechiness', 
+            'valence'
+        ]
+    fig = go.Figure()
+
+    for album in singer.albums:
+        for track in album.tracks:
+            fig.add_trace(go.Scatterpolar(
+            r=[
+            track.acousticness, 
+            track.danceability, 
+            track.energy, 
+            track.instrumentalness, 
+            track.liveness, 
+            track.speechiness, 
+            track.valence
+            ],
+            theta=categories,
+            fill='toself',
+            name=f"{track.name}"
+        ))
+
+    fig.update_layout(
+    polar=dict(
+        radialaxis=dict(
+        visible=True,
+        range=[0, 1]
+    )),
+    showlegend=False
+    )
+
+    fig.update_layout(title_text=f"{singer.name}")
+    # fig.show()
+    os.system(f"mkdir -p out/radar")
+    fig.write_image(f"out/radar/{singer.name}.svg")
+
+def draw_audio_feature_of_all_albums_from_a_singer(singer: Singer):
+    categories = [
+            'acousticness', 
+            'danceability', 
+            'energy', 
+            'instrumentalness', 
+            'liveness', 
+            'speechiness', 
+            'valence'
+        ]
+    fig = go.Figure()
+
+    for album in singer.albums:
+        for track in album.tracks:
+            fig.add_trace(go.Scatterpolar(
+            r=[
+            track.acousticness, 
+            track.danceability, 
+            track.energy, 
+            track.instrumentalness, 
+            track.liveness, 
+            track.speechiness, 
+            track.valence
+            ],
+            theta=categories,
+            fill='toself',
+            name=f"{track.name}"
+        ))
+
+        fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+            visible=True,
+            range=[0, 1]
+        )),
+        showlegend=False
+        )
+
+        fig.update_layout(title_text=f"{singer.name} - {album.name}")
+        # fig.show()
+        os.system(f"mkdir -p \"out/{singer.name}\"")
+        fig.write_image(f"out/{singer.name}/{album.name}.svg")
+
 for singer in singers:
+    print(f"Processing {singer.name}")
     albums = get_albums_for_artist(singer.id)
     singer.albums = albums
     for album in albums:
@@ -481,4 +574,11 @@ for singer in singers:
         
         # pp.pprint(tracks)
     
-    pp.pprint(singer)
+    # pp.pprint(singer)
+    draw_audio_feature_of_all_songs_from_a_singer(singer=singer)
+    draw_audio_feature_of_all_albums_from_a_singer(singer=singer)
+
+json_string = json.dumps(singers)
+os.system(f"mkdir -p data")
+with open('data/singers.json', 'w') as outfile:
+    outfile.write(json_string)

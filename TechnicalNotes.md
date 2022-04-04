@@ -17,3 +17,9 @@ export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 * The sample code is [here](https://spotipy.readthedocs.io/en/2.19.0/#client-credentials-flow)
 
 # QQ Music API
+
+TODO
+
+# Graphing
+
+* `pip3 install plotly pandas kaleido`
