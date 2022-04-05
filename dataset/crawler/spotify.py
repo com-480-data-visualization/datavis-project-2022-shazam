@@ -16,6 +16,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import os
 import json
+import re
 
 # authenticate
 auth_manager = SpotifyClientCredentials()
@@ -407,7 +408,7 @@ def get_albums_for_artist(artist_id: str):
     return ret
 
 
-def get_album_tracks(album: Album):
+def get_album_tracks(album: Album) -> list[Track]:
     results = sp.album_tracks(album_id=album.id, limit=50)
     # pp.pprint(results)
 
@@ -423,29 +424,6 @@ def get_album_tracks(album: Album):
             results = None
 
     return ret
-
-
-def get_lyrics_for_track(artistname, songname):  # currently broken
-    artistname2 = str(artistname.replace(' ', '-')
-                      ) if ' ' in artistname else str(artistname)
-    songname2 = str(songname.replace(' ', '-')
-                    ) if ' ' in songname else str(songname)
-    url = 'https://genius.com/' + artistname2 + '-' + songname2 + '-' + 'lyrics'
-    page = requests.get(url)
-    html = BeautifulSoup(page.text, 'html.parser')
-    lyrics1 = html.find("div", class_="lyrics")
-    lyrics2 = html.find("div", class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
-    if lyrics1:
-        print("OK1")
-        lyrics = lyrics1.get_text()
-    elif lyrics2:
-        print("OK2")
-        lyrics = lyrics2.get_text()
-    elif lyrics1 == lyrics2 == None:
-        print(f"No lyrics for {songname} using {url}")
-        lyrics = None
-    return lyrics
-
 
 def get_audio_features_for_tracks(tracks: list[Track]):
     track_ids = []
@@ -492,10 +470,10 @@ def get_audio_features_for_tracks(tracks: list[Track]):
 # searchForArtist("JJ Lin") # JJ Lin, 7Dx7RhX0mFuXhCOUgB01uM, spotify:artist:7Dx7RhX0mFuXhCOUgB01uM
 
 singers = [
-    # Singer("Taylor Swift", "06HL4z0CvFAxyc27GXpf02", "spotify:artist:06HL4z0CvFAxyc27GXpf02"),
-    # Singer("Justin Bieber", "1uNFoZAHBGtllmzznpCI3s", "spotify:artist:1uNFoZAHBGtllmzznpCI3s"),
-    # Singer("Sia", "5WUlDfRSoLAfcVSX1WnrxN", "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"),
-    # Singer("Miley Cyrus", "5YGY8feqx7naU7z4HrwZM6", "spotify:artist:5YGY8feqx7naU7z4HrwZM6"),
+    Singer("Taylor Swift", "06HL4z0CvFAxyc27GXpf02", "spotify:artist:06HL4z0CvFAxyc27GXpf02"),
+    Singer("Justin Bieber", "1uNFoZAHBGtllmzznpCI3s", "spotify:artist:1uNFoZAHBGtllmzznpCI3s"),
+    Singer("Sia", "5WUlDfRSoLAfcVSX1WnrxN", "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"),
+    Singer("Miley Cyrus", "5YGY8feqx7naU7z4HrwZM6", "spotify:artist:5YGY8feqx7naU7z4HrwZM6"),
     Singer("Jay Chou", "2elBjNSdBE2Y3f0j1mjrql",
            "spotify:artist:2elBjNSdBE2Y3f0j1mjrql"),
     Singer("JJ Lin", "7Dx7RhX0mFuXhCOUgB01uM",
@@ -590,7 +568,51 @@ def draw_audio_feature_of_all_albums_from_a_singer(singer: Singer):
         os.system(f"mkdir -p \"out/{singer.name}\"")
         fig.write_image(f"out/{singer.name}/{album.name}.svg")
 
+def get_lyrics_url_for_track(singer: str, track: str) -> str: # broken
+    base_url = 'https://api.genius.com'
+    headers = {'Authorization': 'Bearer ' + os.getenv('GENIUS_ACCESS_TOKEN')}
+    search_url = base_url + '/search'
+    data = {'q': track + ' ' + singer}
+    response = requests.get(search_url, data=data, headers=headers)
 
+    json = response.json()
+    remote_song_info = None
+    for hit in json['response']['hits']:
+        if singer.lower() in hit['result']['primary_artist']['name'].lower():
+            remote_song_info = hit
+            break
+    print(json)
+    if remote_song_info is None:
+        return ""
+    song_url = remote_song_info['result']['url']
+    return song_url
+
+def get_lyrics_from_url(song_url: str) -> str: # broken
+    page = requests.get(song_url)
+    html = BeautifulSoup(page.text, 'html.parser')
+    lyrics1 = html.find(name="div", class_="lyrics")
+    # lyrics2 = html.find(name="div", class_="Lyrics__Container-sc-1ynbvzw-2 jgQsqn")
+    lyrics2 = html.findAll("div", {"class" : re.compile('Lyrics__Container-sc-*')})
+
+    if lyrics1:
+        lyrics = lyrics1.get_text()
+    elif lyrics2:
+        lyrics = ""
+        for i, tmp in enumerate(lyrics2):
+            if i != 0:
+                lyrics += " "
+            # lyrics += tmp.get_text() # FIXME: space
+
+            print(tmp)
+            candidates = tmp.findAll('p')
+            for (j, candidate) in enumerate(candidates):
+                if j != 0:
+                    lyrics += " "
+                lyrics += candidate.get_text()
+    else:
+        lyrics = None
+    return lyrics
+    
 for singer in singers:
     print(f"Processing {singer.name}")
     albums = get_albums_for_artist(singer.id)
@@ -599,8 +621,14 @@ for singer in singers:
         tracks = get_album_tracks(album)
         album.tracks = tracks
 
-        # for track in tracks:
-        # get_lyrics_for_track(singer.name, track.name)
+        for track in tracks:
+            song_url = get_lyrics_url_for_track(singer=singer.name, track=track.name)
+            if len(song_url) == 0:
+                print(f"No lyrics for {singer.name} {track.name}")
+            else:
+                lyrics = get_lyrics_from_url(song_url=song_url)
+                print(lyrics)
+        
         get_audio_features_for_tracks(tracks=tracks)
 
         # pp.pprint(tracks)
