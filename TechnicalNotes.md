@@ -20,6 +20,10 @@ export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 
 TODO
 
+# [Genius API](https://towardsdatascience.com/become-a-lyrical-genius-4362e7710e43)
+
+* Activate API token [here](https://docs.genius.com/#/getting-started-h1)
+* Use `pip3 install lyricsgenius` to obtain and fetch lyrics
 # Graphing
 
 * `pip3 install plotly pandas kaleido`
