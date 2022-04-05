@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from dataclasses import field
-# https://stackoverflow.com/questions/35988/c-like-structures-in-python
+from dataclasses_json import dataclass_json
 
+# https://stackoverflow.com/questions/35988/c-like-structures-in-python
+# https://stackoverflow.com/questions/51286748/make-the-python-json-encoder-support-pythons-new-dataclasses
+@dataclass_json
 @dataclass
 class Track:
     """
@@ -251,7 +254,7 @@ class Track:
     time_signature: int = 0
     valence: float = 0.0
 
-
+@dataclass_json
 @dataclass
 class Album:
     """
@@ -290,7 +293,7 @@ class Album:
     release_date: str
     tracks: list[Track] = field(default_factory=list[Track])
 
-
+@dataclass_json
 @dataclass
 class Singer:
     name: str
