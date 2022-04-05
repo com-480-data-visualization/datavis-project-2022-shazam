@@ -31,3 +31,7 @@ TODO
 
 * `pip3 install plotly pandas kaleido`
 * `pip3 install stylecloud jieba`
+
+# Jyputer
+
+* `docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan/work jupyter/datascience-notebook`
