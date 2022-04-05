@@ -13,7 +13,7 @@ export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 
 ## Using [spotipy](https://spotipy.readthedocs.io/en/2.19.0/#getting-started) to access the web api
 
-* Install by running `pip3 install spotipy BeautifulSoup4`
+* Install by running `pip3 install spotipy BeautifulSoup4 dataclasses_json`
 * The sample code is [here](https://spotipy.readthedocs.io/en/2.19.0/#client-credentials-flow)
 
 # QQ Music API
