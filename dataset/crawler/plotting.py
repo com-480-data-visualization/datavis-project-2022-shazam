@@ -95,6 +95,14 @@ def draw_audio_feature_of_all_albums_from_a_singer(singer: customdatatypes.Singe
         os.system(f"mkdir -p \"out/{singer.name}\"")
         fig.write_image(f"out/{singer.name}/{album.name}.svg")
 
+def draw_word_cloud_for_singer(singer: customdatatypes.Singer):
+    pass
+
+def draw_audio_feature_change_over_time(singer: customdatatypes.Singer):
+    pass
+
+def draw_unique_word_count(singers: list[customdatatypes.Singer]):
+    pass
 
 # Load data
 singer_names = [
