@@ -2,6 +2,9 @@
 
 # Spotify API
 
+* [Official reference](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features)
+* [Python lib reference](https://spotipy.readthedocs.io/en/2.19.0/#api-reference)
+
 ## Obtaining the client secret
 
 * Obtain the client secret using your Spotify account by following the steps [here](https://developer.spotify.com/documentation/general/guides/authorization/app-settings/) to create an app
@@ -27,3 +30,4 @@ TODO
 # Graphing
 
 * `pip3 install plotly pandas kaleido`
+* `pip3 install stylecloud jieba`
