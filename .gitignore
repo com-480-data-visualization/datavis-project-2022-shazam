@@ -4,3 +4,4 @@ out
 log.txt
 __pycache__/
 .ipynb_checkpoints/
+iframe_figures/
