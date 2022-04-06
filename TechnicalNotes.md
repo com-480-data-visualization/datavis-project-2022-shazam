@@ -19,9 +19,12 @@ export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 * Install by running `pip3 install spotipy BeautifulSoup4 dataclasses_json`
 * The sample code is [here](https://spotipy.readthedocs.io/en/2.19.0/#client-credentials-flow)
 
-# QQ Music API
+# [QQ Music API](https://jsososo.github.io/QQMusicApi/#/?id=%e6%ad%8c%e8%af%8d)
 
-TODO
+* `git clone https://github.com/jsososo/QQMusicApi.git`
+* `docker run -it --rm -p 80:80 qq-music-api`
+* Check the [reference](https://jsososo.github.io/QQMusicApi/#/?id=%e6%ad%8c%e8%af%8d)
+    * In the browser, for example, visit `localhost/lyric` to access the lyrics API
 
 # [Genius API](https://towardsdatascience.com/become-a-lyrical-genius-4362e7710e43)
 
