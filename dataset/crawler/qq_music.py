@@ -20,7 +20,7 @@ def get_lyrics(mid: str, fname: str) -> str:
 def fetch_hot_music(id: int): 
     for y in range(2018, 2022 + 1):
         for w in range(1, 52 + 1):
-            period = '{:4}_{}'.format(y, w)
+            period = '{:4}_{}'.format(y, w) 
             print(f'fetching {period}')
 
             while True:
@@ -28,7 +28,10 @@ def fetch_hot_music(id: int):
                     response = requests.get(f'http://localhost/top?id={id}&period={period}', timeout=10)
                     # pp.pprint(json.dumps(response.json(), indent = 4))
 
-                    if str(response.json()['data']['period']) != period:
+                    print(str(response.json()['data']['period']) == period, str(response.json()['data']['period']) == '{:4}_{:02}'.format(y, w))
+                    if str(response.json()['data']['period']) == period or str(response.json()['data']['period']) == '{:4}_{:02}'.format(y, w):
+                        pass
+                    else:
                         tmp = response.json()['data']['period']
                         print(f'mismatch in period {tmp} != {period}, skipping')
                         break
@@ -56,5 +59,5 @@ def fetch_hot_music(id: int):
                     print("error", e)
                     time.sleep(30)
 
-# fetch_hot_music(id=26)
+fetch_hot_music(id=26)
 fetch_hot_music(id=108)
