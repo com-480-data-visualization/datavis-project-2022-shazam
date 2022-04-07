@@ -28,6 +28,7 @@ def fetch_hot_music(id: int):
                     response = requests.get(f'http://localhost/top?id={id}&period={period}', timeout=10)
                     # pp.pprint(json.dumps(response.json(), indent = 4))
 
+                    # 2018_01 and 2018_1, depending on the endpoint, the returned data differs...
                     print(str(response.json()['data']['period']) == period, str(response.json()['data']['period']) == '{:4}_{:02}'.format(y, w))
                     if str(response.json()['data']['period']) == period or str(response.json()['data']['period']) == '{:4}_{:02}'.format(y, w):
                         pass
@@ -59,5 +60,6 @@ def fetch_hot_music(id: int):
                     print("error", e)
                     time.sleep(30)
 
+# The exception handling is simply just waiting then retry, works pretty well though
 fetch_hot_music(id=26)
 fetch_hot_music(id=108)
