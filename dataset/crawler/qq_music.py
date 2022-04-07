@@ -21,7 +21,7 @@ def fetch_hot_music(id: int):
     for y in range(2018, 2022 + 1):
         for w in range(1, 52 + 1):
             period = '{:4}_{}'.format(y, w) 
-            print(f'fetching {period}')
+            print(f'fetching {id} {period}')
 
             while True:
                 try:
