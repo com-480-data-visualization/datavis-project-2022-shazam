@@ -42,27 +42,20 @@ We, therefore, visualise the following five aspects：
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+Please check our [Jupyter Notebook](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/dataset/crawler/notebook.ipynb) for analysis.
 
-### Related work
+### Related Work
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+There exist some previous works about lyrical and audio analysis. Namely [the study of js](https://github.com/com-480-data-visualization/com-480-project-js) which chose five hit artists and analyzed their music style with the Spotify and genius datasets. It focused on the pairwise comparison of artists by visualizing the audio features of their songs.
+
+Another source of inspiration would be [the work of Adam Reevesman](https://towardsdatascience.com/spotify-wrapped-data-visualization-and-machine-learning-on-your-top-songs-1d3f837a9b27), he visualized his personal annual top songs from 2016 to 2021. Some of the features are interesting for our study and since we focus on popular artists and songs, we believe that it represents a greater interest for general public than exploring personal playlists.
+
+Our approach differs from the other ones in several aspects. First, we include the QQ music data set which we obtained from QQ API. This allows us to show the evolution of popular music in China and the whole world. Secondly, we want to depict the musical style evolution of different artists in a chronological order. We did not find other works that represent the development of artists' style in similar way. 
 
 ## Milestone 2 
 
 **10% of the final grade**
 
-
 ## Milestone 3 
 
 **80% of the final grade**
-
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
