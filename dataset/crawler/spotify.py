@@ -107,8 +107,8 @@ def get_albums_for_artist(artist_id: str):
 
     return ret
 
-
-def get_album_tracks(album: customdatatypes.Album) -> list[customdatatypes.Track]:
+# https://peps.python.org/pep-0484/#forward-references
+def get_album_tracks(album: customdatatypes.Album) -> 'list[customdatatypes.Track]':
     results = sp.album_tracks(album_id=album.id, limit=50)
     # pp.pprint(results)
 
@@ -125,7 +125,7 @@ def get_album_tracks(album: customdatatypes.Album) -> list[customdatatypes.Track
 
     return ret
 
-def get_audio_features_for_tracks(tracks: list[customdatatypes.Track]):
+def get_audio_features_for_tracks(tracks: 'list[customdatatypes.Track]'):
     track_ids = []
     for track in tracks:
         track_ids.append(track.id)
