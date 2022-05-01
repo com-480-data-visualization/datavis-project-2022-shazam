@@ -8,7 +8,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def get_lyrics(mid: str, fname: str) -> str:
     fname = fname.replace("/", " ")
-    response = requests.get(f'http://localhost/lyric?songmid={mid}', timeout=10)
+    response = requests.get(f'http://localhost:8080/lyric?songmid={mid}', timeout=10)
     # pp.pprint(response.json())
 
     # save json request
@@ -25,7 +25,7 @@ def fetch_hot_music(id: int):
 
             while True:
                 try:
-                    response = requests.get(f'http://localhost/top?id={id}&period={period}', timeout=10)
+                    response = requests.get(f'http://localhost:8080/top?id={id}&period={period}', timeout=10)
                     # pp.pprint(json.dumps(response.json(), indent = 4))
 
                     # 2018_01 and 2018_1, depending on the endpoint, the returned data differs...
