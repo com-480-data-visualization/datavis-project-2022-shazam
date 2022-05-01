@@ -1,5 +1,25 @@
 # Technical notes
 
+The python library uses virtual environment `venv`.
+
+**Make sure you run `virtualenv venv && source venv/bin/activate && pip install -r requirements.txt` for the first time**
+
+**Make sure you activate the virtual environment by running `source venv/bin/activate` first if you have a fresh terminal**
+
+
+# [`venv`](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+
+* `sudo apt-get install python3-pip`
+* `sudo pip3 install virtualenv`
+
+## Notes
+
+* create a new virtual environment `virtualenv venv`
+* activate `source venv/bin/activate`
+* deactivate `deactivate`
+* install from environment file `pip install -r requirements.txt`
+* generate requirement file `pip freeze > requirements.txt`
+
 # Spotify API
 
 * [Official reference](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features)
@@ -22,19 +42,17 @@ export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 # [QQ Music API](https://jsososo.github.io/QQMusicApi/#/?id=%e6%ad%8c%e8%af%8d)
 
 * `git clone https://github.com/jsososo/QQMusicApi.git`
-* `docker run -it --rm -p 80:80 qq-music-api`
+* `cd` into the folder
+* build docker image `sudo docker build -t qq-music-api .`
+* `sudo docker run -it --rm -p 8080:80 qq-music-api`
 * Check the [reference](https://jsososo.github.io/QQMusicApi/#/?id=%e6%ad%8c%e8%af%8d)
-    * In the browser, for example, visit `localhost/lyric` to access the lyrics API
+    * In the browser, for example, visit `http://localhost:8080/lyric?songmid=0039MnYb0qxYhV` to access the lyrics API
 
 # [Genius API](https://towardsdatascience.com/become-a-lyrical-genius-4362e7710e43)
 
 * Activate API token [here](https://docs.genius.com/#/getting-started-h1)
 * Use `pip3 install lyricsgenius` to obtain and fetch lyrics
-# Graphing
-
-* `pip3 install plotly pandas kaleido`
-* `pip3 install stylecloud jieba`
 
 # Jyputer
 
-* `docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan/work jupyter/datascience-notebook`
+* `sudo docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jovyan/work jupyter/datascience-notebook`
