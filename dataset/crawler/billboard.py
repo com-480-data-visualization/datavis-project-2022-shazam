@@ -384,23 +384,24 @@ def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
         # record the tracks using QQ mid, with audio feature
         get_audio_features_for_tracks(tracks=[track.track])
         
+        # TODO: run this later
         # print(f"Getting lyrics for {singer.name} {track.name}")
-        singers = ""
-        for singer in track.singer_name.split("/"):
-            singers += " " + singer
-        song_url = get_lyrics_url_for_track(singer=singers, track=sanitizeTrackName(name=track.track_name))
-        if len(song_url) == 0:
-            print(f"Can't find track on Genius for {track.singer_name} {track.track_name}")
-        else:
-            try:
-                lyrics = get_lyrics_from_url(song_url=song_url)
-            except Exception as e:
-                print(f"Can't fetch lyrics from Genius for {track.singer_name} {track.track_name} with error {e}")
+        # singers = ""
+        # for singer in track.singer_name.split("/"):
+        #     singers += " " + singer
+        # song_url = get_lyrics_url_for_track(singer=singers, track=sanitizeTrackName(name=track.track_name))
+        # if len(song_url) == 0:
+        #     print(f"Can't find track on Genius for {track.singer_name} {track.track_name}")
+        # else:
+        #     try:
+        #         lyrics = get_lyrics_from_url(song_url=song_url)
+        #     except Exception as e:
+        #         print(f"Can't fetch lyrics from Genius for {track.singer_name} {track.track_name} with error {e}")
             
-            if lyrics is None:
-                print(f"Can't find lyrics on Genius for {track.singer_name} {track.track_name}")
-            else:
-                track.lyrics = lyrics
+        #     if lyrics is None:
+        #         print(f"Can't find lyrics on Genius for {track.singer_name} {track.track_name}")
+        #     else:
+        #         track.lyrics = lyrics
 
         json_string = track.track.to_json()
         os.system(f"mkdir -p data/tracks")
