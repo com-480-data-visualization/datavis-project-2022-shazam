@@ -1,5 +1,6 @@
 # import
 
+import enum
 import re
 from cmath import sin
 from curses.ascii import US
@@ -101,18 +102,22 @@ print(20, len(distinctSingers))
 # distinctSingers = aggregateSingers(data=trend_data_billboard, cutoff=100)
 # print(100, len(distinctSingers))
 
-def aggregateTracks(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
+class TrackData:
+    def __init__(self, track_name: str, singer_name: str) -> None:
+        self.track_name = track_name
+        self.singer_name = singer_name
+
+def aggregateTracks(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[TrackData]":
     distinctTracks = {}
     for y in data:
         for w in data[y]:
             for i in data[y][w]:
                 if i < cutoff:
-                    track = data[y][w][i]['title']
-                    distinctTracks[track] = True
+                    distinctTracks[data[y][w][i]['title']] = data[y][w][i]['singerName']
     
     ret = []
-    for track in distinctTracks:
-        ret.append(track)
+    for (k, v) in distinctTracks.items():
+        ret.append(TrackData(track_name=k, singer_name=v))
     
     return ret
 
@@ -325,14 +330,54 @@ def fetchSingersDiscography(singers: "list[str]"):
 
         # save it
         json_string = singer.to_json()
-        os.system(f"mkdir -p data")
-        with open(f'data/{singer.name}.json', 'w') as outfile:
+        os.system(f"mkdir -p data/singers")
+        with open(f'data/singers/{singer.name}.json', 'w') as outfile:
             outfile.write(json_string)
 
         print(f"Done fetching {singer.name}")
 
-fetchSingersDiscography(singers=distinctSingers)
+# fetchSingersDiscography(singers=distinctSingers)
 
 
 # for all aggregated track data
 # check if spotify has the track's audio feature
+def search_for_track(track_name: str, singer_name: str) -> customdatatypes.Singer:
+    # print(f"Query={track_name} {singer_name}")
+    track_name = re.sub(r'\([^()]*\)', '', track_name)
+
+    singer_name_split = ""
+    singer_name = singer_name.split("/")
+    for n in singer_name:
+        singer_name_split += " " + n
+    results = sp.search(q=f'{track_name} {singer_name_split}', type='track')
+    # pp.pprint(results['tracks']['items'])
+
+    items = results['tracks']['items']
+    if len(items) > 0:
+        track = items[0]
+        # print(f"{track_name} {singer_name} = {track['name']}, {track['id']}")
+        return customdatatypes.Track(name=track['name'], id=track['id'])
+    return None
+
+def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
+    # check spotify for available singers
+    failed = []
+
+    print("Start checking for available tracks on Spotify")
+    spotify_tracks = []
+    for (idx_track, track) in enumerate(tracks):
+        print(f"{idx_track}/{len(tracks)} Searching for {track.track_name} {track.singer_name}")
+        ret = search_for_track(track_name=track.track_name, singer_name=track.singer_name)
+        if ret is None:
+            print(f"[Spotify] Can't find track = {track.track_name} {track.singer_name}")
+            failed.append(track)
+        else:
+            spotify_tracks.append(ret)
+    print("Done checking for available tracks on Spotify")
+
+    return failed
+    
+failed = fetchAllTracks(tracks=distinctTracks)
+print(f"Failed {len(failed)}/{len(distinctTracks)}")
+for track in failed:
+    print(track.track_name)
