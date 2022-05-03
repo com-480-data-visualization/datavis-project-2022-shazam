@@ -342,8 +342,8 @@ def fetchSingersDiscography(singers: "list[str]"):
 # for all aggregated track data
 # check if spotify has the track's audio feature
 def search_for_track(track_name: str, singer_name: str) -> customdatatypes.Singer:
-    # print(f"Query={track_name} {singer_name}")
     track_name = re.sub(r'\([^()]*\)', '', track_name)
+    print(f"Query={track_name} {singer_name}")
 
     singer_name_split = ""
     singer_name = singer_name.split("/")
