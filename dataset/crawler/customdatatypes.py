@@ -291,7 +291,7 @@ class Album:
     name: str
     id: str
     release_date: str
-    tracks: list[Track] = field(default_factory=list[Track])
+    tracks: 'list[Track]' = field(default_factory='list[Track]')
 
 @dataclass_json
 @dataclass
@@ -299,4 +299,4 @@ class Singer:
     name: str
     id: str
     link: str
-    albums: list[Album] = field(default_factory=list[Album])
+    albums: 'list[Album]' = field(default_factory='list[Album]')
