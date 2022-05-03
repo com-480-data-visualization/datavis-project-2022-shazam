@@ -374,16 +374,21 @@ def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
         else:
             track.track = ret
             spotify_tracks.append(track)
+
+        break
     print("Done checking for available tracks on Spotify")
 
     # fetch audio feature for the tracks
     print("Start fetching for audio features on Spotify")
     for track in spotify_tracks:
         # record the tracks using QQ mid, with audio feature
-        get_audio_features_for_tracks(tracks=[track])
+        get_audio_features_for_tracks(tracks=[track.track])
         
         # print(f"Getting lyrics for {singer.name} {track.name}")
-        song_url = get_lyrics_url_for_track(singer=track.singer_name, track=sanitizeTrackName(name=track.track_name))
+        singers = ""
+        for singer in track.singer_name.split("/"):
+            singers += " " + singer
+        song_url = get_lyrics_url_for_track(singer=singers, track=sanitizeTrackName(name=track.track_name))
         if len(song_url) == 0:
             print(f"Can't find track on Genius for {track.singer_name} {track.track_name}")
         else:
@@ -397,10 +402,11 @@ def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
             else:
                 track.lyrics = lyrics
 
-        json_string = tracks.to_json()
+        json_string = track.track.to_json()
         os.system(f"mkdir -p data/tracks")
         with open(f'data/tracks/{track.mid}.json', 'w') as outfile:
             outfile.write(json_string)
+        break
     print("Done fetching for audio features on Spotify")
 
     return failed
