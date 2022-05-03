@@ -378,8 +378,6 @@ def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
         else:
             track.track = ret
             spotify_tracks.append(track)
-
-        break
     print("Done checking for available tracks on Spotify")
 
     # fetch audio feature for the tracks
@@ -411,7 +409,6 @@ def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
         os.system(f"mkdir -p data/tracks")
         with open(f'data/tracks/{track.mid}.json', 'w') as outfile:
             outfile.write(json_string)
-        break
     print("Done fetching for audio features on Spotify")
 
     return failed
