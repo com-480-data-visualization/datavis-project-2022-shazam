@@ -199,7 +199,7 @@ def get_audio_features_for_tracks(tracks: 'list[customdatatypes.Track]'):
     for idx in range(0, (len(tracks) - 1) // 100 + 1):
         starting_index = idx * 100
         ending_index = min(starting_index + 100, len(tracks))
-        print(starting_index, ending_index)
+        # print(starting_index, ending_index)
 
         results = sp.audio_features(tracks=track_ids[starting_index:ending_index])
         # pp.pprint(results)
