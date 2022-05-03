@@ -123,16 +123,16 @@ def aggregateTracks(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cut
     
     return ret
 
-distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=10)
-print(10, len(distinctTracks))
+#distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=10)
+#print(10, len(distinctTracks))
 distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=20)
 print(20, len(distinctTracks))
-distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=30)
-print(30, len(distinctTracks))
-distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=50)
-print(50, len(distinctTracks))
-distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=100)
-print(100, len(distinctTracks))
+#distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=30)
+#print(30, len(distinctTracks))
+#distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=50)
+#print(50, len(distinctTracks))
+#distinctTracks = aggregateTracks(data=trend_data_billboard, cutoff=100)
+#print(100, len(distinctTracks))
 
 # for all aggregated singer data
 # check if spotify has the singer's discography
