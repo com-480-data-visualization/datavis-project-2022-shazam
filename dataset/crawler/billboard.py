@@ -103,21 +103,19 @@ print(20, len(distinctSingers))
 # print(100, len(distinctSingers))
 
 class TrackData:
-    def __init__(self, track_name: str, singer_name: str) -> None:
+    def __init__(self, mid: str, track_name: str, singer_name: str, track: customdatatypes.Track) -> None:
+        self.mid = mid  
         self.track_name = track_name
         self.singer_name = singer_name
+        self.track = track
 
 def aggregateTracks(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[TrackData]":
-    distinctTracks = {}
+    ret = []
     for y in data:
         for w in data[y]:
             for i in data[y][w]:
                 if i < cutoff:
-                    distinctTracks[data[y][w][i]['title']] = data[y][w][i]['singerName']
-    
-    ret = []
-    for (k, v) in distinctTracks.items():
-        ret.append(TrackData(track_name=k, singer_name=v))
+                    ret.append(TrackData(mid=data[y][w][i]['mid'], track_name=data[y][w][i]['title'], singer_name=data[y][w][i]['singerName'], track=None))        
     
     return ret
 
@@ -342,7 +340,6 @@ def fetchSingersDiscography(singers: "list[str]"):
 # for all aggregated track data
 # check if spotify has the track's audio feature
 def search_for_track(track_name: str, singer_name: str) -> customdatatypes.Singer:
-    track_name = re.sub(r'\([^()]*\)', '', track_name)
     print(f"Query={track_name} {singer_name}")
 
     singer_name_split = ""
@@ -359,21 +356,52 @@ def search_for_track(track_name: str, singer_name: str) -> customdatatypes.Singe
         return customdatatypes.Track(name=track['name'], id=track['id'])
     return None
 
+def sanitizeTrackName(name: str) -> str:
+    return re.sub(r'\([^()]*\)', '', name)
+
 def fetchAllTracks(tracks: "list[TrackData]") -> "list[TrackData]":
     # check spotify for available singers
     failed = []
 
     print("Start checking for available tracks on Spotify")
     spotify_tracks = []
-    for (idx_track, track) in enumerate(tracks):
+    for (idx_track, track) in enumerate(tracks):        
         print(f"{idx_track}/{len(tracks)} Searching for {track.track_name} {track.singer_name}")
-        ret = search_for_track(track_name=track.track_name, singer_name=track.singer_name)
+        ret = search_for_track(track_name=sanitizeTrackName(name=track.track_name), singer_name=track.singer_name)
         if ret is None:
             print(f"[Spotify] Can't find track = {track.track_name} {track.singer_name}")
             failed.append(track)
         else:
-            spotify_tracks.append(ret)
+            track.track = ret
+            spotify_tracks.append(track)
     print("Done checking for available tracks on Spotify")
+
+    # fetch audio feature for the tracks
+    print("Start fetching for audio features on Spotify")
+    for track in spotify_tracks:
+        # record the tracks using QQ mid, with audio feature
+        get_audio_features_for_tracks(tracks=[track])
+        
+        # print(f"Getting lyrics for {singer.name} {track.name}")
+        song_url = get_lyrics_url_for_track(singer=track.singer_name, track=sanitizeTrackName(name=track.track_name))
+        if len(song_url) == 0:
+            print(f"Can't find track on Genius for {track.singer_name} {track.track_name}")
+        else:
+            try:
+                lyrics = get_lyrics_from_url(song_url=song_url)
+            except Exception as e:
+                print(f"Can't fetch lyrics from Genius for {track.singer_name} {track.track_name} with error {e}")
+            
+            if lyrics is None:
+                print(f"Can't find lyrics on Genius for {track.singer_name} {track.track_name}")
+            else:
+                track.lyrics = lyrics
+
+        json_string = tracks.to_json()
+        os.system(f"mkdir -p data/tracks")
+        with open(f'data/tracks/{track.mid}.json', 'w') as outfile:
+            outfile.write(json_string)
+    print("Done fetching for audio features on Spotify")
 
     return failed
     
