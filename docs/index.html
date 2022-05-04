@@ -23,126 +23,62 @@
       </div>
     </nav>
 
-    <div class="container">
-        <h1>{{ message }}</h1>
-        <p>Count is: {{ counter.count }}</p>
-    </div>
+    <br>
 
     <div class="container">
-        <h1 :class="titleClass">Make me red</h1>
+        <div class="card text-center">
+            <div class="card-header">
+                Introduction
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Billboard music trend</h5>
+                <p class="card-text">Let's discover the music together, through the Billboard Weekly Leaderboard</p>
+                <a href="#" class="btn btn-primary" @click="introductionContainerExploreButton">Let's explore!</a>
+            </div>
+            <div class="card-footer text-muted">
+                Team Shazam from COM-480
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <button @click="increment">count is: {{ counter.count }}</button>
-    </div>
-        
-    <div class="container">
-        <button @click="toggle">toggle</button>
-        <h1 v-if="awesome">Vue is awesome!</h1>
-        <h1 v-else>Oh no 😢</h1>
-    </div>
-
-    <div class="container">
-        <form @submit.prevent="addTodo">
-            <input v-model="newTodo">
-            <button>Add Todo</button>
-        </form>
-        <ul>
-            <li v-for="todo in filteredTodos" :key="todo.id">
-                <input type="checkbox" v-model="todo.done">
-                <span :class="{ done: todo.done }">{{ todo.text }}</span>
-                <button @click="removeTodo(todo)">X</button>
-            </li>
-        </ul>
-        <button @click="hideCompleted = !hideCompleted">
-        {{ hideCompleted ? 'Show all' : 'Hide completed' }}
-        </button>
-    </div>
-
-    <div class="container">
-        <p ref="p">hello</p>
-    </div>
-
-    <div class="container">
-        <p>Todo id: {{ todoId }}</p>
-        <button @click="todoId++">Fetch next todo</button>
-        <p v-if="!todoData">Loading...</p>
-        <pre v-else>{{ todoData }}</pre>
+    <div :class="mainContentContainerClass">
+        <h1>Test</h1>
     </div>
 
   </div>
 
   <style>
-    .done {
-        text-decoration: line-through;
-    }
+
   </style>
 
   <script>
 
-    let id = 0
-
     Vue.createApp({
         data() {
             return {
-                message: 'Learning from https://vuejs.org/tutorial/',
-                counter: {
-                    count: 0
-                },
-
-                titleClass: 'title',
-
-                awesome: true,
-
-                newTodo: '',
-                todos: [
-                    { id: id++, text: 'Learn HTML', done: true },
-                    { id: id++, text: 'Learn JavaScript', done: true },
-                    { id: id++, text: 'Learn Vue', done: false }
-                ],
-                hideCompleted: false,
-
-                todoId: 1,
-                todoData: null,
+                displayMainContentContainerClass: true,
+                mainContentContainerClass: 'container',
             }
         },
         methods: {
-            toggle() {
-                this.awesome = !this.awesome
-            },
-            increment() {
-                this.counter.count++
-            },
-            addTodo() {
-                this.todos.push({ id: id++, text: this.newTodo, done: false })
-                this.newTodo = ''
-            },
-            removeTodo(todo) {
-                this.todos = this.todos.filter((t) => t !== todo)
-            },
-            async fetchData() {
-                this.todoData = null
-                const res = await fetch(
-                    `https://jsonplaceholder.typicode.com/todos/${this.todoId}`
-                )
-                this.todoData = await res.json()
+            introductionContainerExploreButton() {
+                this.displayMainContentContainerClass = !this.displayMainContentContainerClass
+
+                if(this.displayMainContentContainerClass) {
+                    this.mainContentContainerClass = 'container'
+                } else {
+                    this.mainContentContainerClass = 'container d-none'
+                }
             }
         },
         computed: {
-            filteredTodos() {
-                return this.hideCompleted
-                    ? this.todos.filter((t) => !t.done)
-                    : this.todos
-            }
+            
         },
         mounted() {
-            this.$refs.p.textContent = 'mounted!';
-            this.fetchData();
+            
         },
         watch: {
-            todoId() {
-            this.fetchData()
-            }
+            
         }
     }).mount("#app");
 
