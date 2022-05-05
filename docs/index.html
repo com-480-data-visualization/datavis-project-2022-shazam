@@ -44,16 +44,16 @@
             <h1 class="text-center">Please select a week</h1>
 
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col-2">
                 </div>
-                <div class="col">
-                    <div class="alert alert-danger text-center" role="alert">
+                <div class="col-8">
+                    <div v-if="!displayWeeklyDataContainerClass" class="alert alert-danger text-center" role="alert">
                         The slider has a bug in estimating the width :(
                         <br>
                         Please click on the timeline and it will display normally
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-2">
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
         </div>
 
         <div :class="weeklyDataContainerClass">
-            <p>Here we go</p>
+            <h1 class="text-center">Weekly Data</h1>
         </div>
 
     </div>
