@@ -54,7 +54,9 @@ Our approach differs from the other ones in several aspects. First, we include t
 
 ## Milestone 2 
  
-[PDF version](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/PDF/milestone2.pdf) is available, too. It contains the same contain as the current markdown file.
+[PDF version](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/PDF/milestone2.pdf) is available, too. It contains the same content as the current markdown file. 
+
+Due to using automatic conversion tools, the PDF is longer than 2 pages, though the character count requirement is not violated (requirement posted on Zulip regarding Markdown report writing).
 ### Core Visualization Sketches
  
 #### [Data set](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/tree/main/dataset/crawler/data) augmentation
