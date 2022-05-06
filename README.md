@@ -54,7 +54,31 @@ Our approach differs from the other ones in several aspects. First, we include t
 
 ## Milestone 2 
 
-**10% of the final grade**
+### List of tools in use for each visualization
+ 
+To showcase the singers who have the most popular songs during the selected week, we will use a bubble chart to represent the singers whose songs figured in the top 20. The size of the bubble represents the number of songs in the top 20 from the corresponding singer. We are planning to use d3.js to accomplish the task. (Reference links: [[1]](https://observablehq.com/@d3/bubble-chart) [[2]](https://d3-graph-gallery.com/bubble.html))
+ 
+Radar chart will be used to present the musical characteristics (audio features), we take inspiration from the following links: [[1](https://d3-graph-gallery.com/spider)] [[2](https://github.com/alangrafu/radar-chart-d3)] [[3](https://www.chartjs.org/docs/latest/charts/radar.html)]
+
+To complete our exploration on audio features, we would like to visualize the tempo and key of each song for a given singer using a scatter plot with tempo on x-axis and key on y-axis, this will give us a sense about the artist's favorite keys and tempos, as well as the relation between them. (Reference link: [[1]](https://observablehq.com/@d3/brushable-scatterplot)) 
+
+The lyrics analysis will be carried out using a word cloud, which provides a direct view of the most frequently occurring words. (Reference link: [[1]](https://github.com/jasondavies/d3-cloud))
+ 
+The Lecture 6 slides are useful for us since they talked about the different marks and channels, and how to choose them to achieve high effectiveness. We understand that the position is the strongest mark, so we will make use of it to represent the timeline in our work.
+ 
+The Lecture 11 slides are particularly helpful because it gives us inspiration on visualizations of musical data, such as [the color of sound](https://www.behance.net/gallery/35686979/The-Color-of-Sound-A-Data-Visualization) and [the evolution of music taste](https://pudding.cool/2017/03/music-history/). We also learned about star plots and bubble plots in the Tabular data in this lecture.
+ 
+Bootstrap is used to set up the main nav bar and miscellaneous parts of the website. It has decent CSS templates and alignment containers that we can use to structure our website. The current prototype is relying on Bootstrap heavily, especially aligning components using containers.  
+ 
+The interaction and data loading is accomplished using Vue.js since it supports convenient DOM manipulation. The website prototype is actually already leveraging using Vue.js, which allows us to animate the button actions and time slider actions, and easily load data and render the HTML code dynamically.
+
+The data in use will be stored on Github course project repo, using Vue.js to fetch the raw files from it, and then parse the data and process it to feed it into the d3.js visualization. The data format being stored in the repo is always JSON, which is friendly to be operated on.
+ 
+### Potential Extra Visualization
+ 
+* ![The color of sound](https://i.imgur.com/9PLgoKK.png) Reference: [Tweaking [1](https://observablehq.com/@d3/cluster)] 
+* We are considering replacing the name of singers in the bubble chart with their profile picture, which will be much more interaction-friendly and recognizable to the user.
+
 
 ## Milestone 3 
 
