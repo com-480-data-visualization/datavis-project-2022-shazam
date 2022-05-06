@@ -54,6 +54,7 @@ Our approach differs from the other ones in several aspects. First, we include t
 
 ## Milestone 2 
  
+[PDF version](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/PDF/milestone2.pdf) is available, too. It contains the same contain as the current markdown file.
 ### Core Visualization Sketches
  
 #### [Data set](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/tree/main/dataset/crawler/data) augmentation
