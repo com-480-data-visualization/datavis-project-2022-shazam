@@ -13,29 +13,22 @@ If you are using zsh, replace `~/.bashrc` with `~/.zshrc`
 ```
 echo 'export PATH="/usr/local/opt/node@16/bin:$PATH"' >> ~/.bashrc
 ```
+## Run
+
+For local development:
+- Go to `dataviz` directory
+- Setup dev server by running `yarn dev`
+
+To build and push to Github page:
+- Go to `dataviz` directory
+- Run `yarn generate`
+- Commit on `git` with all the changes and generated files
+
+For TypeScript users, see [here](https://typescript.nuxtjs.org/cookbook/components/)
 
 ### Notes
 
 - [Github page](https://nuxtjs.org/deployments/github-pages/)
-
-## Run
-
-To get started:
-```bash
-cd dataviz
-yarn dev
-```
-
-To build and push to Github page:
-- Run this only for the first time: `yarn add --dev push-dir`
-- Run to deploy
-    ```bash
-    cd dataviz
-    yarn generate
-    yarn deploy
-    ```
-
-For TypeScript users, see [here](https://typescript.nuxtjs.org/cookbook/components/)
 
 # Python
 
