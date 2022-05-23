@@ -8,3 +8,6 @@ __pycache__/
 iframe_figures/
 TODO.md
 *.swp
+
+.nuxt
+node_modules

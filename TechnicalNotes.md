@@ -1,13 +1,51 @@
 # Technical notes
 
+# Nuxt
+
+## Setup
+
+```
+brew install node@16
+```
+
+If you are using zsh, replace `~/.bashrc` with `~/.zshrc`
+
+```
+echo 'export PATH="/usr/local/opt/node@16/bin:$PATH"' >> ~/.bashrc
+```
+
+### Notes
+
+- [Github page](https://nuxtjs.org/deployments/github-pages/)
+
+## Run
+
+To get started:
+```bash
+cd dataviz
+yarn dev
+```
+
+To build and push to Github page:
+- Run this only for the first time: `yarn add --dev push-dir`
+- Run to deploy
+    ```bash
+    cd dataviz
+    yarn generate
+    yarn deploy
+    ```
+
+For TypeScript users, see [here](https://typescript.nuxtjs.org/cookbook/components/)
+
+# Python
+
 The python library uses virtual environment `venv`.
 
 **Make sure you run `virtualenv venv && source venv/bin/activate && pip install -r requirements.txt` for the first time**
 
 **Make sure you activate the virtual environment by running `source venv/bin/activate` first if you have a fresh terminal**
 
-
-# [`venv`](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+## [`venv`](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
 * `sudo apt-get install python3-pip`
 * `sudo pip3 install virtualenv`
