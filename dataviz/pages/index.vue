@@ -1,11 +1,10 @@
 <template>
-<div>
+<div class="bg-gray-800 h-screen w-screen">
   <navbar/> 
-  <div class="grid place-items-center w-screen h-screen">
+  <div class="grid place-items-center">
     <RightLineChart/>
   </div>
 </div>
-
 </template>
 
 <script lang="ts">
