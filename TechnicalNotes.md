@@ -4,31 +4,38 @@
 
 ## Setup
 
-```
+```bash
 brew install node@16
 ```
 
 If you are using zsh, replace `~/.bashrc` with `~/.zshrc`
 
-```
+```bash
 echo 'export PATH="/usr/local/opt/node@16/bin:$PATH"' >> ~/.bashrc
 ```
+
+```bash
+yarn add d3
+```
+
 ## Run
 
-For local development:
-- Go to `dataviz` directory
-- Setup dev server by running `yarn dev`
-
-To build and push to Github page:
-- Go to `dataviz` directory
-- Run `yarn generate`
-- Commit on `git` with all the changes and generated files
+- [`npm rebuild`](https://flaviocopes.com/should-commit-node-modules-git/)
+- For local development:
+    - Go to `dataviz` directory
+    - Setup dev server by running `yarn dev`
+- To build and push to Github page:
+    - Go to `dataviz` directory
+    - Run `yarn generate`
+    - Commit on `git` with all the changes and generated files
 
 For TypeScript users, see [here](https://typescript.nuxtjs.org/cookbook/components/)
 
 ### Notes
 
 - [Github page](https://nuxtjs.org/deployments/github-pages/)
+- [d3.js for Vue example](https://github.com/gywgithub/vue-d3-examples)
+- [Change `dist` folder](https://nuxtjs.org/docs/directory-structure/dist)
 
 # Python
 
