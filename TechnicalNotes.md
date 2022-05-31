@@ -31,6 +31,8 @@ yarn add d3
 
 For TypeScript users, see [here](https://typescript.nuxtjs.org/cookbook/components/)
 
+For VSCode users, [uninstall Vetur and install Volar](https://stackoverflow.com/questions/71372991/cannot-find-module-components-helloworld-vue-or-its-corresponding-type-decla)
+
 ### Notes
 
 - [Github page](https://nuxtjs.org/deployments/github-pages/)
