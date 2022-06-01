@@ -17,11 +17,7 @@ export default Vue.extend({
 <div class="bg-gray-900 h-screen w-screen">
   <navbar/> 
   <div class="grid place-items-center">
-    <RightLineChart/>
-  </div>
-
-  <div class="grid place-items-center">
-    <p>Hello</p>
+    <p class="text-white">Team member list TBD</p>
   </div>
 </div>
 

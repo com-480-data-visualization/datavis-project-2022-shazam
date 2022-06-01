@@ -38,6 +38,7 @@ For VSCode users, [uninstall Vetur and install Volar](https://stackoverflow.com/
 - [Github page](https://nuxtjs.org/deployments/github-pages/)
 - [d3.js for Vue example](https://github.com/gywgithub/vue-d3-examples)
 - [Change `dist` folder](https://nuxtjs.org/docs/directory-structure/dist)
+- [Module not found: Error: Can't resolve 'encoding' in '[path]/node_modules/node-fetch/lib'](https://github.com/vercel/next.js/issues/7621)
 
 # Python
 
