@@ -63,7 +63,7 @@ export default {
 
 <template>
 
-<div>
+<div class="h-screen">
     
     <!-- bubble -->
     <div class="mx-auto grid grid-cols-1 place-content-center m-6">
@@ -100,7 +100,7 @@ export default {
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
                 <NuxtLink to="/singer">
-                    <button class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">To Singer</button>
+                    <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
                 </NuxtLink>
             </div>
         </div>

@@ -34,7 +34,7 @@ export default Vue.extend({
 
 <template>
 
-<div class="bg-gray-900 h-screen">
+<div class="bg-gray-900 min-h-screen">
 
     <navbar/> 
 
@@ -43,10 +43,10 @@ export default Vue.extend({
         <div></div>
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
-                <button @click="toWeeklyTimeline" class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                <button @click="toWeeklyTimeline" class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">
                     Weekly
                 </button>
-                <button @click="toYearlyTimeline" class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                <button @click="toYearlyTimeline" class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">
                     Yearly
                 </button>
             </div>

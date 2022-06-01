@@ -19,7 +19,7 @@ export default {
         <div></div>
         <div class="rounded-xl content-center">
             <NuxtLink to="/timeline">
-                <button class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">
                     Let's explore!
                 </button>
             </NuxtLink>
