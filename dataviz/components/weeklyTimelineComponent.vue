@@ -63,7 +63,7 @@ export default {
 
 <template>
 
-<div class="h-screen">
+<div class="min-h-screen">
     
     <!-- bubble -->
     <div class="mx-auto grid grid-cols-1 place-content-center m-6">
