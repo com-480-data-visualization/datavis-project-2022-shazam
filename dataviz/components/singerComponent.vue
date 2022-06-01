@@ -87,16 +87,16 @@ export default {
 
   computed: {
     RadarChartOptions: () => (radarChartData),
-  }
+  },
 }
 </script>
 
 <template>
 
 <div class="container mx-auto min-h-screen">
-    
+
     <!-- Button group -->
-    <div class="mx-auto grid grid-cols-2 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
                 <p class="text-2xl p-6 text-gray-50">Singer Profile Image</p>
@@ -111,16 +111,16 @@ export default {
     </div>
 
     <!-- word cloud -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
-            <p class="text-white">Top songs word cloud</p>
+            <img src = "~/assets/wordcloud.svg" alt="My Happy SVG"/>
         </div>
         <div></div>
     </div>
 
     <!-- radar graph -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <client-only><highcharts :options="RadarChartOptions" ref="chart"/></client-only>
@@ -129,7 +129,7 @@ export default {
     </div>
 
     <!-- scatter graph -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Audio feature over time scatter graph</p>
@@ -138,7 +138,7 @@ export default {
     </div>
 
     <!-- back button -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">            
             <a href="" @click.prevent="$router.back()">      

@@ -97,7 +97,7 @@ export default {
     </div>
 
     <!-- timeline scroller -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Timeline</p>
@@ -106,7 +106,7 @@ export default {
     </div>
 
     <!-- leaderboard -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Leaderboard</p>
@@ -115,7 +115,7 @@ export default {
     </div>
 
     <!-- TMP -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">

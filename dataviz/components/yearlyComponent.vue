@@ -8,7 +8,7 @@ export default {
 
 <div>
     <!-- horizontal bar chart -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Top songs horizontal bar chart</p>
@@ -17,7 +17,7 @@ export default {
     </div>
 
     <!-- word cloud -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Top songs word cloud</p>
@@ -26,7 +26,7 @@ export default {
     </div>
 
     <!-- radar graph -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Top songs audio feature radar graph</p>
@@ -35,7 +35,7 @@ export default {
     </div>
 
     <!-- back button -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">  
             <a href="" @click.prevent="$router.back()">      
