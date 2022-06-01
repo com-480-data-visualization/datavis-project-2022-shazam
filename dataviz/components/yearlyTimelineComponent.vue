@@ -55,10 +55,8 @@ const dataset = {
 export default {
   name: 'YearlyTimeline',
 
-  data() {
-    return {
-        chartOptions: dataset,
-    };
+  computed: {
+    chartOptions: () => (dataset),
   }
 }
 </script>
