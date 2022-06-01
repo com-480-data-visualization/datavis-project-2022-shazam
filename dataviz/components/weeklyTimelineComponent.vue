@@ -1,79 +1,79 @@
 <script>
-const dataset = {
-        chart: {
-            type: 'packedbubble',
-            height: '30%',
-            backgroundColor: 'transparent',
-        },
-        title: {
-            text: 'Top singers of the week',
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        },
-        tooltip: {
-            useHTML: true,
-            pointFormat: '<b>{point.name}:</b> {point.value}m CO<sub>2</sub>'
-        },
-        plotOptions: {
-            packedbubble: {
-                minSize: '30%',
-                maxSize: '120%',
-                zMin: 0,
-                zMax: 1000,
-                layoutAlgorithm: {
-                    splitSeries: false,
-                    gravitationalConstant: 0.02
+const bubbleChartData = {
+    chart: {
+        type: 'packedbubble',
+        height: '30%',
+        backgroundColor: 'transparent',
+    },
+    title: {
+        text: 'Top singers of the week',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    tooltip: {
+        useHTML: true,
+        pointFormat: '<b>{point.name}:</b> {point.value}m CO<sub>2</sub>'
+    },
+    plotOptions: {
+        packedbubble: {
+            minSize: '30%',
+            maxSize: '120%',
+            zMin: 0,
+            zMax: 1000,
+            layoutAlgorithm: {
+                splitSeries: false,
+                gravitationalConstant: 0.02
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+                filter: {
+                    property: 'y',
+                    operator: '>',
+                    value: 250
                 },
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}',
-                    filter: {
-                        property: 'y',
-                        operator: '>',
-                        value: 250
-                    },
-                    style: {
-                        color: 'white',
-                        textOutline: 'none',
-                        fontWeight: 'normal'
-                    }
+                style: {
+                    color: 'white',
+                    textOutline: 'none',
+                    fontWeight: 'normal'
                 }
             }
-        },
-        series: [{
-            name: 'Singers',
-            data: [{
-                name: 'Taylor Swift',
-                value: 500
-            }, {
-                name: 'Hello World!',
-                value: 100
-            }, {
-                name: 'Hello World!',
-                value: 1000
-            }, {
-                name: 'Hello World!',
-                value: 1000
-            }, {
-                name: 'Hello World!',
-                value: 1000
-            }, {
-                name: 'Hello World!',
-                value: 1000
-            }, {
-                name: "Lady Gaga",
-                value: 1000
-            }]
+        }
+    },
+    series: [{
+        name: 'Singers',
+        data: [{
+            name: 'Taylor Swift',
+            value: 500
+        }, {
+            name: 'Hello World!',
+            value: 100
+        }, {
+            name: 'Hello World!',
+            value: 1000
+        }, {
+            name: 'Hello World!',
+            value: 1000
+        }, {
+            name: 'Hello World!',
+            value: 1000
+        }, {
+            name: 'Hello World!',
+            value: 1000
+        }, {
+            name: "Lady Gaga",
+            value: 1000
         }]
-  }
+    }]
+}
 
 export default {
   name: 'WeeklyTimeline',
 
   computed: {
-    chartOptions: () => (dataset),
+    bubbleChartOptions: () => (bubbleChartData),
   }
 }
 </script>
@@ -87,7 +87,7 @@ export default {
         <div></div>
         <div class="flex items-center justify-center">
             
-            <client-only><highcharts :options="chartOptions" ref="chart"/></client-only>
+            <client-only><highcharts :options="bubbleChartOptions" ref="chart"/></client-only>
 
         </div>
         <div></div>
