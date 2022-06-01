@@ -76,7 +76,7 @@ export default {
         <div></div>
         <div class="flex items-center justify-center">
             
-            <client-only><Chart :options="chartOptions" ref="chart"></Chartgst></client-only>
+            <client-only><Chart :options="chartOptions" ref="chart"></Chart></client-only>
 
         </div>
         <div></div>
