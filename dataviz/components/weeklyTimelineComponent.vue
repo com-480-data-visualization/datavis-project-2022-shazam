@@ -1,11 +1,16 @@
 <script>
 const dataset = {
-      chart: {
+        chart: {
             type: 'packedbubble',
-            height: '100%'
+            height: '100%',
+            backgroundColor: 'transparent',
         },
         title: {
-            text: 'Top singers of the week'
+            text: 'Top singers of the week',
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
         },
         tooltip: {
             useHTML: true,
@@ -30,7 +35,7 @@ const dataset = {
                         value: 250
                     },
                     style: {
-                        color: 'black',
+                        color: 'white',
                         textOutline: 'none',
                         fontWeight: 'normal'
                     }
@@ -63,10 +68,10 @@ export default {
 
 <template>
 
-<div class="min-h-screen">
+<div class="container mx-auto min-h-screen">
     
     <!-- bubble -->
-    <div class="mx-auto grid grid-cols-1 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-1 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">
             
@@ -77,7 +82,7 @@ export default {
     </div>
 
     <!-- timeline scroller -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Timeline</p>
@@ -86,7 +91,7 @@ export default {
     </div>
 
     <!-- leaderboard -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">
             <p class="text-white">Leaderboard</p>
@@ -95,7 +100,7 @@ export default {
     </div>
 
     <!-- TMP -->
-    <div class="mx-auto grid grid-cols-3 place-content-center m-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
