@@ -2,7 +2,7 @@
 const dataset = {
         chart: {
             type: 'packedbubble',
-            height: '100%',
+            height: '30%',
             backgroundColor: 'transparent',
         },
         title: {
@@ -49,10 +49,22 @@ const dataset = {
                 value: 500
             }, {
                 name: 'Hello World!',
-                value: 400
+                value: 100
+            }, {
+                name: 'Hello World!',
+                value: 1000
+            }, {
+                name: 'Hello World!',
+                value: 1000
+            }, {
+                name: 'Hello World!',
+                value: 1000
+            }, {
+                name: 'Hello World!',
+                value: 1000
             }, {
                 name: "Lady Gaga",
-                value: 300
+                value: 1000
             }]
         }]
   }

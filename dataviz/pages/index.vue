@@ -1,15 +1,15 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import navbarVue from '~/components/navbar.vue'
-import introductionVue from '~/components/introduction.vue'
+import Navbar from '~/components/navbar.vue'
+import Introduction from '~/components/introduction.vue'
 
 export default Vue.extend({
   name: "IndexPage",
   components: {
-    Navbar: navbarVue,
-    Introduction: introductionVue,
-  }
+    Navbar,
+    Introduction
+}
 })
 </script>
 
@@ -17,7 +17,7 @@ export default Vue.extend({
 
 <div class="bg-gray-900 h-screen">
 
-  <navbar/> 
+  <Navbar/>
   
   <Introduction/>
 
