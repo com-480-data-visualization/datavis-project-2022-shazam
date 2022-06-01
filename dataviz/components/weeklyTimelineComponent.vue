@@ -43,10 +43,9 @@ const dataset = {
                 name: 'Taylor Swift',
                 value: 500
             }, {
-                name: '周杰倫',
+                name: 'Hello World!',
                 value: 400
-            },
-            {
+            }, {
                 name: "Lady Gaga",
                 value: 300
             }]
