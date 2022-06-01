@@ -6,3 +6,5 @@ import Highcharts from 'highcharts'
 More(Highcharts)
 
 Vue.use(HighchartsVue)
+
+// https://github.com/paulcwatts/highcharts-nuxt-ssr/blob/main/components/MyChart.vue

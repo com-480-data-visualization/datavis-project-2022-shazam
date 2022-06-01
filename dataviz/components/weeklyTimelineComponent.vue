@@ -55,11 +55,6 @@ const dataset = {
 
 export default {
   name: 'WeeklyTimeline',
-  components: {
-    // https://github.com/paulcwatts/highcharts-nuxt-ssr/blob/main/components/MyChart.vue
-    // This is a workaround: only import it in the client
-    Chart: process.client ? require("highcharts-vue").Chart : {}
-  },
 
   computed: {
     chartOptions: () => (dataset),
@@ -76,7 +71,7 @@ export default {
         <div></div>
         <div class="flex items-center justify-center">
             
-            <client-only><Chart :options="chartOptions" ref="chart"></Chart></client-only>
+            <client-only><highcharts :options="chartOptions" ref="chart"/></client-only>
 
         </div>
         <div></div>
