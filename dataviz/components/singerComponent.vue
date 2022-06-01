@@ -2,8 +2,11 @@
 const radarChartData = {
     chart: {
         polar: true,
-        height: '70%',
+        height: '100%',
         backgroundColor: 'transparent',
+    },
+    credits: {
+        enabled: false
     },
     title: {
         text: 'Audio features',
@@ -90,7 +93,8 @@ export default {
 
 <template>
 
-<div>
+<div class="container mx-auto min-h-screen">
+    
     <!-- Button group -->
     <div class="mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">

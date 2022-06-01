@@ -5,6 +5,9 @@ const bubbleChartData = {
         height: '30%',
         backgroundColor: 'transparent',
     },
+    credits: {
+        enabled: false
+    },
     title: {
         text: 'Top singers of the week',
         style: {
