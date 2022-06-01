@@ -55,12 +55,16 @@ const dataset = {
 
 export default {
   name: 'YearlyTimeline',
+//   components: {
+//     // This is a workaround: only import it in the client
+//     Chart: process.client ? require("highcharts-vue").Chart : {}
+//   },
 
-  data() {
-    return {
-        chartOptions: dataset,
-    };
-  }
+//   data() {
+//     return {
+//         chartOptions: dataset,
+//     };
+//   }
 }
 </script>
 
@@ -71,8 +75,8 @@ export default {
     <!-- bubble -->
     <div class="mx-auto grid grid-cols-1 place-content-center m-6">
         <div class="flex items-center justify-center">
-
-            <highcharts :options="chartOptions" ref="chart"></highcharts>
+            
+            <!-- <client-only><highcharts :options="chartOptions" ref="chart"></highcharts></client-only> -->
 
         </div>
     </div>
