@@ -1,10 +1,11 @@
 <script lang="ts">
 import Vue from 'vue'
+import singerComponentVue from '~/components/singerComponent.vue'
 
 export default Vue.extend({
-    name: "TeamPage",
+    name: "SingerPage",
     components: { 
-      
+      Singer: singerComponentVue
     }
 })
 </script>
@@ -15,11 +16,7 @@ export default Vue.extend({
 
   <navbar/> 
   
-  <div class="grid place-items-center">
-    <p class="text-white">Team member list TBD</p>
-
-    <p class="text-white">Github Repo Likn TBD</p>
-  </div>
+  <Singer/>
   
 </div>
 

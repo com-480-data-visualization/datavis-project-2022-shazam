@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'Welcome'
+  name: 'Introduction'
 }
 </script>
 
@@ -18,9 +18,11 @@ export default {
     <div class="mx-auto grid grid-cols-3 place-content-center">
         <div></div>
         <div class="rounded-xl content-center">
-            <button class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                <NuxtLink to="/timeline">Let's explore!</NuxtLink>
-            </button>
+            <NuxtLink to="/timeline">
+                <button class="max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    Let's explore!
+                </button>
+            </NuxtLink>
         </div>
         <div></div>
     </div>
