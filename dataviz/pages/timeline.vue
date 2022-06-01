@@ -1,13 +1,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import navbarVue from '~/components/navbar.vue'
-import introductionVue from '~/components/introduction.vue'
 
 export default Vue.extend({
-  name: "IndexPage",
+  name: "Timeline",
   components: {
     Navbar: navbarVue,
-    Introduction: introductionVue,
   }
 })
 </script>
@@ -16,9 +14,9 @@ export default Vue.extend({
 
 <div class="bg-gray-900 h-screen">
 
-  <navbar/> 
+    <navbar/> 
   
-  <Introduction/>
+    
 
 </div>
 
