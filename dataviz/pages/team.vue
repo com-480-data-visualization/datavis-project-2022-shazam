@@ -17,6 +17,8 @@ export default Vue.extend({
   
   <div class="grid place-items-center">
     <p class="text-white">Team member list TBD</p>
+
+    <p class="text-white">Github Repo Likn TBD</p>
   </div>
   
 </div>
