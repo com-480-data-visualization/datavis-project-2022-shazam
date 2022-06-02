@@ -349,7 +349,8 @@ export default {
 
   data() {
     return {
-      year: "Select Year",
+      year: -1,
+      shouldDisplay: 0,
 
       barRef: null,
       barChartData: _barChartData,
@@ -366,10 +367,32 @@ export default {
   },
 
   methods: {
+    updateShouldDisplay() {
+      if(this.year !== -1) {
+          this.shouldDisplay += 1
+      }
+    },
     updateYear(e) {
       this.year = e.path[0].innerHTML
-      console.log(this.year)
+    //   console.log(this.year)
+
+      this.updateShouldDisplay()
     },
+  },
+
+  computed: {
+      yearDisplayString() {
+          if(this.year === -1) 
+            return "Select a year"
+          return this.year
+      },
+  },
+
+  watch: {
+      shouldDisplay() {
+          // refresh the page according to the year and week number
+          console.log("Updating the page")
+      }
   },
 
   mounted() {
@@ -392,7 +415,7 @@ export default {
             <div>
                 <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
                 <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
-                <b-dropdown id="dropdown-1" :text="this.year" variant="primary" class="m-md-2">
+                <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
                     <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
                     <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
                     <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
@@ -406,7 +429,7 @@ export default {
     </div>
     
     <!-- horizontal bar chart -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <div id="barChart"></div>
         </div>
@@ -422,7 +445,7 @@ export default {
     </div>
 
     <!-- horizontal bar chart -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
                 Top songs of the year
@@ -438,7 +461,7 @@ export default {
     </div>
 
     <!-- word cloud -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <img src="~/assets/wordcloud.svg" alt="Wordcloud" class="h-80 flex-no-shrink fill-current"/>
         </div>
@@ -456,7 +479,7 @@ export default {
     </div>
 
     <!-- radar graph -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
 
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
@@ -479,7 +502,7 @@ export default {
     </div>
 
         <!-- pararallel coordinate -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         
         <div class="flex items-center justify-center">
             <div id="splinePlot"></div>
@@ -497,7 +520,7 @@ export default {
     </div>
 
     <!-- back button -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-3 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">  
             <a href="" @click.prevent="$router.back()">      

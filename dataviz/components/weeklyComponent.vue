@@ -178,6 +178,7 @@ export default {
     return {
       year: -1,
       week: -1,
+      shouldDisplay: 0,
 
       bubbleRef: null,
       bubbleChartData: _bubbleChartData,
@@ -188,26 +189,42 @@ export default {
   },
 
   methods: {
+    updateShouldDisplay() {
+      if(this.year !== -1 && this.week !== -1) {
+          this.shouldDisplay += 1
+      }
+    },
     updateYear(e) {
       this.year = e.path[0].innerHTML
-      console.log(this.year)
+    //   console.log(this.year)
+
+      this.updateShouldDisplay()
     },
     updateWeek(e) {
       this.week = e.path[0].innerHTML
-      console.log(this.week)
+    //   console.log(this.week)
+
+      this.updateShouldDisplay()
     },
   },
 
   computed: {
       yearDisplayString() {
           if(this.year === -1) 
-            return "Select Year"
+            return "Select a year"
           return this.year
       },
       weekDisplayString() {
           if(this.week === -1) 
-            return "Select week"
+            return "Select a week"
           return "Week " + this.week
+      }
+  },
+
+  watch: {
+      shouldDisplay() {
+          // refresh the page according to the year and week number
+          console.log("Updating the page")
       }
   },
 
@@ -242,6 +259,7 @@ export default {
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
         <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
+
         <div class="flex items-center justify-center">
             <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
                 <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
@@ -259,7 +277,7 @@ export default {
     </div>
     
     <!-- bubble -->
-    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <p class="text-xl text-gray-400 flex-grow text-center">Who are the most popular artists that have the most listened songs?</p>
         <p class="text-xl text-gray-400 flex-grow text-center">Here each bubble represent a singer whose songs figured in the top 20 of this week.</p>
         <p class="text-xl text-gray-400 flex-grow text-center">The larger the size of the bubble is, the more songs from this singer are hitting.</p>
@@ -271,7 +289,7 @@ export default {
     </div>
 
     <!-- leaderboard -->
-    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div id="barChart"></div>
@@ -280,7 +298,7 @@ export default {
     </div>
 
     <!-- TMP -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
@@ -293,7 +311,7 @@ export default {
     </div>
 
     <!-- back button -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">  
             <a href="" @click.prevent="$router.back()">      
