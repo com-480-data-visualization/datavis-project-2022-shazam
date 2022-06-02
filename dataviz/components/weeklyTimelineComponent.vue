@@ -2,7 +2,7 @@
 const bubbleChartData = {
     chart: {
         type: 'packedbubble',
-        height: '30%',
+        height: '50%',
         backgroundColor: 'transparent',
     },
     credits: {
