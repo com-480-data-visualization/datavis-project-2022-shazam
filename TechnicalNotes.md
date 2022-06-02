@@ -42,6 +42,7 @@ For VSCode users, [uninstall Vetur and install Volar](https://stackoverflow.com/
 - [Adding image](https://nuxtjs.org/docs/directory-structure/assets/)
 - [Highchart for Vue](https://github.com/highcharts/highcharts-vue)
     - [WTF: Workaround for `ReferenceError: window is not defined`](https://github.com/paulcwatts/highcharts-nuxt-ssr/blob/main/components/MyChart.vue)
+- [CDN](https://vueschool.io/articles/vuejs-tutorials/how-to-load-third-party-scripts-in-nuxt-js/)
 
 # Python
 

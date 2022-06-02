@@ -22,8 +22,18 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
+    script: [
+      {
+        src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
+        defer: false,
+      },
+    ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { 
+            rel: 'stylesheet', 
+            href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
+        }
     ]
   },
 
@@ -50,6 +60,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
+
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

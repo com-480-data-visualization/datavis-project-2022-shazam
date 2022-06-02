@@ -10,20 +10,6 @@ export default Vue.extend({
     Navbar,
     Introduction
   },
-  head: {
-    script: [
-      {
-        src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
-        defer: false,
-      },
-    ],
-    link: [
-        { 
-            rel: 'stylesheet', 
-            href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
-        }
-    ]
-  }
 })
 </script>
 
