@@ -27,6 +27,19 @@ export default {
       //   src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
       //   body: true,
       // },
+      {
+        src: "https://code.highcharts.com/highcharts.js",
+        body: true,
+      },{
+        src: "https://code.highcharts.com/modules/data.js",
+        body: true,
+      },{
+        src: "https://code.highcharts.com/modules/exporting.js",
+        body: true,
+      }, {
+        src: "https://code.highcharts.com/modules/parallel-coordinates.js",
+        body: true,
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -43,7 +56,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "~/plugins/highcharts.js", mode: "client" },
+    // { src: "~/plugins/highcharts.js", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

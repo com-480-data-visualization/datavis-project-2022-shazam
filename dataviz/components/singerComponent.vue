@@ -80,6 +80,9 @@ const _scatterPlotData = {
         zoomType: 'xy',
         backgroundColor: 'transparent',
     },
+    credits: {
+        enabled: false
+    },
     title: {
         text: 'Key versus Tempo',
         style: {
@@ -164,6 +167,92 @@ const _scatterPlotData = {
     series: []
 };
 
+const _splineData = {
+        chart: {
+          type: 'spline',
+          parallelCoordinates: true,
+          parallelAxes: {
+            lineWidth: 2
+          },
+          backgroundColor: 'transparent',
+        },
+        title: {
+          text: 'Audio feature over time',
+          style: {
+                color: 'white',
+                fontWeight: 'normal'
+            },
+        },
+        xAxis: {
+            categories: [
+                'Acousticness',
+                'Danceability',
+                'Energy',
+                'Instrumentalness',
+                'Key',
+                'Liveness',
+                'Loudness',
+                'Speechiness',
+                'Valence',
+                'Tempo',
+                'Duration (ms)',
+                'Time Signature', 
+            ],
+        },
+        yAxis: [{
+            min: 0,
+            max: 1.0,
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            categories: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            min: 0,
+            max: 1.0,
+        }, {
+            min: 0,
+        }, {
+            min: 0,
+        }, {
+            min: 0,
+        }],
+        series: [
+            {
+            "name": "State Of Grace (Taylor's Version)",
+            "shadow": false,
+            "data": [
+                0.000328,
+                0.594,
+                0.713,
+                0,
+                9,
+                0.114,
+                -5.314,
+                0.0503,
+                0.328,
+                129.958,
+                295413,
+                4
+            ]
+            }
+        ]
+      }
+
 const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
 
 export default {
@@ -176,6 +265,9 @@ export default {
       singerData: null, // raw JSON data
       radarChartData: _radarChartData,
       scatterPlotData: _scatterPlotData,
+
+      splineRef: null,
+      splinePlotData: _splineData,
 
       updateArgs: [true, true, {duration: 1000}],
     }
@@ -195,19 +287,13 @@ export default {
       this.processAudioFeature()
     },
     processAudioFeature() {
-        /*
-        {
-            type: 'area',
-            name: 'Feature 1',
-            data: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
-        }
-        */
-
        var avg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
        var cnt = 0
        var scatterData = []
+       var splineData = []
        this.singerData.albums.forEach(album => {
            album.tracks.forEach(track => {
+               // radar
                avg[0] += track.acousticness
                avg[1] += track.danceability
                avg[2] += track.energy
@@ -216,40 +302,99 @@ export default {
                avg[5] += track.valence
                cnt += 1
 
+                // scatter graph
                scatterData.push([track.key, track.tempo]) 
-           })
 
-        //    album.tracks.forEach(track => {
-        //           this.radarChartData.series.push({
-        //            type: 'area',
-        //            name: track.name,
-        //            data: [track.acousticness, track.danceability, track.energy, track.liveness, track.speechiness, track.valence],
-        //        })
-        //    })
+               // spline
+               splineData.push({
+                    name: track.name,
+                    shadow: false,
+                    data: [
+                        track.acousticness,
+                        track.danceability,
+                        track.energy,
+                        track.instrumentalness,
+                        track.key, 
+                        track.liveness,
+                        track.loudness,
+                        track.speechiness,
+                        track.valence,
+                        track.tempo,
+                        track.duration_ms / 1000.0,
+                        track.time_signature,
+                    ]
+                })
+           })
        });
 
        avg = avg.map(value => {
            return value / cnt
        })
-
         this.radarChartData.series = [{
             type: 'area',
             name: "Discography Average",
             data: avg,
         }]
 
-        console.log(scatterData)
+        // console.log(scatterData)
         this.scatterPlotData.series = [{
             name: 'Data',
             color: 'rgba(119, 152, 191, .5)',
             data: scatterData,
         }]
+
+        // console.log(splineData)
+
+        // performance - trim some data
+        const maxTracks = 50
+        if(splineData.length > maxTracks) {
+            var ratio = 1.0 * maxTracks / splineData.length
+            splineData = splineData.filter(
+                value => Math.random() <= ratio
+            )
+        }
+
+        this.splinePlotData.series = splineData
+        // WTF? Doesn't work
+        // this.splineRef.update({
+        //     series: splineData,
+        //     redraw: true, 
+        // })
+        // this.splineRef.redraw()
+
+        // This is a dirty workaround
+        this.splineRef = Highcharts.chart('splinePlot', this.splinePlotData);
     }
   },
 
   mounted() {
     this.fetchData()
+
+    this.splineRef = Highcharts.chart('splinePlot', this.splinePlotData);
   },
+
+  watch: {
+      splinePlotData() {
+          console.log("Data updated")
+          this.splineRef.redraw()
+      }
+  }
+
+  //   head: {script: [
+//       {
+//         src: "https://code.highcharts.com/highcharts.js",
+//         body: true,
+//       },{
+//         src: "https://code.highcharts.com/modules/data.js",
+//         body: true,
+//       },{
+//         src: "https://code.highcharts.com/modules/exporting.js",
+//         body: true,
+//       }, {
+//         src: "https://code.highcharts.com/modules/parallel-coordinates.js",
+//         body: true,
+//       }]
+//   },
 
 //   computed: {
     // // https://stackoverflow.com/questions/60058188/vue-js-in-computed-i-cant-use-data
@@ -308,14 +453,14 @@ export default {
         </div>
         <div class="flex items-center justify-center">
             <!-- <client-only><highcharts :options="RadarChartOptions" :updateArgs="updateArgs"/></client-only> -->
-            <client-only><highcharts :options="radarChartData" :updateArgs="updateArgs"/></client-only>
+            <!-- <client-only><highcharts :options="radarChartData" :updateArgs="updateArgs"/></client-only> -->
         </div>
     </div>
 
     <!-- scatter graph -->
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="scatterPlotData" :updateArgs="updateArgs"/></client-only>
+            <!-- <client-only><highcharts :options="scatterPlotData" :updateArgs="updateArgs"/></client-only> -->
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left mt-3">
@@ -361,7 +506,7 @@ export default {
             </p>
         </div>
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="scatterPlotData" :updateArgs="updateArgs"/></client-only>
+            <div id="splinePlot"></div>
         </div>
     </div>
 
