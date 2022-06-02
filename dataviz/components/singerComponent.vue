@@ -1,5 +1,5 @@
 <script>
-const radarChartData = {
+const _radarChartData = {
     chart: {
         polar: true,
         height: '100%',
@@ -35,22 +35,22 @@ const radarChartData = {
                 let label;
                 switch (this.value) {
                 case 0:
-                    label = 'A';
+                    label = 'Acousticness';
                     break;
                 case 1:
-                    label = 'B';
+                    label = 'Danceability';
                     break;
                 case 2:
-                    label = 'C';
+                    label = 'Energy';
                     break;
                 case 3:
-                    label = 'D';
+                    label = 'Liveness';
                     break;
                 case 4:
-                    label = 'E';
+                    label = 'Speechiness';
                     break;
                 case 5:
-                    label = 'F';
+                    label = 'Valence';
                     break;
                 }
                 
@@ -71,15 +71,7 @@ const radarChartData = {
             groupPadding: 0
         }
     },
-    series: [{
-        type: 'area',
-        name: 'Feature 1',
-        data: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
-    }, {
-        type: 'area',
-        name: 'Feature 2',
-        data: [0.93, 0.5, 0.3, 0.5, 0.4, 0.848]
-    }]
+    series: []
 }
 
 const scatterPlotData = {
@@ -270,11 +262,89 @@ const scatterPlotData = {
     }]
 };
 
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
+
 export default {
   name: 'Singer',
 
+  data() {
+    return {
+      singerData: null,
+      singerName: "42 Dugg",
+      radarChartData: _radarChartData,
+
+      updateArgs: [true, true, {duration: 1000}],
+    }
+  },
+
+  methods: {
+    async fetchData() {
+      this.singerData = null
+
+      const res = await fetch(
+        github_base_url + encodeURIComponent(this.singerName) + ".json"
+      )
+      this.singerData = await res.json()
+
+    //   console.log(JSON.stringify(this.singerData, null, 2))
+
+      this.processAudioFeature()
+    },
+    processAudioFeature() {
+        /*
+        {
+            type: 'area',
+            name: 'Feature 1',
+            data: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+        }
+        */
+
+       var avg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+       var cnt = 0
+       this.singerData.albums.forEach(album => {
+           album.tracks.forEach(track => {
+               avg[0] += track.acousticness
+               avg[1] += track.danceability
+               avg[2] += track.energy
+               avg[3] += track.liveness
+               avg[4] += track.speechiness
+               avg[5] += track.valence
+
+               cnt += 1
+           })
+
+        //    album.tracks.forEach(track => {
+        //           this.radarChartData.series.push({
+        //            type: 'area',
+        //            name: track.name,
+        //            data: [track.acousticness, track.danceability, track.energy, track.liveness, track.speechiness, track.valence],
+        //        })
+        //    })
+       });
+
+       avg = avg.map(value => {
+           return value / cnt
+       })
+
+        this.radarChartData.series = [{
+            type: 'area',
+            name: "Discography Average",
+            data: avg,
+        }]
+    }
+  },
+
+  mounted() {
+    this.fetchData()
+  },
+
   computed: {
-    RadarChartOptions: () => (radarChartData),
+    // // https://stackoverflow.com/questions/60058188/vue-js-in-computed-i-cant-use-data
+    // RadarChartOptions: {
+    //     get: function () {
+    //         return this.radarChartData
+    //     },
+    // },
     ScatterPlotOptions: () => (scatterPlotData),
   },
 }
@@ -325,7 +395,8 @@ export default {
             </p>
         </div>
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="RadarChartOptions" ref="chart"/></client-only>
+            <!-- <client-only><highcharts :options="RadarChartOptions" :updateArgs="updateArgs"/></client-only> -->
+            <client-only><highcharts :options="radarChartData" :updateArgs="updateArgs"/></client-only>
         </div>
     </div>
 

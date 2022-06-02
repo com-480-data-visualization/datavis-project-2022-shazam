@@ -11,7 +11,7 @@ export default Vue.extend({
 
 <template>
 
-<div class="bg-gray-900 h-screen w-screen">
+<div class="bg-gray-900 h-screen">
 
   <navbar/> 
   
