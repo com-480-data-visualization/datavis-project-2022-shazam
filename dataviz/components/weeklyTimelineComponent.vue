@@ -79,50 +79,76 @@ export default {
     bubbleChartOptions: () => (bubbleChartData),
   },
 
-  mounted() {
-    // DOM element where the Timeline will be attached
-    var container = document.getElementById('visualization');
-
-    // Create a DataSet (allows two way data-binding)
-    var items = new vis.DataSet([
-    {id: 1, content: 'item 1', start: '2014-04-20'},
-    {id: 2, content: 'item 2', start: '2014-04-14'},
-    {id: 3, content: 'item 3', start: '2014-04-18'},
-    {id: 4, content: 'item 4', start: '2014-04-16', end: '2014-04-19'},
-    {id: 5, content: 'item 5', start: '2014-04-25'},
-    {id: 6, content: 'item 6', start: '2014-04-27', type: 'point'}
-    ]);
-
-    // Configuration for the Timeline
-    var options = {};
-
-    // Create a Timeline
-    var timeline = new vis.Timeline(container, items, options);
+  data() {
+    return {
+      year: "Select Year",
+      week: "Select Week",
+    }
   },
 
+  methods: {
+    updateYear(e) {
+      this.year = e.target.value
+    }
+  },
+
+//   mounted() {
+//     // DOM element where the Timeline will be attached
+//     var container = document.getElementById('visualization');
+
+//     // Create a DataSet (allows two way data-binding)
+//     var items = new vis.DataSet([
+//     {id: 1, content: 'item 1', start: '2014-04-20'},
+//     {id: 2, content: 'item 2', start: '2014-04-14'},
+//     {id: 3, content: 'item 3', start: '2014-04-18'},
+//     {id: 4, content: 'item 4', start: '2014-04-16', end: '2014-04-19'},
+//     {id: 5, content: 'item 5', start: '2014-04-25'},
+//     {id: 6, content: 'item 6', start: '2014-04-27', type: 'point'}
+//     ]);
+
+//     // Configuration for the Timeline
+//     var options = {};
+
+//     // Create a Timeline
+//     var timeline = new vis.Timeline(container, items, options);
+//   },
+
+//   head: {
+//     script: [
+//       {
+//         src: "https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js",
+//       },
+//     ],
+//     link: [
+//         { 
+//             rel: 'stylesheet', 
+//             href: 'https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css' 
+//         }
+//     ]
+//   }
   head: {
     script: [
       {
-        src: "https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js",
+        src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
       },
     ],
     link: [
         { 
             rel: 'stylesheet', 
-            href: 'https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css' 
+            href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
         }
     ]
   }
 }
 </script>
 
-<style type="text/css">
+<!-- <style type="text/css">
     #visualization {
       width: 600px;
       height: 400px;
       border: 1px solid lightgray;
     }
-</style>
+</style> -->
 
 <template>
 
@@ -143,7 +169,42 @@ export default {
     <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
-            <div id="visualization"></div>
+            <!-- <div id="visualization"></div> -->
+            
+
+            <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.year }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                <li>
+                    <button @click="updateYear($event)" value="2018" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2018
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateYear($event)" value="2019" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2019
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2020
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2021
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2022
+                    </button>
+                </li>
+
+                </ul>
+            </div>
+
         </div>
         <div></div>
     </div>
