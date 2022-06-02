@@ -72,11 +72,102 @@ const bubbleChartData = {
     }]
 }
 
+let barChartData = {
+    chart: {
+        type: 'bar',
+        backgroundColor: 'transparent',
+    },
+    title: {
+        text: 'Top 20 Songs of the week',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    subtitle: {
+        text: 'By number of songs on billboard',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    xAxis: {
+        categories: ['', '', '', '', ''],
+        title: {
+            text: "Ranking",
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total tracks',
+            align: 'high',
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' tracks'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+                inside: true,
+                align: 'right',
+                formatter: function() {return 'Singer' + this.x + ': ' + this.y},
+            }
+        }
+    },
+    // legend: {
+    //     layout: 'vertical',
+    //     align: 'right',
+    //     verticalAlign: 'top',
+    //     x: -40,
+    //     y: 80,
+    //     floating: true,
+    //     borderWidth: 1,
+    //     shadow: true
+    // },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Singer A',
+        data: [20]
+    }, {
+        name: 'Singer B',
+        data: [19]
+    }, {
+        name: 'Singer C',
+        data: [10]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }]
+}
+
 export default {
   name: 'WeeklyTimeline',
 
   computed: {
     bubbleChartOptions: () => (bubbleChartData),
+    BarChartOptions: () => (barChartData),
   },
 
   data() {
@@ -89,6 +180,9 @@ export default {
   methods: {
     updateYear(e) {
       this.year = e.target.value
+    },
+    updateWeek(e) {
+      this.week = e.target.value
     }
   },
 
@@ -155,27 +249,24 @@ export default {
 <div class="container mx-auto min-h-screen">
     
     <!-- bubble -->
-    <div class="container mx-auto grid grid-cols-1 place-content-center m-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div class="flex items-center justify-center">
             
             <client-only><highcharts :options="bubbleChartOptions" ref="chart"/></client-only>
 
         </div>
-        <div></div>
     </div>
 
     <!-- timeline scroller -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <!-- <div id="visualization"></div> -->
             
-
-            <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.year }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+            <button id="dropdownYearButton" data-dropdown-toggle="dropdownYear" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.year }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
             <!-- Dropdown menu -->
-            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+            <div id="dropdownYear" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownYearButton">
                 <li>
                     <button @click="updateYear($event)" value="2018" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
                         2018
@@ -205,15 +296,48 @@ export default {
                 </ul>
             </div>
 
+            <button id="dropdownWeekButton" data-dropdown-toggle="dropdownWeek" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.week }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+            <!-- Dropdown menu -->
+            <div id="dropdownWeek" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownWeekButton">
+                <li>
+                    <button @click="updateWeek($event)" value="1" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        1
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateWeek($event)" value="2" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        2
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateWeek($event)" value="3" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        3
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateWeek($event)" value="4" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        4
+                    </button>
+                </li>
+                 <li>
+                    <button @click="updateWeek($event)" value="5" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
+                        5
+                    </button>
+                </li>
+
+                </ul>
+            </div>
+
         </div>
         <div></div>
     </div>
 
     <!-- leaderboard -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
-            <p class="text-white">Leaderboard</p>
+            <client-only><highcharts :options="BarChartOptions" ref="chart"/></client-only>
         </div>
         <div></div>
     </div>
@@ -225,6 +349,12 @@ export default {
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
                 <NuxtLink to="/singer">
                     <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
+                </NuxtLink>
+            </div>
+
+            <div class="gap-6 inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
+                <NuxtLink to="/yearly">
+                    <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Yearly Report</button>
                 </NuxtLink>
             </div>
         </div>
