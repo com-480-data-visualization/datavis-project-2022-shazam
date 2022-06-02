@@ -14,6 +14,7 @@ export default Vue.extend({
     script: [
       {
         src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
+        defer: false,
       },
     ],
     link: [
