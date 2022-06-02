@@ -179,11 +179,13 @@ export default {
 
   methods: {
     updateYear(e) {
-      this.year = e.target.value
+      this.year = e.path[0].innerHTML
+      console.log(this.year)
     },
     updateWeek(e) {
-      this.week = e.target.value
-    }
+      this.week = e.path[0].innerHTML
+      console.log(this.week)
+    },
   },
 
 //   mounted() {
@@ -220,20 +222,6 @@ export default {
 //         }
 //     ]
 //   }
-  head: {
-    script: [
-      {
-        src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
-        defer: false,
-      },
-    ],
-    link: [
-        { 
-            rel: 'stylesheet', 
-            href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
-        }
-    ]
-  }
 }
 </script>
 
@@ -265,71 +253,22 @@ export default {
         <div></div>
         <div class="flex items-center justify-center">
             <!-- <div id="visualization"></div> -->
-            
-            <button id="dropdownYearButton" data-dropdown-toggle="dropdownYear" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.year }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-            <!-- Dropdown menu -->
-            <div id="dropdownYear" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownYearButton">
-                <li>
-                    <button @click="updateYear($event)" value="2018" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2018
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateYear($event)" value="2019" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2019
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2020
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2021
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateYear($event)" value="2020" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2022
-                    </button>
-                </li>
 
-                </ul>
-            </div>
-
-            <button id="dropdownWeekButton" data-dropdown-toggle="dropdownWeek" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {{ this.week }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-            <!-- Dropdown menu -->
-            <div id="dropdownWeek" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownWeekButton">
-                <li>
-                    <button @click="updateWeek($event)" value="1" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        1
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateWeek($event)" value="2" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        2
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateWeek($event)" value="3" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        3
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateWeek($event)" value="4" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        4
-                    </button>
-                </li>
-                 <li>
-                    <button @click="updateWeek($event)" value="5" class="flex w-full mx-auto px-4 py-2 hover:bg-gray-600 hover:text-white text-center">
-                        5
-                    </button>
-                </li>
-
-                </ul>
+            <div>
+                <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
+                <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
+                <b-dropdown id="dropdown-1" :text="this.year" variant="primary" class="m-md-2">
+                    <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
+                </b-dropdown>
+                <b-dropdown id="dropdown-1" :text="this.week" variant="primary" class="m-md-2">
+                    <b-dropdown-item href="#" @click="updateWeek($event)" active>1</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateWeek($event)">2</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateWeek($event)">3</b-dropdown-item>
+                </b-dropdown>
             </div>
 
         </div>

@@ -23,17 +23,17 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     script: [
-      {
-        src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
-        defer: false,
-      },
+      // {
+      //   src: "https://unpkg.com/flowbite@1.4.7/dist/flowbite.js",
+      //   body: true,
+      // },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { 
-            rel: 'stylesheet', 
-            href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
-        }
+        // { 
+        //     rel: 'stylesheet', 
+        //     href: 'https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css' 
+        // }
     ]
   },
 
@@ -59,6 +59,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'bootstrap-vue/nuxt',
   ],
 
 
