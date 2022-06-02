@@ -30,10 +30,13 @@ export default {
       {
         src: "https://code.highcharts.com/highcharts.js",
         body: true,
-      },{
+      }, {
+        src: "https://code.highcharts.com/highcharts-more.js",
+        body: true,
+      }, {
         src: "https://code.highcharts.com/modules/data.js",
         body: true,
-      },{
+      }, {
         src: "https://code.highcharts.com/modules/exporting.js",
         body: true,
       }, {

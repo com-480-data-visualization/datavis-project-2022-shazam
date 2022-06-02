@@ -195,7 +195,7 @@ const _splineData = {
                 'Speechiness',
                 'Valence',
                 'Tempo',
-                'Duration (ms)',
+                'Duration (s)',
                 'Time Signature', 
             ],
         },
@@ -263,13 +263,15 @@ export default {
       singerName: "Taylor Swift",
 
       singerData: null, // raw JSON data
+
+      radarRef: null,
       radarChartData: _radarChartData,
-      scatterPlotData: _scatterPlotData,
+
+      scatterRef: null,
+      scatterChartData: _scatterPlotData,
 
       splineRef: null,
-      splinePlotData: _splineData,
-
-      updateArgs: [true, true, {duration: 1000}],
+      splineChartData: _splineData,
     }
   },
 
@@ -335,13 +337,15 @@ export default {
             name: "Discography Average",
             data: avg,
         }]
+        this.radarRef = Highcharts.chart('radarPlot', this.radarChartData);
 
         // console.log(scatterData)
-        this.scatterPlotData.series = [{
+        this.scatterChartData.series = [{
             name: 'Data',
             color: 'rgba(119, 152, 191, .5)',
             data: scatterData,
         }]
+        this.scatterRef = Highcharts.chart('scatterPlot', this.scatterChartData);
 
         // console.log(splineData)
 
@@ -353,8 +357,7 @@ export default {
                 value => Math.random() <= ratio
             )
         }
-
-        this.splinePlotData.series = splineData
+        this.splineChartData.series = splineData
         // WTF? Doesn't work
         // this.splineRef.update({
         //     series: splineData,
@@ -363,22 +366,25 @@ export default {
         // this.splineRef.redraw()
 
         // This is a dirty workaround
-        this.splineRef = Highcharts.chart('splinePlot', this.splinePlotData);
+        
+        this.splineRef = Highcharts.chart('splinePlot', this.splineChartData);
     }
   },
 
   mounted() {
     this.fetchData()
 
-    this.splineRef = Highcharts.chart('splinePlot', this.splinePlotData);
+    this.radarRef = Highcharts.chart('radarPlot', this.radarChartData);
+    this.scatterRef = Highcharts.chart('scatterPlot', this.scatterChartData);
+    this.splineRef = Highcharts.chart('splinePlot', this.splineChartData);
   },
 
-  watch: {
-      splinePlotData() {
-          console.log("Data updated")
-          this.splineRef.redraw()
-      }
-  }
+//   watch: {
+//       splinePlotData() {
+//           console.log("Data updated")
+//           this.splineRef.redraw()
+//       }
+//   }
 
   //   head: {script: [
 //       {
@@ -452,15 +458,14 @@ export default {
             </p>
         </div>
         <div class="flex items-center justify-center">
-            <!-- <client-only><highcharts :options="RadarChartOptions" :updateArgs="updateArgs"/></client-only> -->
-            <!-- <client-only><highcharts :options="radarChartData" :updateArgs="updateArgs"/></client-only> -->
+            <div id="radarPlot"></div>
         </div>
     </div>
 
     <!-- scatter graph -->
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <!-- <client-only><highcharts :options="scatterPlotData" :updateArgs="updateArgs"/></client-only> -->
+            <div id="scatterPlot"></div>
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left mt-3">
@@ -475,7 +480,7 @@ export default {
     <!-- pararallel coordinate -->
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="container self-center">
-            <ul class="flex flex-wrap text-xs font-medium -m-1">
+            <!-- <ul class="flex flex-wrap text-xs font-medium -m-1">
                 <li class="m-1">
                     <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Energy</button>
                 </li>
@@ -497,7 +502,7 @@ export default {
                 <li class="m-1">
                     <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-300 hover:bg-purple-700 transition duration-150 ease-in-out">Valence</button>
                 </li>
-            </ul>
+            </ul> -->
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right mt-3">
                 The evolution of the singer's style
             </h3>
