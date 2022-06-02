@@ -2,7 +2,7 @@
 const bubbleChartData = {
     chart: {
         type: 'packedbubble',
-        height: '50%',
+        height: '80%',
         backgroundColor: 'transparent',
     },
     credits: {
@@ -21,8 +21,8 @@ const bubbleChartData = {
     },
     plotOptions: {
         packedbubble: {
-            minSize: '30%',
-            maxSize: '120%',
+            minSize: '50%',
+            maxSize: '100%',
             zMin: 0,
             zMax: 1000,
             layoutAlgorithm: {
@@ -68,6 +68,15 @@ const bubbleChartData = {
         }, {
             name: "Lady Gaga",
             value: 1000
+        }, {
+            name: "Lady Gaga",
+            value: 1000
+        }, {
+            name: "Lady Gaga",
+            value: 1000
+        }, {
+            name: "Lady Gaga",
+            value: 1000
         }]
     }]
 }
@@ -78,14 +87,14 @@ let barChartData = {
         backgroundColor: 'transparent',
     },
     title: {
-        text: 'Top 20 Songs of the week',
+        text: 'Top singers since 2018 Week 1',
         style: {
             color: 'white',
             fontWeight: 'normal'
         }
     },
     subtitle: {
-        text: 'By number of songs on billboard',
+        text: 'By total number of songs accumulated on billboard',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -238,15 +247,6 @@ export default {
 <template>
 
 <div class="container mx-auto min-h-screen">
-    
-    <!-- bubble -->
-    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
-        <div class="flex items-center justify-center">
-            
-            <client-only><highcharts :options="bubbleChartOptions" ref="chart"/></client-only>
-
-        </div>
-    </div>
 
     <!-- timeline scroller -->
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
@@ -274,6 +274,15 @@ export default {
         </div>
         <div></div>
     </div>
+    
+    <!-- bubble -->
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+        <div class="flex items-center justify-center">
+            
+            <client-only><highcharts :options="bubbleChartOptions" ref="chart"/></client-only>
+
+        </div>
+    </div>
 
     <!-- leaderboard -->
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
@@ -293,12 +302,19 @@ export default {
                     <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
                 </NuxtLink>
             </div>
+        </div>
+        <div></div>
+    </div>
 
-            <div class="gap-6 inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
-                <NuxtLink to="/yearly">
-                    <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Yearly Report</button>
-                </NuxtLink>
-            </div>
+    <!-- back button -->
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+        <div></div>
+        <div class="flex items-center justify-center">  
+            <a href="" @click.prevent="$router.back()">      
+                <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">
+                    Go Back
+                </button>
+            </a>
         </div>
         <div></div>
     </div>

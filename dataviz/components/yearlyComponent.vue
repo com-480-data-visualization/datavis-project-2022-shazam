@@ -179,12 +179,46 @@ export default {
     BarChartOptions: () => (barChartData),
     RadarChartOptions: () => (radarChartData),
   },
+
+    data() {
+    return {
+      year: "Select Year",
+    }
+  },
+
+  methods: {
+    updateYear(e) {
+      this.year = e.path[0].innerHTML
+      console.log(this.year)
+    },
+  },
 }
 </script>
 
 <template>
 
 <div class="mx-auto min-h-screen bg-gray-900">
+
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+        <div></div>
+        <div class="flex items-center justify-center">
+            <!-- <div id="visualization"></div> -->
+
+            <div>
+                <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
+                <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
+                <b-dropdown id="dropdown-1" :text="this.year" variant="primary" class="m-md-2">
+                    <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
+                </b-dropdown>
+            </div>
+
+        </div>
+        <div></div>
+    </div>
     
     <!-- horizontal bar chart -->
     <div class="container mx-auto grid grid-cols-2 place-content-center m-6">

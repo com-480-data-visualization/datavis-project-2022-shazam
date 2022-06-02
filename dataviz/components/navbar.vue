@@ -19,7 +19,11 @@ export default {
 
             <NuxtLink class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/">Home</NuxtLink>
 
-            <NuxtLink class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/team">Team</NuxtLink>
+            <NuxtLink class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/artist">Artists</NuxtLink>
+
+            <NuxtLink class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/weekly">Weekly Analysis</NuxtLink>
+
+            <NuxtLink class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to="/yearly">Yearly Analysis</NuxtLink>
 
             <!-- <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a> -->
           </div>

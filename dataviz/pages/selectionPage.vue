@@ -1,14 +1,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import navbarVue from '~/components/navbar.vue'
-import weeklyTimelineComponentVue from '~/components/weeklyTimelineComponent.vue'
-import WeeklyTimelineComponent from '~/components/weeklyTimelineComponent.vue'
+import selectionComponent from '~/components/selectionComponent.vue'
+
 
 export default Vue.extend({
-  name: "TimelinePage",
+  name: "SelectionPage",
   components: {
     Navbar: navbarVue,
-    WeeklyTimelineComponent,
+    SelectionComponent: selectionComponent,
 },
 
   data() {
@@ -25,8 +25,7 @@ export default Vue.extend({
 
     <navbar/> 
     
-    <WeeklyTimelineComponent/>
-    
+    <SelectionComponent/>
 </div>
 
 </template>
