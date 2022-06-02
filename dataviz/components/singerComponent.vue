@@ -168,90 +168,93 @@ const _scatterPlotData = {
 };
 
 const _splineData = {
-        chart: {
-          type: 'spline',
-          parallelCoordinates: true,
-          parallelAxes: {
-            lineWidth: 2
-          },
-          backgroundColor: 'transparent',
+    chart: {
+        type: 'spline',
+        parallelCoordinates: true,
+        parallelAxes: {
+        lineWidth: 2
         },
-        title: {
-          text: 'Audio feature over time',
-          style: {
-                color: 'white',
-                fontWeight: 'normal'
-            },
+        backgroundColor: 'transparent',
+    },
+    title: {
+        text: 'Audio feature over time',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
         },
-        xAxis: {
-            categories: [
-                'Acousticness',
-                'Danceability',
-                'Energy',
-                'Instrumentalness',
-                'Key',
-                'Liveness',
-                'Loudness',
-                'Speechiness',
-                'Valence',
-                'Tempo',
-                'Duration (s)',
-                'Time Signature', 
-            ],
-        },
-        yAxis: [{
-            min: 0,
-            max: 1.0,
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            categories: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            min: 0,
-            max: 1.0,
-        }, {
-            min: 0,
-        }, {
-            min: 0,
-        }, {
-            min: 0,
-        }],
-        series: [
-            {
-            "name": "State Of Grace (Taylor's Version)",
-            "shadow": false,
-            "data": [
-                0.000328,
-                0.594,
-                0.713,
-                0,
-                9,
-                0.114,
-                -5.314,
-                0.0503,
-                0.328,
-                129.958,
-                295413,
-                4
-            ]
-            }
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: [
+            'Acousticness',
+            'Danceability',
+            'Energy',
+            'Instrumentalness',
+            'Key',
+            'Liveness',
+            'Loudness',
+            'Speechiness',
+            'Valence',
+            'Tempo',
+            'Duration (s)',
+            'Time Signature', 
+        ],
+    },
+    yAxis: [{
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        categories: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+    }, {
+        min: 0,
+    }, {
+        min: 0,
+    }],
+    series: [
+        {
+        "name": "State Of Grace (Taylor's Version)",
+        "shadow": false,
+        "data": [
+            0.000328,
+            0.594,
+            0.713,
+            0,
+            9,
+            0.114,
+            -5.314,
+            0.0503,
+            0.328,
+            129.958,
+            295413,
+            4
         ]
-      }
+        }
+    ]
+}
 
 const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
 

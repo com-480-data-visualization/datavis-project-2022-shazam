@@ -87,8 +87,98 @@ let _barChartData = {
             fontWeight: 'normal'
         }
     },
+    // subtitle: {
+    //     text: 'This is the leader board that shows the accumulated ranking of top singers',
+    //     style: {
+    //         color: 'white',
+    //         fontWeight: 'normal'
+    //     }
+    // },
+    xAxis: {
+        categories: ['', '', '', '', ''],
+        title: {
+            text: "Ranking",
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total tracks',
+            align: 'high',
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' tracks'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+                inside: true,
+                align: 'right',
+                formatter: function() {return 'Singer' + this.x + ': ' + this.y},
+            }
+        }
+    },
+    // legend: {
+    //     layout: 'vertical',
+    //     align: 'right',
+    //     verticalAlign: 'top',
+    //     x: -40,
+    //     y: 80,
+    //     floating: true,
+    //     borderWidth: 1,
+    //     shadow: true
+    // },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Singer A',
+        data: [20]
+    }, {
+        name: 'Singer B',
+        data: [19]
+    }, {
+        name: 'Singer C',
+        data: [10]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }, {
+        name: 'Singer D',
+        data: [1]
+    }]
+}
+
+let _barChartSongsData = {
+    chart: {
+        type: 'bar',
+        backgroundColor: 'transparent',
+    },
+    title: {
+        text: 'Top 20 Songs',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
     subtitle: {
-        text: 'This is the leader board that shows the accumulated ranking of top singers from 2018',
+        text: 'This is the leader board that shows the accumulated ranking of top songs',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -165,6 +255,95 @@ let _barChartData = {
     }]
 }
 
+const _splineData = {
+    chart: {
+        type: 'spline',
+        parallelCoordinates: true,
+        parallelAxes: {
+        lineWidth: 2
+        },
+        backgroundColor: 'transparent',
+    },
+    title: {
+        text: 'Audio feature over time',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        },
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+        categories: [
+            'Acousticness',
+            'Danceability',
+            'Energy',
+            'Instrumentalness',
+            'Key',
+            'Liveness',
+            'Loudness',
+            'Speechiness',
+            'Valence',
+            'Tempo',
+            'Duration (s)',
+            'Time Signature', 
+        ],
+    },
+    yAxis: [{
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        categories: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+        max: 1.0,
+    }, {
+        min: 0,
+    }, {
+        min: 0,
+    }, {
+        min: 0,
+    }],
+    series: [
+        {
+        "name": "State Of Grace (Taylor's Version)",
+        "shadow": false,
+        "data": [
+            0.000328,
+            0.594,
+            0.713,
+            0,
+            9,
+            0.114,
+            -5.314,
+            0.0503,
+            0.328,
+            129.958,
+            295413,
+            4
+        ]
+        }
+    ]
+}
+
 export default {
   name: 'Yearly',
 
@@ -175,8 +354,14 @@ export default {
       barRef: null,
       barChartData: _barChartData,
 
+      barSongsRef: null,
+      barChartSongsData: _barChartSongsData,
+
       radarRef: null,
       radarChartData: _radarChartData,
+
+      splineRef: null,
+      splineChartData: _splineData,
     }
   },
 
@@ -189,7 +374,9 @@ export default {
 
   mounted() {
     this.radarRef = Highcharts.chart('barChart', this.barChartData);
+    this.radarRef = Highcharts.chart('barChartSongs', this.barChartData);
     this.scatterRef = Highcharts.chart('radarChart', this.radarChartData);
+    this.splineRef = Highcharts.chart('splinePlot', this.splineChartData);
   },
 }
 </script>
@@ -234,40 +421,79 @@ export default {
         </div>
     </div>
 
-    <!-- word cloud -->
+    <!-- horizontal bar chart -->
     <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
-                Buzz Words
+                Top songs of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
-                What are the keywords in the lyrics of top songs of the year? The size of the word is promotional to the number of times they appear.
+                Have you ever wondered what are the most popular songs on billboard this year? This histogram will show you the answer.
             </p>
         </div>
+        
+        <div class="flex items-center justify-center">
+            <div id="barChartSongs"></div>
+        </div>    
+    </div>
 
+    <!-- word cloud -->
+    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <img src="~/assets/wordcloud.svg" alt="Wordcloud" class="h-80 flex-no-shrink fill-current"/>
+        </div>
+
+         <div class="container self-center">
+
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
+                Buzz Words
+            </h3>
+
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                What are the keywords in the lyrics of top songs of the year? The size of the word is promotional to the number of times they appear.
+            </p>
         </div>
     </div>
 
     <!-- radar graph -->
     <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
+                Audio Features
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-right">You can have a global view on the characteristics of the musics that are trending on this year.</p>
+            <br>
+            <p class="text-lg text-gray-400 flex-grow text-right">This is a reminder if you do not know the definition of each feature:</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
+        </div>
+
         <div class="flex items-center justify-center">
             <div id="radarChart"></div>
         </div>
-        <div class="container self-center">
-            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
-                Audio Features
-            </h3>
-            <p class="text-xl text-gray-400 flex-grow text-left">You can have a global view on the characteristics of the musics that are trending on this year.</p>
-            <br>
-            <p class="text-lg text-gray-400 flex-grow text-left">This is a reminder if you do not know the definition of each feature:</p>
-            <p class="text-lg text-gray-400 flex-grow text-left">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
-            <p class="text-lg text-gray-400 flex-grow text-left">Danceability: how suitable the songs are for dancing</p>
-            <p class="text-lg text-gray-400 flex-grow text-left">Energy: a perceptual measure of intensity and activity</p>
-            <p class="text-lg text-gray-400 flex-grow text-left">Liveness: detects the presence of an audience in the recording</p>
-            <p class="text-lg text-gray-400 flex-grow text-left">Valence: how positive the emotions in songs are</p>
+        
+    </div>
+
+        <!-- pararallel coordinate -->
+    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
+        
+        <div class="flex items-center justify-center">
+            <div id="splinePlot"></div>
         </div>
+
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left mt-3">
+                Overview of the audio features
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                What't eh musical style of the music this year? Let's take a look!
+            </p>
+        </div>
+        
     </div>
 
     <!-- back button -->
