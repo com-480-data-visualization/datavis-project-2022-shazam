@@ -285,7 +285,7 @@ export default {
 <div class="container mx-auto min-h-screen">
 
     <!-- Button group -->
-    <div class="mx-auto grid grid-cols-2 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
                 <p class="text-2xl p-6 text-gray-50">Singer Profile Image</p>
@@ -300,34 +300,75 @@ export default {
     </div>
 
     <!-- word cloud -->
-    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <img src = "~/assets/wordcloud.svg" alt="My Happy SVG"/>
+            <img src = "~/assets/wordcloud.svg" alt="Word cloud" class="h-80 flex-no-shrink fill-current"/>
         </div>
-        <div></div>
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
+                Top singers favirote words
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                A word count over the singer's discography
+            </p>
+        </div>
     </div>
 
     <!-- radar graph -->
-    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
+                Audio feature
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-right">
+                The characteristic of the singer, reveiled!
+            </p>
+        </div>
         <div class="flex items-center justify-center">
             <client-only><highcharts :options="RadarChartOptions" ref="chart"/></client-only>
         </div>
-        <div></div>
     </div>
 
     <!-- scatter graph -->
-    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <client-only><highcharts :options="ScatterPlotOptions" ref="chart"/></client-only>
         </div>
-        <div></div>
+        <div class="container self-center">
+            <ul class="flex flex-wrap text-xs font-medium -m-1">
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Energy</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-blue-500 hover:bg-purple-700 transition duration-150 ease-in-out">Dancibility</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-400 hover:bg-yellow-700 transition duration-150 ease-in-out">Instrumentalness</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-500 hover:bg-green-700 transition duration-150 ease-in-out">Liveness</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-400 hover:bg-purple-700 transition duration-150 ease-in-out">Loudness</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-indigo-500 hover:bg-purple-700 transition duration-150 ease-in-out">Speechiness</button>
+                </li>
+                <li class="m-1">
+                    <button class="inline-flex text-center text-gray-100 py-1 px-3 rounded-full bg-purple-300 hover:bg-purple-700 transition duration-150 ease-in-out">Valence</button>
+                </li>
+            </ul>
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left mt-3">
+                Evolution of the singer
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                The audio shift, done in anatytics way
+            </p>
+        </div>
     </div>
 
     <!-- back button -->
-    <div class="mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">            
             <a href="" @click.prevent="$router.back()">      

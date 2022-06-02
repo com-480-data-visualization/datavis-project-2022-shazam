@@ -187,34 +187,54 @@ export default {
 <div class="mx-auto min-h-screen bg-gray-900">
     
     <!-- horizontal bar chart -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <client-only><highcharts :options="BarChartOptions" ref="chart"/></client-only>
         </div>
-        <div></div>
+        
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
+                Top singers of the year
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                This graph shows how prominent a singer is throughout the year.
+            </p>
+        </div>
     </div>
 
     <!-- word cloud -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
-        <div class="flex items-center justify-center">
-            <img src = "~/assets/wordcloud.svg" alt="My Happy SVG"/>
+    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
+                Buzz Words
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-right">
+                The most used words, lyrics extracted from the top songs in the list
+            </p>
         </div>
-        <div></div>
+
+        <div class="flex items-center justify-center">
+            <img src="~/assets/wordcloud.svg" alt="Wordcloud" class="h-80 flex-no-shrink fill-current"/>
+        </div>
     </div>
 
     <!-- radar graph -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
+    <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <client-only><highcharts :options="RadarChartOptions" ref="chart"/></client-only>
         </div>
-        <div></div>
+        <div class="container self-center">
+            <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
+                Audio Features
+            </h3>
+            <p class="text-xl text-gray-400 flex-grow text-left">
+                There are lots of different aspects in the music, being energetic, dancable, etc.
+            </p>
+        </div>
     </div>
 
     <!-- back button -->
-    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center m-6">
         <div></div>
         <div class="flex items-center justify-center">  
             <a href="" @click.prevent="$router.back()">      
