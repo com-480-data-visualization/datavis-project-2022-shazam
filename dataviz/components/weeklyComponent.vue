@@ -176,8 +176,8 @@ export default {
 
   data() {
     return {
-      year: "Select Year",
-      week: "Select Week",
+      year: -1,
+      week: -1,
 
       bubbleRef: null,
       bubbleChartData: _bubbleChartData,
@@ -196,6 +196,19 @@ export default {
       this.week = e.path[0].innerHTML
       console.log(this.week)
     },
+  },
+
+  computed: {
+      yearDisplayString() {
+          if(this.year === -1) 
+            return "Select Year"
+          return this.year
+      },
+      weekDisplayString() {
+          if(this.week === -1) 
+            return "Select week"
+          return "Week " + this.week
+      }
   },
 
   mounted() {
@@ -220,30 +233,29 @@ export default {
 <div class="container mx-auto min-h-screen">
 
     <!-- timeline scroller -->
-    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
-        <div></div>
+    <!-- <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <!-- <div id="visualization"></div> -->
-
-            <div>
-                <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
-                <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
-                <b-dropdown id="dropdown-1" :text="this.year" variant="primary" class="m-md-2">
-                    <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
-                </b-dropdown>
-                <b-dropdown id="dropdown-1" :text="this.week" variant="primary" class="m-md-2">
-                    <b-dropdown-item href="#" @click="updateWeek($event)" active>1</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateWeek($event)">2</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="updateWeek($event)">3</b-dropdown-item>
-                </b-dropdown>
-            </div>
-
+            <input id="default-range" type="range" min="0" max="222" value="111" class="w-2/3 h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
         </div>
-        <div></div>
+    </div> -->
+
+    <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+        <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
+        <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
+        <div class="flex items-center justify-center">
+            <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
+                <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
+            </b-dropdown>
+            <b-dropdown id="dropdown-1" :text="this.weekDisplayString" variant="primary" class="m-md-2">
+                <b-dropdown-item href="#" @click="updateWeek($event)" active>1</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateWeek($event)">2</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateWeek($event)">3</b-dropdown-item>
+            </b-dropdown>
+        </div>
     </div>
     
     <!-- bubble -->
