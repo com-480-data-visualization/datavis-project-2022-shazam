@@ -9,7 +9,7 @@ const _radarChartData = {
         enabled: false
     },
     title: {
-        text: 'Audio features',
+        text: 'Average of all Songs\' Audio Features',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -388,7 +388,7 @@ export default {
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
-                Audio feature
+                The audio feature of the discography
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
                 The characteristic of the singer, reveiled!
