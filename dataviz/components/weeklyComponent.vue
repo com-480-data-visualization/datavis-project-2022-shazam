@@ -1,5 +1,5 @@
 <script>
-const bubbleChartData = {
+const _bubbleChartData = {
     chart: {
         type: 'packedbubble',
         height: '80%',
@@ -81,7 +81,7 @@ const bubbleChartData = {
     }]
 }
 
-let barChartData = {
+let _barChartData = {
     chart: {
         type: 'bar',
         backgroundColor: 'transparent',
@@ -174,15 +174,16 @@ let barChartData = {
 export default {
   name: 'WeeklyTimeline',
 
-  computed: {
-    bubbleChartOptions: () => (bubbleChartData),
-    BarChartOptions: () => (barChartData),
-  },
-
   data() {
     return {
       year: "Select Year",
       week: "Select Week",
+
+      bubbleRef: null,
+      bubbleChartData: _bubbleChartData,
+
+      barRef: null,
+      barChartData: _barChartData,
     }
   },
 
@@ -197,40 +198,10 @@ export default {
     },
   },
 
-//   mounted() {
-//     // DOM element where the Timeline will be attached
-//     var container = document.getElementById('visualization');
-
-//     // Create a DataSet (allows two way data-binding)
-//     var items = new vis.DataSet([
-//     {id: 1, content: 'item 1', start: '2014-04-20'},
-//     {id: 2, content: 'item 2', start: '2014-04-14'},
-//     {id: 3, content: 'item 3', start: '2014-04-18'},
-//     {id: 4, content: 'item 4', start: '2014-04-16', end: '2014-04-19'},
-//     {id: 5, content: 'item 5', start: '2014-04-25'},
-//     {id: 6, content: 'item 6', start: '2014-04-27', type: 'point'}
-//     ]);
-
-//     // Configuration for the Timeline
-//     var options = {};
-
-//     // Create a Timeline
-//     var timeline = new vis.Timeline(container, items, options);
-//   },
-
-//   head: {
-//     script: [
-//       {
-//         src: "https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js",
-//       },
-//     ],
-//     link: [
-//         { 
-//             rel: 'stylesheet', 
-//             href: 'https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css' 
-//         }
-//     ]
-//   }
+  mounted() {
+    this.radarRef = Highcharts.chart('barChart', this.barChartData);
+    this.scatterRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
+  },
 }
 </script>
 
@@ -277,10 +248,13 @@ export default {
     
     <!-- bubble -->
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
-        <div class="flex items-center justify-center">
-            
-            <client-only><highcharts :options="bubbleChartOptions" ref="chart"/></client-only>
+        <p class="text-xl text-gray-400 flex-grow text-center">Who are the most popular artists that have the most listened songs?</p>
+        <p class="text-xl text-gray-400 flex-grow text-center">Here each bubble represent a singer whose songs figured in the top 20 of this week.</p>
+        <p class="text-xl text-gray-400 flex-grow text-center">The larger the size of the bubble is, the more songs from this singer are hitting.</p>
+        <p class="text-xl text-gray-400 flex-grow text-center">Click on the bubble to check the profile of the singer!</p>
 
+        <div class="flex items-center justify-center">
+            <div id="bubbleChart"></div>
         </div>
     </div>
 
@@ -288,7 +262,7 @@ export default {
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="BarChartOptions" ref="chart"/></client-only>
+            <div id="barChart"></div>
         </div>
         <div></div>
     </div>

@@ -1,5 +1,5 @@
 <script>
-const radarChartData = {
+const _radarChartData = {
     chart: {
         polar: true,
         height: '100%',
@@ -10,13 +10,6 @@ const radarChartData = {
     },
     title: {
         text: 'Audio features',
-        style: {
-            color: 'white',
-            fontWeight: 'normal'
-        }
-    },
-    subtitle: {
-        text: 'All songs',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -82,7 +75,7 @@ const radarChartData = {
     }]
 }
 
-let barChartData = {
+let _barChartData = {
     chart: {
         type: 'bar',
         backgroundColor: 'transparent',
@@ -95,7 +88,7 @@ let barChartData = {
         }
     },
     subtitle: {
-        text: 'By number of songs on billboard',
+        text: 'This is the leader board that shows the accumulated ranking of top singers from 2018',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -175,14 +168,15 @@ let barChartData = {
 export default {
   name: 'Yearly',
 
-  computed: {
-    BarChartOptions: () => (barChartData),
-    RadarChartOptions: () => (radarChartData),
-  },
-
-    data() {
+  data() {
     return {
       year: "Select Year",
+
+      barRef: null,
+      barChartData: _barChartData,
+
+      radarRef: null,
+      radarChartData: _radarChartData,
     }
   },
 
@@ -191,6 +185,11 @@ export default {
       this.year = e.path[0].innerHTML
       console.log(this.year)
     },
+  },
+
+  mounted() {
+    this.radarRef = Highcharts.chart('barChart', this.barChartData);
+    this.scatterRef = Highcharts.chart('radarChart', this.radarChartData);
   },
 }
 </script>
@@ -202,7 +201,6 @@ export default {
     <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
-            <!-- <div id="visualization"></div> -->
 
             <div>
                 <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
@@ -223,7 +221,7 @@ export default {
     <!-- horizontal bar chart -->
     <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="BarChartOptions" ref="chart"/></client-only>
+            <div id="barChart"></div>
         </div>
         
         <div class="container self-center">
@@ -231,7 +229,7 @@ export default {
                 Top singers of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                This graph shows how prominent a singer is throughout the year.
+                Have you ever wondered who are the artists that have the most number of songs on billboard this year? This histogram will show you the answer.
             </p>
         </div>
     </div>
@@ -243,7 +241,7 @@ export default {
                 Buzz Words
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
-                The most used words, lyrics extracted from the top songs in the list
+                What are the keywords in the lyrics of top songs of the year? The size of the word is promotional to the number of times they appear.
             </p>
         </div>
 
@@ -255,15 +253,20 @@ export default {
     <!-- radar graph -->
     <div class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
-            <client-only><highcharts :options="RadarChartOptions" ref="chart"/></client-only>
+            <div id="radarChart"></div>
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
                 Audio Features
             </h3>
-            <p class="text-xl text-gray-400 flex-grow text-left">
-                There are lots of different aspects in the music, being energetic, dancable, etc.
-            </p>
+            <p class="text-xl text-gray-400 flex-grow text-left">You can have a global view on the characteristics of the musics that are trending on this year.</p>
+            <br>
+            <p class="text-lg text-gray-400 flex-grow text-left">This is a reminder if you do not know the definition of each feature:</p>
+            <p class="text-lg text-gray-400 flex-grow text-left">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
+            <p class="text-lg text-gray-400 flex-grow text-left">Danceability: how suitable the songs are for dancing</p>
+            <p class="text-lg text-gray-400 flex-grow text-left">Energy: a perceptual measure of intensity and activity</p>
+            <p class="text-lg text-gray-400 flex-grow text-left">Liveness: detects the presence of an audience in the recording</p>
+            <p class="text-lg text-gray-400 flex-grow text-left">Valence: how positive the emotions in songs are</p>
         </div>
     </div>
 

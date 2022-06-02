@@ -442,7 +442,7 @@ export default {
                 Top singers favirote words
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                A word count over the singer's discography
+                Let’s have a look on the singer’s favorite words! The larger the font size of a word is, the more times it appears in the lyrics
             </p>
         </div>
     </div>
@@ -453,9 +453,14 @@ export default {
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
                 The audio feature of the discography
             </h3>
-            <p class="text-xl text-gray-400 flex-grow text-right">
-                The characteristic of the singer, reveiled!
-            </p>
+            <p class="text-xl text-gray-400 flex-grow text-right">Here, the artist’s musical characteristics are revealed! we computed the average value of all songs from the singer. </p>
+            <br>
+            <p class="text-lg text-gray-400 flex-grow text-right">This is a reminder if you do not know the definition of each feature:</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
+            <p class="text-lg text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
         </div>
         <div class="flex items-center justify-center">
             <div id="radarPlot"></div>
@@ -472,7 +477,7 @@ export default {
                 The key and pace
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                From the scatter graph, we can see how ofter does the singer goes fast or slow, and in what type of key
+                Does the singer prefers fast tempo? In which key are songs usually composed? What are the relationships between these two audio features? Check this scatter plot to have an insight!
             </p>
         </div>
     </div>
