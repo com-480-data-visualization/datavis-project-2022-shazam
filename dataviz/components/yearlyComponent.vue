@@ -108,7 +108,7 @@ let _barChartSongsData = {
         }
     },
     tooltip: {
-        valueSuffix: ' tracks'
+        valueSuffix: ' weeks'
     },
     plotOptions: {
         bar: {
