@@ -119,7 +119,14 @@ def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str,
                             singersHistogram[singer] = 1
     
             # save it
-            json_string = json.dumps(singersHistogram)
+            output = []
+            for k, v in singersHistogram.items():
+                output.append({
+                    'name': k,
+                    'count': v,
+                })
+
+            json_string = json.dumps(output)
             os.system(f"mkdir -p data/singers/weekly")
             with open(f'data/singers/weekly/{y}_{w}.json', 'w') as outfile:
                 outfile.write(json_string)
