@@ -60,14 +60,14 @@ def load_qq_data(id: int) -> "dict[int, dict[int, dict[int, dict[str, str]]]]":
                                 audioFeatures = json.load(infile2)
                                 ret[y][w][i]['audioFeatures'] = audioFeatures
                                 ret[y][w][i]['lyrics'] = audioFeatures['lyrics']
-                                print(f'Found {folder}/{y}_{w}.json')
+                                # print(f'Found {folder}/{y}_{w}.json')
                                 ok[mid] = True
                         except Exception as e:
-                            print(e, f'{folder}/{y}_{w}.json')
+                            # print(e, f'{folder}/{y}_{w}.json')
                             failed[mid] = True
                             pass
             except Exception as e:
-                print(e, f'{folder}/{y}_{w}.json')
+                # print(e, f'{folder}/{y}_{w}.json')
                 pass
     print(len(ok), len(failed))
     return ret
@@ -103,7 +103,27 @@ def aggregateSingers(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cu
     return ret
 
 distinctSingers = aggregateSingers(data=trend_data_billboard, cutoff=cutoffCount)
-print(cutoffCount, len(distinctSingers))
+# print(cutoffCount, len(distinctSingers), distinctSingers)
+
+import requests
+import urllib.parse
+for singer in distinctSingers:
+    try:
+        with open(f'data/singers/{singer}.json', encoding='utf-8') as infile2:
+            # print("file ok")
+            pass
+    except:
+        print("file error", singer, f"data/singers/{singer}.json")
+    
+    url = f"https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/{urllib.parse.quote(singer)}.json"
+    try:
+        # print(url)
+        x = requests.get(url)
+        # print(x.status_code)
+        if x.status_code != 200:
+            print("url", singer, url)
+    except Exception as e:
+        print("url error", e, singer, url)
 
 # calculates distinct singers - track count in that week
 def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
