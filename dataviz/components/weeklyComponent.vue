@@ -43,6 +43,14 @@ const _bubbleChartData = {
                     fontWeight: 'normal'
                 }
             }
+        },
+        series: {
+            allowPointSelect: true,
+            events: {
+                click: function(event) {
+                    console.log(event.point.name)
+                }
+            }
         }
     },
     series: []
@@ -95,8 +103,7 @@ let _barChartData = {
                 inside: true,
                 align: 'right',
                 formatter: function () {
-                    console.table(this.point);
-
+                    // console.table(this.point);
                     return this.series.name + ": " + this.point.y;
                 }
             },
@@ -205,7 +212,9 @@ export default {
                 arr = arr.filter(value => value.data[0] > 2)
             }
 
-            this.barChartData.series = arr
+            this.barChartData.series = {
+                data: arr,
+            }
             console.log(this.barChartData.series)
             this.barRef = Highcharts.chart('barChart', this.barChartData);
         }
@@ -315,7 +324,8 @@ export default {
         <p class="text-xl text-gray-400 flex-grow text-center">Here each bubble represent a singer whose songs figured in the top 20 of this week.</p>
         <p class="text-xl text-gray-400 flex-grow text-center">The larger the size of the bubble is, the more songs from this singer are hitting.</p>
         <p class="text-xl text-gray-400 flex-grow text-center">Click on the bubble to check the profile of the singer!</p>
-
+    </div>
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <div id="bubbleChart"></div>
         </div>
