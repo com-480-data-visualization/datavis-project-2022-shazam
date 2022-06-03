@@ -69,6 +69,8 @@ print("Start loading trend_data_billboard")
 trend_data_billboard = load_qq_data(id=108)
 print("Done loading trend_data_billboard")
 
+cutoffCount = 20
+
 # for each week of the billboard data
 # we take the top x of the tracks
 # 1) aggregate the singer data out
@@ -97,5 +99,29 @@ def aggregateSingers(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cu
     
     return ret
 
-distinctSingers = aggregateSingers(data=trend_data_billboard, cutoff=20)
-print(20, len(distinctSingers))
+distinctSingers = aggregateSingers(data=trend_data_billboard, cutoff=cutoffCount)
+print(cutoffCount, len(distinctSingers))
+
+def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
+    for y in data:
+        for w in data[y]:
+            singersHistogram = {}
+            for i in data[y][w]:
+                if i < cutoff:
+                    singers = data[y][w][i]['singerName']
+                    singerList = singers.split("/")
+                    for singer in singerList:
+                        if singer in singersHistogram:
+                            cnt = singersHistogram[singer]
+                            cnt += 1
+                            singersHistogram[singer] = cnt
+                        else:
+                            singersHistogram[singer] = 1
+    
+            # save it
+            json_string = json.dumps(singersHistogram)
+            os.system(f"mkdir -p data/singers/weekly")
+            with open(f'data/singers/weekly/{y}_{w}.json', 'w') as outfile:
+                outfile.write(json_string)
+            
+generateBubbleChartSingerData(data=trend_data_billboard, cutoff=cutoffCount)
