@@ -130,4 +130,4 @@ The data in use will be stored on Github course project repo, using Vue.js to fe
 
 * Website: 
 * Process book: [Process book](https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/Dataviz%20Report%20Shazam.pdf)
-* Screencast: 
+* Screencast: [Screencast](https://youtu.be/QkOrxwI-qDw)
