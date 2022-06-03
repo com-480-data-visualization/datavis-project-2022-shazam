@@ -3,7 +3,7 @@ let _barChartData = {
     chart: {
         type: 'bar',
         backgroundColor: 'transparent',
-        height: '100%',
+        height: '600px',
     },
     title: {
         text: 'This is the leaderboard that shows the singer with the most distinct songs that made it to Billboard',
@@ -74,7 +74,7 @@ let _barChartSongsData = {
     chart: {
         type: 'bar',
         backgroundColor: 'transparent',
-        height: '100%',
+        height: '600px',
     },
     title: {
         text: 'Leaderboard of the the time songs stayed on the board',
@@ -227,7 +227,7 @@ const _splineData = {
         backgroundColor: 'transparent',
     },
     title: {
-        text: 'Audio feature over time',
+        text: 'Audio features for all tracks this year',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -539,7 +539,7 @@ export default {
                 Top singers of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                Have you ever wondered who are the artists that have the most number of distinct songs on billboard this year? This histogram will show you the answer.
+                Have you ever wondered which artists have the most number of distinct songs on Billboard this year? This histogram will show you the answer.
             </p>
         </div>
     </div>
@@ -551,7 +551,7 @@ export default {
                 Top songs of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
-                Have you ever wondered what are the most popular songs that stayed on billboard this year the longest? This histogram will show you the answer.
+                Have you ever wondered about the most popular songs that stayed the longest on the Billboard this year? This histogram will show you the answer.
             </p>
         </div>
         
@@ -573,7 +573,7 @@ export default {
             </h3>
 
             <p class="text-xl text-gray-400 flex-grow text-left">
-                What are the keywords in the lyrics of top songs of the year? The size of the word is promotional to the number of times they appear.
+                What are the keywords in the lyrics of the top songs of the year? The size of the word is promotional to the number of times they appear.
             </p>
         </div>
     </div>
@@ -587,12 +587,12 @@ export default {
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">You can have a global view on the characteristics of the musics that are trending on this year.</p>
             <br>
-            <p class="text-lg text-gray-400 flex-grow text-right">This is a reminder if you do not know the definition of each feature:</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Acousticness: confidence measures whether the songs have acoustic instruments</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Speechiness: detects the presence of spoken words in a track.</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
         </div>
 
         <div class="flex items-center justify-center">

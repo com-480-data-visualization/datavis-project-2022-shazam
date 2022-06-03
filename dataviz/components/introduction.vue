@@ -8,7 +8,6 @@ export default {
 #introTopic {
   color: #A4D938;
 }
-
 </style>
 
 <template>

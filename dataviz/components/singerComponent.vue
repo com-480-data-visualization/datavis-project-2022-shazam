@@ -15,13 +15,13 @@ const _radarChartData = {
             fontWeight: 'normal'
         }
     },
-    subtitle: {
-        text: 'All songs',
-        style: {
-            color: 'white',
-            fontWeight: 'normal'
-        }
-    },
+    // subtitle: {
+    //     text: 'All songs',
+    //     style: {
+    //         color: 'white',
+    //         fontWeight: 'normal'
+    //     }
+    // },
     pane: {
         startAngle: 0,
         endAngle: 360
@@ -465,12 +465,12 @@ export default {
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">Here, the artist’s musical characteristics are revealed! we computed the average value of all songs from the singer. </p>
             <br>
-            <p class="text-lg text-gray-400 flex-grow text-right">This is a reminder if you do not know the definition of each feature:</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Acousticness: confidence measure about whether the songs have acoustic instruments</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
-            <p class="text-lg text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Acousticness: confidence measures whether the songs have acoustic instruments</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Energy: a perceptual measure of intensity and activity</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Liveness: detects the presence of an audience in the recording</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Speechiness: detects the presence of spoken words in a track.</p>
+            <p class="text-sm text-gray-400 flex-grow text-right">Valence: how positive the emotions in songs are</p>
         </div>
         <div class="flex items-center justify-center">
             <div id="radarPlot"></div>
