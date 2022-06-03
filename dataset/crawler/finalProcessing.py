@@ -169,8 +169,8 @@ def generateBarChartAccumulatedSingerHistoryData(data: "dict[int, dict[int, dict
                 })
 
             json_string = json.dumps(output)
-            os.system(f"mkdir -p data/singers/historical")
-            with open(f'data/singers/historical/{y}_{w}.json', 'w') as outfile:
+            os.system(f"mkdir -p data/singers/distinct_historical")
+            with open(f'data/singers/distinct_historical/{y}_{w}.json', 'w') as outfile:
                 outfile.write(json_string)
             
 generateBarChartAccumulatedSingerHistoryData(data=trend_data_billboard, cutoff=cutoffCount)
