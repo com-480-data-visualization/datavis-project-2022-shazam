@@ -426,7 +426,7 @@ export default {
         <div></div>
     </div>
     
-    <!-- horizontal bar chart -->
+    <!-- horizontal bar chart (singers/distinct_historical) -->
     <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
             <div id="barChart"></div>
@@ -437,19 +437,19 @@ export default {
                 Top singers of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                Have you ever wondered who are the artists that have the most number of songs on billboard this year? This histogram will show you the answer.
+                Have you ever wondered who are the artists that have the most number of distinct songs on billboard this year? This histogram will show you the answer.
             </p>
         </div>
     </div>
 
-    <!-- horizontal bar chart -->
+    <!-- horizontal bar chart (tracks/historical) -->
     <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
                 Top songs of the year
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
-                Have you ever wondered what are the most popular songs on billboard this year? This histogram will show you the answer.
+                Have you ever wondered what are the most popular songs that stayed on billboard this year the longest? This histogram will show you the answer.
             </p>
         </div>
         
