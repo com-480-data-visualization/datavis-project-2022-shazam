@@ -59,6 +59,7 @@ def load_qq_data(id: int) -> "dict[int, dict[int, dict[int, dict[str, str]]]]":
                             with open(f'data/tracks/{mid}.json', encoding='utf-8') as infile2:
                                 audioFeatures = json.load(infile2)
                                 ret[y][w][i]['audioFeatures'] = audioFeatures
+                                ret[y][w][i]['lyrics'] = audioFeatures['lyrics']
                                 print(f'Found {folder}/{y}_{w}.json')
                                 ok[mid] = True
                         except Exception as e:
@@ -134,7 +135,7 @@ def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str,
             with open(f'data/singers/weekly/{y}_{w}.json', 'w') as outfile:
                 outfile.write(json_string)
             
-generateBubbleChartSingerData(data=trend_data_billboard, cutoff=cutoffCount)
+# generateBubbleChartSingerData(data=trend_data_billboard, cutoff=cutoffCount)
 
 # calculates accumulated for all singers, total distinct tracks, for every week since 2018
 def generateBarChartAccumulatedSingerHistoryDataPerWeek(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
@@ -175,7 +176,7 @@ def generateBarChartAccumulatedSingerHistoryDataPerWeek(data: "dict[int, dict[in
             with open(f'data/singers/distinct_historical/{y}_{w}.json', 'w') as outfile:
                 outfile.write(json_string)
             
-generateBarChartAccumulatedSingerHistoryDataPerWeek(data=trend_data_billboard, cutoff=cutoffCount)
+# generateBarChartAccumulatedSingerHistoryDataPerWeek(data=trend_data_billboard, cutoff=cutoffCount)
 
 # calculates accumulated for all singers, total distinct tracks, per year
 def generateBarChartAccumulatedSingerHistoryDataPerYear(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
@@ -216,7 +217,7 @@ def generateBarChartAccumulatedSingerHistoryDataPerYear(data: "dict[int, dict[in
         with open(f'data/singers/distinct_historical/{y}.json', 'w') as outfile:
             outfile.write(json_string)
             
-generateBarChartAccumulatedSingerHistoryDataPerYear(data=trend_data_billboard, cutoff=100)
+# generateBarChartAccumulatedSingerHistoryDataPerYear(data=trend_data_billboard, cutoff=100)
 
 # calculates the weeks that the songs stayed on the board
 def generateBarChartAccumulatedSongsHistoryDataPerYear(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
@@ -252,7 +253,7 @@ def generateBarChartAccumulatedSongsHistoryDataPerYear(data: "dict[int, dict[int
         with open(f'data/tracks/historical/{y}_weeks.json', 'w') as outfile:
             outfile.write(json_string)
             
-generateBarChartAccumulatedSongsHistoryDataPerYear(data=trend_data_billboard, cutoff=100)
+# generateBarChartAccumulatedSongsHistoryDataPerYear(data=trend_data_billboard, cutoff=100)
 
 # audio features of all tracks this year# calculates the weeks that the songs stayed on the board
 def generateAudioFeaturesPerYear(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
@@ -269,7 +270,7 @@ def generateAudioFeaturesPerYear(data: "dict[int, dict[int, dict[int, dict[str, 
         with open(f'data/tracks/historical/{y}_audio_features.json', 'w') as outfile:
             outfile.write(json_string)
             
-generateAudioFeaturesPerYear(data=trend_data_billboard, cutoff=100)
+# generateAudioFeaturesPerYear(data=trend_data_billboard, cutoff=100)
 
 # authenticate
 auth_manager = SpotifyClientCredentials()
@@ -313,13 +314,13 @@ def search_for_artist(name: str) -> customdatatypes.Singer:
 
     return False
 
-failed = []
-distinctSingers = ["Bruno Mars"]
-for singer in distinctSingers:
-    try:
-        if search_for_artist(singer) == False:
-            failed.append(singer)
-    except:
-        failed.append(singer)
-print(json.dumps(failed))
+# failed = []
+# distinctSingers = ["Bruno Mars"]
+# for singer in distinctSingers:
+#     try:
+#         if search_for_artist(singer) == False:
+#             failed.append(singer)
+#     except:
+#         failed.append(singer)
+# print(json.dumps(failed))
 # search_for_artist("Taylor Swift")
