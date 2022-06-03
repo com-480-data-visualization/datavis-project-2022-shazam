@@ -234,26 +234,7 @@ const _splineData = {
     }, {
         min: 0,
     }],
-    series: [
-        {
-        "name": "State Of Grace (Taylor's Version)",
-        "shadow": false,
-        "data": [
-            0.000328,
-            0.594,
-            0.713,
-            0,
-            9,
-            0.114,
-            -5.314,
-            0.0503,
-            0.328,
-            129.958,
-            295413,
-            4
-        ]
-        }
-    ]
+    series: []
 }
 
 const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
@@ -265,7 +246,8 @@ export default {
     return {
       singerName: "Taylor Swift", // DEFAULT
 
-      singerData: null, // raw JSON data
+      singerDiscographyData: null, // raw JSON data
+      singerProfileData: {image: "https://picsum.photos/200"}, // raw singer info
 
       radarRef: null,
       radarChartData: _radarChartData,
@@ -280,14 +262,25 @@ export default {
 
   methods: {
     async fetchData() {
-      this.singerData = null
+      this.singerDiscographyData = null
 
-      const res = await fetch(
-        github_base_url + encodeURIComponent(this.singerName) + ".json"
-      )
-      this.singerData = await res.json()
+      {
+        const res = await fetch(
+            github_base_url + encodeURIComponent(this.singerName) + ".json"
+        )
+        this.singerDiscographyData = await res.json()
 
-    //   console.log(JSON.stringify(this.singerData, null, 2))
+        //   console.log(JSON.stringify(this.singerDiscographyData, null, 2))
+      }
+
+      {
+        const res = await fetch(
+            github_base_url + "info/" + encodeURIComponent(this.singerName) + ".json"
+        )
+        this.singerProfileData = await res.json()
+
+          console.log(JSON.stringify(this.singerProfileData, null, 2))
+      }
 
       this.processAudioFeature()
     },
@@ -296,7 +289,7 @@ export default {
        var cnt = 0
        var scatterData = []
        var splineData = []
-       this.singerData.albums.forEach(album => {
+       this.singerDiscographyData.albums.forEach(album => {
            album.tracks.forEach(track => {
                // radar
                avg[0] += track.acousticness
@@ -375,8 +368,8 @@ export default {
   },
 
   mounted() {
-    console.log(this.$route.params['singer'])
     this.singerName = this.$route.params['singer'] || "Taylor Swift"
+    console.log(this.singerName)
 
     this.fetchData()
 
@@ -424,17 +417,26 @@ export default {
 <div class="container mx-auto min-h-screen">
 
     <!-- Button group -->
-    <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
+    <div class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
-                <p class="text-2xl p-6 text-gray-50">Singer Profile Image</p>
+                <!-- <client-only placeholder="Loading..."></client-only> -->
+                <!-- <img src={{ this.singerProfileData.image }}> -->
+                
+                <!-- <p></p> -->
             </div>
         </div>
-        <div class="flex items-center justify-center">
-            <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
-                <p class="text-2xl p-6 text-gray-50">{{ this.singerName }}</p>
-                <p class="text-2xl p-6 text-gray-50">Singer top songs</p>
+        <div class="flex items-center">
+            <div class="relative w-36 h-36">
+                <img class="rounded-full border border-gray-100 shadow-sm" v-bind:src="this.singerProfileData.image" alt="Singer image"/>
             </div>
+            <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
+                <p class="text-5xl p-6 text-gray-50 text-left">{{ this.singerName }}</p>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <span class="w-1 h-1 mx-1.5 rounded-full bg-gray-400"></span>
+            <a v-bind:href="this.singerProfileData.spotifyURL" target=”_blank” class="text-sm font-medium underline hover:no-underline text-white">{{ this.singerProfileData.followers || 0 }} Followers on Spotify</a>
         </div>
     </div>
 
