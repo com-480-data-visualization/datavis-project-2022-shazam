@@ -102,6 +102,7 @@ def aggregateSingers(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cu
 distinctSingers = aggregateSingers(data=trend_data_billboard, cutoff=cutoffCount)
 print(cutoffCount, len(distinctSingers))
 
+# calculates trakcs per singer in that week
 def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
     for y in data:
         for w in data[y]:
@@ -132,3 +133,44 @@ def generateBubbleChartSingerData(data: "dict[int, dict[int, dict[int, dict[str,
                 outfile.write(json_string)
             
 generateBubbleChartSingerData(data=trend_data_billboard, cutoff=cutoffCount)
+
+# calculates accumulated for all singers, total distinct tracks, per week
+def generateBarChartAccumulatedSingerHistoryData(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
+    tracks = {} # singer -> {track name: 1}
+    for y in data:
+        for w in data[y]:
+            for i in data[y][w]:
+                if i < cutoff:
+                    singers = data[y][w][i]['singerName']
+                    trackName = data[y][w][i]['title']
+                    singerList = singers.split("/")
+                    for singer in singerList:
+                        if singer in tracks:
+                            if trackName not in tracks[singer]:
+                                tracks[singer][trackName] = 1
+                            else:
+                                val = tracks[singer][trackName]
+                                val += 1
+                                tracks[singer][trackName] = val
+                        else:
+                            tracks[singer] = {trackName: 1}
+            
+            singerData = []
+            for k, v in tracks.items():
+                singerData.append((k, len(v)))
+            singerData.sort(reverse=True, key=lambda element: (element[1], element[0]))
+
+            # save it
+            output = []
+            for k, v in singerData:
+                output.append({
+                    'name': k,
+                    'count': v,
+                })
+
+            json_string = json.dumps(output)
+            os.system(f"mkdir -p data/singers/historical")
+            with open(f'data/singers/historical/{y}_{w}.json', 'w') as outfile:
+                outfile.write(json_string)
+            
+generateBarChartAccumulatedSingerHistoryData(data=trend_data_billboard, cutoff=cutoffCount)
