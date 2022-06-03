@@ -13,7 +13,7 @@ let _barChartData = {
         }
     },
     subtitle: {
-        text: 'Only singers with >= 10 songs are displayed',
+        text: 'Only singers with >= 5 songs are displayed',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -436,7 +436,7 @@ export default {
             })
 
             arr = arr.filter(
-                value => value.data[0] > 10
+                value => value.data[0] > 5
             )
 
             this.barChartData.series = arr
@@ -512,7 +512,7 @@ export default {
                 <!-- https://stackoverflow.com/questions/56531990/vue-how-to-change-dropdown-text-properly -->
                 <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
                 <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
-                    <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="updateYear($event)">2018</b-dropdown-item>
                     <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
                     <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
                     <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
@@ -609,7 +609,7 @@ export default {
                 Overview of the audio features
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                What't eh musical style of the music this year? Let's take a look!
+                What's the musical style of the music this year? Let's take a look!
             </p>
         </div>
         
