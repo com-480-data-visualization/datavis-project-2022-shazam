@@ -6,7 +6,10 @@ export default {
 
 <style>
 #introTopic1 {
-  color: #EB65B4;
+    color: #EB65B4;
+}
+#introTopic2 {
+    color: #FBD330;
 }
 </style>
 
@@ -35,7 +38,7 @@ export default {
 
     <div class="container rounded-xl p-6">
         <div class="text-center">
-            <p id="introTopic1" class="text-6xl font-medium text-gray-50">Yearly analysis</p>
+            <p id="introTopic2" class="text-6xl font-medium text-gray-50">Yearly analysis</p>
             <p class="text-xl p-2 text-gray-50 mt-3">What are the music trends on a larger scale?</p>
             <p class="text-xl p-2 text-gray-50">You should first select the year to check the annual report.</p>
         </div>

@@ -332,7 +332,7 @@ export default {
         <!-- You can bind a dynamic value for text prop on <b-dropdown> and change it with the click event of <b-dropdown-item> -->
 
         <div class="flex items-center justify-center">
-            <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
+            <b-dropdown id="dropdown-2" :text="this.yearDisplayString" variant="primary" class="m-md-2">
                 <b-dropdown-item href="#" @click="updateYear($event)">2018</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
@@ -340,7 +340,7 @@ export default {
                 <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
             </b-dropdown>
 
-            <b-dropdown v-show="shouldDisplayWeekButton" id="dropdown-2" :text="this.weekDisplayString" variant="primary" class="m-md-2">
+            <b-dropdown v-show="shouldDisplayWeekButton" id="dropdown-3" :text="this.weekDisplayString" variant="primary" class="m-md-2">
                 <!-- <b-dropdown-item href="#" @click="updateWeek($event)">1</b-dropdown-item> -->
                 <component :is="`b-dropdown-item`" href="#" @click="updateWeek($event)" v-for="(option, index) in weekOptions" :key="index">{{ option.value }}</component>
             </b-dropdown>
