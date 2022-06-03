@@ -172,7 +172,7 @@ export default {
       }
 
       {
-          console.log(github_base_url + "distinct_historical/" + this.year + "_" + this.week + ".json")
+        //   console.log(github_base_url + "distinct_historical/" + this.year + "_" + this.week + ".json")
         const res = await fetch(
             github_base_url + "distinct_historical/" + encodeURIComponent(this.year + "_" + this.week) + ".json"
         )
@@ -236,7 +236,7 @@ export default {
             }
 
             this.barChartData.series = arr
-            console.log(this.barChartData.series)
+            // console.log(this.barChartData.series)
             this.barRef = Highcharts.chart('barChart', this.barChartData);
         }
     },

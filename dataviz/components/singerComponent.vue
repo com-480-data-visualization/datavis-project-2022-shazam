@@ -280,7 +280,7 @@ export default {
         )
         this.singerProfileData = await res.json()
 
-          console.log(JSON.stringify(this.singerProfileData, null, 2))
+        //   console.log(JSON.stringify(this.singerProfileData, null, 2))
       }
 
       this.processAudioFeature()

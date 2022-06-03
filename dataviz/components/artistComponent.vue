@@ -32,7 +32,7 @@ export default {
 
     <div class="container grid grid-cols-3 mt-6">
         <div></div>
-        <p class="text-white">{{ this.text }}</p>
+            <p class="text-white">{{ this.text }}</p>
         <div></div>
     </div>
     
