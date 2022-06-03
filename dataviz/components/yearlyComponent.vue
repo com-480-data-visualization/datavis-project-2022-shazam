@@ -95,7 +95,6 @@ let _barChartData = {
     //     }
     // },
     xAxis: {
-        categories: ['', '', '', '', ''],
         title: {
             text: "Ranking",
             style: {
@@ -185,7 +184,6 @@ let _barChartSongsData = {
         }
     },
     xAxis: {
-        categories: ['', '', '', '', ''],
         title: {
             text: "Ranking",
             style: {

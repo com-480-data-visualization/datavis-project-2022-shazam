@@ -52,6 +52,7 @@ let _barChartData = {
     chart: {
         type: 'bar',
         backgroundColor: 'transparent',
+        height: '1000px',
     },
     title: {
         text: 'Top singers since 2018 Week 1',
@@ -61,21 +62,14 @@ let _barChartData = {
         }
     },
     subtitle: {
-        text: 'By total number of songs accumulated on billboard',
+        text: 'Total number of distinct songs',
         style: {
             color: 'white',
             fontWeight: 'normal'
         }
     },
     xAxis: {
-        categories: ['', '', '', '', ''],
-        title: {
-            text: "Ranking",
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        }
+        categories: ['Singers'],
     },
     yAxis: {
         min: 0,
@@ -100,8 +94,13 @@ let _barChartData = {
                 enabled: true,
                 inside: true,
                 align: 'right',
-                formatter: function() {return 'Singer' + this.x + ': ' + this.y},
-            }
+                formatter: function () {
+                    console.table(this.point);
+
+                    return this.series.name + ": " + this.point.y;
+                }
+            },
+            groupPadding: 0,
         }
     },
     // legend: {
@@ -117,28 +116,10 @@ let _barChartData = {
     credits: {
         enabled: false
     },
-    series: [{
-        name: 'Singer A',
-        data: [20]
-    }, {
-        name: 'Singer B',
-        data: [19]
-    }, {
-        name: 'Singer C',
-        data: [10]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }]
+    series: []
 }
 
-const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/weekly/"
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
 
 export default {
   name: 'WeeklyTimeline',
@@ -149,6 +130,7 @@ export default {
       week: -1,
 
       weeklySingerData: null,
+      historicalDistinctTracksPerSingerData: null,
 
       weekOptions: [],
 
@@ -165,39 +147,68 @@ export default {
 
   methods: {
     async fetchData() {
-      this.singerData = null
+      this.weeklySingerData = null
+      this.historicalDistinctTracksPerSingerData = null
 
-    console.log(github_base_url + this.year + "_" + this.week + ".json")
-      const res = await fetch(
-        github_base_url + encodeURIComponent(this.year + "_" + this.week) + ".json"
-      )
-      this.weeklySingerData = await res.json()
+      {
+          const res = await fetch(
+            github_base_url + "weekly/" + encodeURIComponent(this.year + "_" + this.week) + ".json"
+        )
+        this.weeklySingerData = await res.json()
+      }
+
+      {
+          console.log(github_base_url + "distinct_historical/" + this.year + "_" + this.week + ".json")
+        const res = await fetch(
+            github_base_url + "distinct_historical/" + encodeURIComponent(this.year + "_" + this.week) + ".json"
+        )
+        this.historicalDistinctTracksPerSingerData = await res.json()
+      }
 
         // console.log(JSON.stringify(this.weeklySingerData, null, 2))
       this.processData()
     },
     processData() {
-        /*
         {
-            name: "Lady Gaga",
-            value: 1000
-        }
-        */
-        var arr = []
-        this.weeklySingerData.forEach(function(value) {
-            arr.push({
-                name: value.name,
-                value: value.count * 100,
-                orig: value.count,
+            var arr = []
+            this.weeklySingerData.forEach(function(value) {
+                arr.push({
+                    name: value.name,
+                    value: value.count * 100,
+                    orig: value.count,
+                })
             })
-        })
 
-        this.bubbleChartData.series = [{
-            name: 'Singers',
-            data: arr,
-        }]
-        console.log(this.bubbleChartData.series)
-        this.bubbleRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
+            this.bubbleChartData.series = [{
+                name: 'Singers',
+                data: arr,
+            }]
+            // console.log(this.bubbleChartData.series)
+            this.bubbleRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
+        }
+
+        {
+            var arr = []
+            this.historicalDistinctTracksPerSingerData.forEach(function(value) {
+                arr.push({
+                    name: value.name,
+                    text: value.name,
+                    data: [value.count],
+                })
+            })
+
+            if (arr.length > 100) {
+                arr = arr.filter(value => value.data[0] > 1)
+            }
+
+            if (arr.length > 100) {
+                arr = arr.filter(value => value.data[0] > 2)
+            }
+
+            this.barChartData.series = arr
+            console.log(this.barChartData.series)
+            this.barRef = Highcharts.chart('barChart', this.barChartData);
+        }
     },
     updateShouldDisplay() {
       if(this.year !== -1 && this.week !== -1) {
@@ -223,6 +234,10 @@ export default {
           for(var i = 1; i <= 14; i++) {
               this.weekOptions.push({ value: i, element: "href=\"#\" @click=\"updateYear($event)\""})
           }
+      }
+
+      if(this.year == 2018 && this.week == 1) {
+          this.week = 2
       }
 
       this.updateShouldDisplay()
