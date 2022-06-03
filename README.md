@@ -128,4 +128,6 @@ The data in use will be stored on Github course project repo, using Vue.js to fe
 
 ## Milestone 3 
 
-**80% of the final grade**
+* Website: 
+* Final Report: (https://github.com/com-480-data-visualization/datavis-project-2022-shazam/blob/main/Dataviz%20Report%20Shazam.pdf)
+* Screencast: 
