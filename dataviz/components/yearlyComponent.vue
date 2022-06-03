@@ -1,4 +1,147 @@
 <script>
+let _barChartData = {
+    chart: {
+        type: 'bar',
+        backgroundColor: 'transparent',
+        height: '100%',
+    },
+    title: {
+        text: 'This is the leaderboard that shows the singer with the most distinct songs that made it to Billboard',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    subtitle: {
+        text: 'Only singers with >= 10 songs are displayed',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    xAxis: {
+        categories: ['Singers'],
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total tracks',
+            align: 'high',
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' tracks'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+                inside: true,
+                align: 'right',
+                formatter: function () {
+                    // console.table(this.point);
+                    return this.series.name + ": " + this.point.y;
+                }
+            },
+            groupPadding: 0,
+        }
+    },
+    legend:{ enabled:false },
+    // legend: {
+    //     layout: 'vertical',
+    //     align: 'right',
+    //     verticalAlign: 'top',
+    //     x: -40,
+    //     y: 80,
+    //     floating: true,
+    //     borderWidth: 1,
+    //     shadow: true
+    // },
+    credits: {
+        enabled: false
+    },
+    series: []
+}
+
+let _barChartSongsData = {
+    chart: {
+        type: 'bar',
+        backgroundColor: 'transparent',
+        height: '100%',
+    },
+    title: {
+        text: 'Leaderboard of the the time songs stayed on the board',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    subtitle: {
+        text: 'Only songs with total number of weeks >= 10 is displayed',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    xAxis: {
+        categories: ['Tracks'],
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Total weeks',
+            align: 'high',
+            style: {
+                color: 'white',
+                fontWeight: 'normal'
+            }
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' tracks'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+                inside: true,
+                align: 'right',
+                formatter: function () {
+                    // console.table(this.point);
+                    // console.table(this.series);
+                    return this.series.name + ": " + this.point.y;
+                }
+            },
+            groupPadding: 0,
+        }
+    },
+    legend:{ enabled:false },
+    // legend: {
+    //     layout: 'vertical',
+    //     align: 'right',
+    //     verticalAlign: 'top',
+    //     x: -40,
+    //     y: 80,
+    //     floating: true,
+    //     borderWidth: 1,
+    //     shadow: true
+    // },
+    credits: {
+        enabled: false
+    },
+    series: []
+}
+
 const _radarChartData = {
     chart: {
         polar: true,
@@ -9,7 +152,14 @@ const _radarChartData = {
         enabled: false
     },
     title: {
-        text: 'Audio features',
+        text: 'Average of all Songs\' Audio Features',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
+    subtitle: {
+        text: 'All songs',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -28,22 +178,22 @@ const _radarChartData = {
                 let label;
                 switch (this.value) {
                 case 0:
-                    label = 'A';
+                    label = 'Acousticness';
                     break;
                 case 1:
-                    label = 'B';
+                    label = 'Danceability';
                     break;
                 case 2:
-                    label = 'C';
+                    label = 'Energy';
                     break;
                 case 3:
-                    label = 'D';
+                    label = 'Liveness';
                     break;
                 case 4:
-                    label = 'E';
+                    label = 'Speechiness';
                     break;
                 case 5:
-                    label = 'F';
+                    label = 'Valence';
                     break;
                 }
                 
@@ -64,193 +214,7 @@ const _radarChartData = {
             groupPadding: 0
         }
     },
-    series: [{
-        type: 'area',
-        name: 'Feature 1',
-        data: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
-    }, {
-        type: 'area',
-        name: 'Feature 2',
-        data: [0.93, 0.5, 0.3, 0.5, 0.4, 0.848]
-    }]
-}
-
-let _barChartData = {
-    chart: {
-        type: 'bar',
-        backgroundColor: 'transparent',
-    },
-    title: {
-        text: 'Top 20 Singers',
-        style: {
-            color: 'white',
-            fontWeight: 'normal'
-        }
-    },
-    // subtitle: {
-    //     text: 'This is the leader board that shows the accumulated ranking of top singers',
-    //     style: {
-    //         color: 'white',
-    //         fontWeight: 'normal'
-    //     }
-    // },
-    xAxis: {
-        title: {
-            text: "Ranking",
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Total tracks',
-            align: 'high',
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' tracks'
-    },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true,
-                inside: true,
-                align: 'right',
-                formatter: function() {return 'Singer' + this.x + ': ' + this.y},
-            }
-        }
-    },
-    // legend: {
-    //     layout: 'vertical',
-    //     align: 'right',
-    //     verticalAlign: 'top',
-    //     x: -40,
-    //     y: 80,
-    //     floating: true,
-    //     borderWidth: 1,
-    //     shadow: true
-    // },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Singer A',
-        data: [20]
-    }, {
-        name: 'Singer B',
-        data: [19]
-    }, {
-        name: 'Singer C',
-        data: [10]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }]
-}
-
-let _barChartSongsData = {
-    chart: {
-        type: 'bar',
-        backgroundColor: 'transparent',
-    },
-    title: {
-        text: 'Top 20 Songs',
-        style: {
-            color: 'white',
-            fontWeight: 'normal'
-        }
-    },
-    subtitle: {
-        text: 'This is the leader board that shows the accumulated ranking of top songs',
-        style: {
-            color: 'white',
-            fontWeight: 'normal'
-        }
-    },
-    xAxis: {
-        title: {
-            text: "Ranking",
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Total tracks',
-            align: 'high',
-            style: {
-                color: 'white',
-                fontWeight: 'normal'
-            }
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' tracks'
-    },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true,
-                inside: true,
-                align: 'right',
-                formatter: function() {return 'Singer' + this.x + ': ' + this.y},
-            }
-        }
-    },
-    // legend: {
-    //     layout: 'vertical',
-    //     align: 'right',
-    //     verticalAlign: 'top',
-    //     x: -40,
-    //     y: 80,
-    //     floating: true,
-    //     borderWidth: 1,
-    //     shadow: true
-    // },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Singer A',
-        data: [20]
-    }, {
-        name: 'Singer B',
-        data: [19]
-    }, {
-        name: 'Singer C',
-        data: [10]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }, {
-        name: 'Singer D',
-        data: [1]
-    }]
+    series: []
 }
 
 const _splineData = {
@@ -342,6 +306,8 @@ const _splineData = {
     ]
 }
 
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/"
+
 export default {
   name: 'Yearly',
 
@@ -361,10 +327,141 @@ export default {
 
       splineRef: null,
       splineChartData: _splineData,
+
+      yearlyTopSingers: null,
+      yearlyTopTracks: null,
+      yearlyAudioFeatures: null,
     }
   },
 
   methods: {
+    async fetchData() {
+      this.yearlyTopSingers = null
+      this.yearlyTopTracks = null
+
+      {
+          const res = await fetch(
+            github_base_url + "singers/distinct_historical/" + encodeURIComponent(this.year) + ".json"
+        )
+        this.yearlyTopSingers = await res.json()
+        // console.log(JSON.stringify(this.yearlyTopSingers, null, 2))
+      }
+
+      {
+        const res = await fetch(
+            github_base_url + "tracks/historical/" + encodeURIComponent(this.year) + "_weeks.json"
+        )
+        this.yearlyTopTracks = await res.json()
+        // console.log(JSON.stringify(this.yearlyTopTracks, null, 2))
+      }
+
+      {
+        const res = await fetch(
+            github_base_url + "tracks/historical/" + encodeURIComponent(this.year) + "_audio_features.json"
+        )
+        this.yearlyAudioFeatures = await res.json()
+        // console.log(JSON.stringify(this.yearlyAudioFeatures, null, 2))
+      }
+
+      this.processData()
+      this.processAudioFeature()
+    },
+    processAudioFeature() {
+       var avg = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+       var cnt = 0
+       var splineData = []
+       this.yearlyAudioFeatures.forEach(track => {
+           // radar
+            avg[0] += track.audioFeatures.acousticness
+            avg[1] += track.audioFeatures.danceability
+            avg[2] += track.audioFeatures.energy
+            avg[3] += track.audioFeatures.liveness
+            avg[4] += track.audioFeatures.speechiness
+            avg[5] += track.audioFeatures.valence
+            cnt += 1
+
+            // spline
+            splineData.push({
+                name: track.title,
+                shadow: false,
+                data: [
+                    track.audioFeatures.acousticness,
+                    track.audioFeatures.danceability,
+                    track.audioFeatures.energy,
+                    track.audioFeatures.instrumentalness,
+                    track.audioFeatures.key, 
+                    track.audioFeatures.liveness,
+                    track.audioFeatures.loudness,
+                    track.audioFeatures.speechiness,
+                    track.audioFeatures.valence,
+                    track.audioFeatures.tempo,
+                    track.audioFeatures.duration_ms / 1000.0,
+                    track.audioFeatures.time_signature,
+                ]
+            })
+       });
+
+       avg = avg.map(value => {
+           return value / cnt
+       })
+        this.radarChartData.series = [{
+            type: 'area',
+            name: "All songs average",
+            data: avg,
+        }]
+        this.radarRef = Highcharts.chart('radarChart', this.radarChartData);
+
+        // console.log(splineData)
+
+        // performance - trim some data
+        const maxTracks = 50
+        if(splineData.length > maxTracks) {
+            var ratio = 1.0 * maxTracks / splineData.length
+            splineData = splineData.filter(
+                value => Math.random() <= ratio
+            )
+        }
+        this.splineChartData.series = splineData
+        this.splineRef = Highcharts.chart('splinePlot', this.splineChartData);
+    },
+    processData() {
+        {
+            var arr = []
+            this.yearlyTopSingers.forEach(function(value) {
+                arr.push({
+                    name: value.name,
+                    text: value.name,
+                    data: [value.count],
+                })
+            })
+
+            arr = arr.filter(
+                value => value.data[0] > 10
+            )
+
+            this.barChartData.series = arr
+            // console.log(this.barChartData.series)
+            this.barRef = Highcharts.chart('barChart', this.barChartData);
+        }
+
+        {
+            var arr = []
+            this.yearlyTopTracks.forEach(function(value) {
+                arr.push({
+                    name: value.name + "(" + value.singer + ")",
+                    data: [value.count],
+                })
+            })
+
+            arr = arr.filter(
+                value => value.data[0] > 10
+            )
+
+            this.barChartSongsData.series = arr
+            // console.log(this.barChartSongsData.series)
+            this.barRef = Highcharts.chart('barChartSongs', this.barChartSongsData);
+        }
+    },
     updateShouldDisplay() {
       if(this.year !== -1) {
           this.shouldDisplay += 1
@@ -390,13 +487,14 @@ export default {
       shouldDisplay() {
           // refresh the page according to the year and week number
           console.log("Updating the page")
+          this.fetchData()
       }
   },
 
   mounted() {
-    this.radarRef = Highcharts.chart('barChart', this.barChartData);
-    this.radarRef = Highcharts.chart('barChartSongs', this.barChartData);
-    this.scatterRef = Highcharts.chart('radarChart', this.radarChartData);
+    this.barRef = Highcharts.chart('barChart', this.barChartData);
+    this.barSongsRef = Highcharts.chart('barChartSongs', this.barChartData);
+    this.radarRef = Highcharts.chart('radarChart', this.radarChartData);
     this.splineRef = Highcharts.chart('splinePlot', this.splineChartData);
   },
 }
@@ -428,7 +526,7 @@ export default {
     
     <!-- horizontal bar chart (singers/distinct_historical) -->
     <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
-        <div class="flex items-center justify-center">
+        <div class="container items-center justify-center">
             <div id="barChart"></div>
         </div>
         

@@ -353,7 +353,7 @@ export default {
         // console.log(splineData)
 
         // performance - trim some data
-        const maxTracks = 50
+        const maxTracks = 200
         if(splineData.length > maxTracks) {
             var ratio = 1.0 * maxTracks / splineData.length
             splineData = splineData.filter(

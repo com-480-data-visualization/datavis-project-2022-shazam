@@ -296,7 +296,7 @@ export default {
   watch: {
       shouldDisplayAllComponents() {
           // refresh the page according to the year and week number
-          console.log("Updating the page")
+        //   console.log("Updating the page")
           this.fetchData()
       }
   },
