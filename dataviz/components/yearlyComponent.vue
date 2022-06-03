@@ -573,7 +573,7 @@ export default {
             </h3>
 
             <p class="text-xl text-gray-400 flex-grow text-left">
-                What are the keywords in the lyrics of the top songs of the year? The size of the word is promotional to the number of times they appear.
+                What are the keywords in the lyrics of the top songs of the year? The size of the word is proportional to the number of times they appear.
             </p>
         </div>
     </div>
