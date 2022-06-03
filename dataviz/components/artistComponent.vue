@@ -91,8 +91,8 @@ export default {
             <div></div>
         </div>
 
-        <div class="bg-gray-900 container">
-            <div class="relative shadow-md sm:rounded-lg">
+        <div class="bg-gray-900 container justify-center">
+            <div class="container justify-center shadow-md sm:rounded-lg">
             <template v-for="singer in tableData">
                 
                 <NuxtLink :to="`/singer/${encodeURIComponent(singer)}`">
@@ -103,8 +103,8 @@ export default {
                 
             </template>
             
+            </div>
         </div>
-    </div>
     
 </div>
 
