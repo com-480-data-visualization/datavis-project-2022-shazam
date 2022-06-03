@@ -18,6 +18,7 @@ import os
 import json
 import lyricsgenius
 from dataclasses_json import dataclass_json
+import time
 
 # authenticate
 auth_manager = SpotifyClientCredentials()
@@ -269,3 +270,56 @@ def generateAudioFeaturesPerYear(data: "dict[int, dict[int, dict[int, dict[str, 
             outfile.write(json_string)
             
 generateAudioFeaturesPerYear(data=trend_data_billboard, cutoff=100)
+
+# authenticate
+auth_manager = SpotifyClientCredentials()
+sp = spotipy.Spotify(auth_manager=auth_manager)
+pp = pprint.PrettyPrinter(indent=4)
+genius = lyricsgenius.Genius()
+
+def search_for_artist(name: str) -> customdatatypes.Singer:
+    results = sp.search(q='artist:' + name, type='artist')
+    # pp.pprint(results)
+
+    items = results['artists']['items']
+    if len(items) > 0:
+        artist = items[0]
+        url = None
+        if 'spotify' in artist['external_urls']:
+            url = artist['external_urls']['spotify']
+        image = None
+        if len(artist['images']) > 0:
+            image = artist['images'][0]['url']
+        print(f"{url}, {artist['followers']['total']} {artist['genres']} {image} {artist['popularity']} {artist['name']}, {artist['id']}, {artist['uri']}")
+        
+        data = {
+            'singer': name,
+            'spotifyURL': url, 
+            'image': image,
+            'followers': artist['followers']['total'],
+            'genres': artist['genres'],
+            'popularity': artist['popularity'],
+        }
+
+        #return customdatatypes.Singer(name=artist['name'], id=artist['id'], link=artist['uri'])
+
+        json_string = json.dumps(data)
+        os.system(f"mkdir -p data/singers/info")
+        with open(f'data/singers/info/{name}.json', 'w') as outfile:
+            outfile.write(json_string)
+
+        time.sleep(1)
+        return True
+
+    return False
+
+failed = []
+distinctSingers = ["Bruno Mars"]
+for singer in distinctSingers:
+    try:
+        if search_for_artist(singer) == False:
+            failed.append(singer)
+    except:
+        failed.append(singer)
+print(json.dumps(failed))
+# search_for_artist("Taylor Swift")
