@@ -371,7 +371,7 @@ export default {
   mounted() {
     this.singerName = this.$route.params['singer'] || "Taylor Swift"
     console.log(this.singerName)
-    this.singerWordCloudPath = "~/assets/" + this.singerName,
+    this.singerWordCloudPath = "~/assets/" + this.singerName + ".png",
 
     this.fetchData()
 
