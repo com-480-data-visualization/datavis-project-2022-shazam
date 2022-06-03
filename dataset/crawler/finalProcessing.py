@@ -260,7 +260,8 @@ def generateAudioFeaturesPerYear(data: "dict[int, dict[int, dict[int, dict[str, 
         for w in data[y]:
             for i in data[y][w]:
                 if i < cutoff:
-                    tracks.append(data[y][w][i])
+                    if 'audioFeatures' in data[y][w][i]:
+                        tracks.append(data[y][w][i])
         
         json_string = json.dumps(tracks)
         os.system(f"mkdir -p data/tracks/historical")
