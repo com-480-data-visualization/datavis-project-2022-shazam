@@ -44,14 +44,19 @@ const _bubbleChartData = {
                 }
             }
         },
-        series: {
-            allowPointSelect: true,
-            events: {
-                click: function(event) {
-                    console.log(event.point.name)
-                }
-            }
-        }
+        // series: {
+        //     allowPointSelect: true,
+        //     events: {
+        //         click: function(event) {
+        //             // console.log(event.point.name)
+        //             // <nuxt-link to="/singer">
+        //             //     <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
+        //             // </nuxt-link>
+
+        //             this.$router.push({ name: 'singer', params: { singerName: event.point.name } })
+        //         }
+        //     }
+        // }
     },
     series: []
 }
@@ -128,6 +133,8 @@ let _barChartData = {
 
 const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
 
+var globalRouter = null
+
 export default {
   name: 'WeeklyTimeline',
 
@@ -190,6 +197,22 @@ export default {
                 name: 'Singers',
                 data: arr,
             }]
+
+            globalRouter = this.$router
+            this.bubbleChartData.plotOptions.series = {
+                allowPointSelect: true,
+                events: {
+                    click: function(event) {
+                        // console.log(event.point.name)
+                        // console.log(globalRouter)
+                        // <nuxt-link to="/singer">
+                        //     <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
+                        // </nuxt-link>
+
+                        globalRouter.push({ path: `/singer/${event.point.name}` })
+                    }
+                }
+            }
             // console.log(this.bubbleChartData.series)
             this.bubbleRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
         }
@@ -336,19 +359,6 @@ export default {
         <div></div>
         <div class="flex items-center justify-center">
             <div id="barChart"></div>
-        </div>
-        <div></div>
-    </div>
-
-    <!-- TMP -->
-    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
-        <div></div>
-        <div class="flex items-center justify-center">
-            <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
-                <NuxtLink to="/singer">
-                    <button class="border border-gray-600 bg-gray-800 text-white font-medium text-lg focus:outline-none hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700 rounded-full px-5 py-2.5 mr-2 mb-2">To Singer</button>
-                </NuxtLink>
-            </div>
         </div>
         <div></div>
     </div>

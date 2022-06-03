@@ -263,7 +263,7 @@ export default {
 
   data() {
     return {
-      singerName: "Taylor Swift",
+      singerName: "Taylor Swift", // DEFAULT
 
       singerData: null, // raw JSON data
 
@@ -375,6 +375,9 @@ export default {
   },
 
   mounted() {
+    console.log(this.$route.params['singer'])
+    this.singerName = this.$route.params['singer'] || "Taylor Swift"
+
     this.fetchData()
 
     this.radarRef = Highcharts.chart('radarPlot', this.radarChartData);
