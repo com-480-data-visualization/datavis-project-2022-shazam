@@ -331,6 +331,8 @@ export default {
       yearlyTopSingers: null,
       yearlyTopTracks: null,
       yearlyAudioFeatures: null,
+
+      singerWordCloudPath: github_base_url + "wordcloud/wordcloud.svg",
     }
   },
 
@@ -471,6 +473,8 @@ export default {
       this.year = e.path[0].innerHTML
     //   console.log(this.year)
 
+      this.singerWordCloudPath = github_base_url + "wordcloud/" + this.year + ".png",
+
       this.updateShouldDisplay()
     },
   },
@@ -559,7 +563,7 @@ export default {
     <!-- word cloud -->
     <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-2 place-content-center m-6">
         <div class="flex items-center justify-center">
-            <img src="~/assets/wordcloud.svg" alt="Wordcloud" class="h-80 flex-no-shrink fill-current"/>
+            <img v-bind:src="this.singerWordCloudPath" alt="Word cloud" class="flex-no-shrink fill-current"/>
         </div>
 
          <div class="container self-center">

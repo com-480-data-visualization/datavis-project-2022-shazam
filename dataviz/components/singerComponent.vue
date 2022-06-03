@@ -237,7 +237,7 @@ const _splineData = {
     series: []
 }
 
-const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/"
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/"
 
 export default {
   name: 'Singer',
@@ -248,7 +248,7 @@ export default {
 
       singerDiscographyData: null, // raw JSON data
       singerProfileData: {image: "https://picsum.photos/200"}, // raw singer info
-      singerWordCloudPath: "~/assets/wordcloud.svg",
+      singerWordCloudPath: github_base_url + "wordcloud/wordcloud.svg",
 
       radarRef: null,
       radarChartData: _radarChartData,
@@ -267,7 +267,7 @@ export default {
 
       {
         const res = await fetch(
-            github_base_url + encodeURIComponent(this.singerName) + ".json"
+            github_base_url + "/singers/" + encodeURIComponent(this.singerName) + ".json"
         )
         this.singerDiscographyData = await res.json()
 
@@ -276,7 +276,7 @@ export default {
 
       {
         const res = await fetch(
-            github_base_url + "info/" + encodeURIComponent(this.singerName) + ".json"
+            github_base_url + "/singers/info/" + encodeURIComponent(this.singerName) + ".json"
         )
         this.singerProfileData = await res.json()
 
@@ -371,7 +371,7 @@ export default {
   mounted() {
     this.singerName = this.$route.params['singer'] || "Taylor Swift"
     console.log(this.singerName)
-    this.singerWordCloudPath = "~/assets/" + this.singerName + ".png",
+    this.singerWordCloudPath = github_base_url + "wordcloud/" + encodeURIComponent(this.singerName) + ".png"
 
     this.fetchData()
 
@@ -445,7 +445,7 @@ export default {
     <!-- word cloud -->
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <img v-bind:src="this.singerWordCloudPath" alt="Word cloud" class="h-80 flex-no-shrink fill-current"/>
+            <img v-bind:src="this.singerWordCloudPath" alt="Word cloud" class="flex-no-shrink fill-current"/>
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
