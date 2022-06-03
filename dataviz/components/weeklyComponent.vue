@@ -235,9 +235,7 @@ export default {
                 arr = arr.filter(value => value.data[0] > 2)
             }
 
-            this.barChartData.series = {
-                data: arr,
-            }
+            this.barChartData.series = arr
             console.log(this.barChartData.series)
             this.barRef = Highcharts.chart('barChart', this.barChartData);
         }
