@@ -19,21 +19,7 @@ export default {
       }
         this.processData(this.all_singers)
     }, processData(singers) {      
-        this.tableData = []  
-        var cached = []
-        var row = []
-        for(var i = 0; i < singers.length; i++) {
-            if(i != 0 && i % 10 == 0) {
-                cached.push(row)
-                row = []
-            }
-            row.push(singers[i])
-        }
-        cached.push(row)
-
-        // console.log(cached)
-
-        this.tableData = cached
+        this.tableData = singers  
     }, refresh() {
             var ret = []
           if(this.text.length > 0) {
@@ -81,7 +67,7 @@ export default {
 
 <template>
 
-    <div class="bg-gray-900 container min-h-screen">
+    <div class="bg-gray-900 container">
         <div class="container grid grid-cols-3 mt-6">
             <div></div>
             <div>
@@ -105,54 +91,18 @@ export default {
             <div></div>
         </div>
 
-        <div class="bg-gray-900 container min-h-screen">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full table-fixed text-sm text-center text-gray-400">
-                <!-- <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Product name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
-                        </th>
-                    </tr>
-                </thead> -->
-                <tbody>
-                    <!-- <component :is="`b-dropdown-item`" href="#" @click="updateWeek($event)" v-for="(option, index) in weekOptions" :key="index">{{ option.value }}</component> -->
-                    <template v-for="singers in tableData">
-                        <tr class="border-b bg-gray-800 border-gray-700">
-                            <!-- {{ singers }} -->
-                            <template v-for="singer in singers">
-                                <td class="px-2 py-2">
-                                    {{ singer }}
-                                </td>
-                            </template>
-                        </tr>
-                    </template>
-
-                    <!-- <tr class="border-b bg-gray-800 border-gray-700">
-                        <td scope="row" class="px-6 py-4">
-                            Apple MacBook Pro 17"
-                        </td>
-                        <td class="px-6 py-4">
-                            Sliver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr> -->
-                </tbody>
-            </table>
+        <div class="bg-gray-900 container">
+            <div class="relative shadow-md sm:rounded-lg">
+            <template v-for="singer in tableData">
+                
+                <NuxtLink :to="`/singer/${encodeURIComponent(singer)}`">
+                    <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded bg-blue-200 text-blue-800">
+                        {{ singer }}
+                    </span>
+                </NuxtLink>
+                
+            </template>
+            
         </div>
     </div>
     
