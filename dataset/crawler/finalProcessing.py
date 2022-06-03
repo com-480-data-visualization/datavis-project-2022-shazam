@@ -178,8 +178,8 @@ generateBarChartAccumulatedSingerHistoryDataPerWeek(data=trend_data_billboard, c
 
 # calculates accumulated for all singers, total distinct tracks, per year
 def generateBarChartAccumulatedSingerHistoryDataPerYear(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
-    tracks = {} # singer -> {track name: 1}
     for y in data:
+        tracks = {} # singer -> {track name: 1}
         for w in data[y]:
             for i in data[y][w]:
                 if i < cutoff:
@@ -219,8 +219,8 @@ generateBarChartAccumulatedSingerHistoryDataPerYear(data=trend_data_billboard, c
 
 # calculates the weeks that the songs stayed on the board
 def generateBarChartAccumulatedSongsHistoryDataPerYear(data: "dict[int, dict[int, dict[int, dict[str, str]]]]", cutoff: int) -> "list[str]":
-    tracks = {} # track -> singer, count
     for y in data:
+        tracks = {} # track -> singer, count
         for w in data[y]:
             for i in data[y][w]:
                 if i < cutoff:
