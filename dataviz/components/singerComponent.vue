@@ -449,10 +449,10 @@ export default {
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
-                Top singers favirote words
+                Top singer's favourite words
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                Let’s have a look on the singer’s favorite words! The larger the font size of a word is, the more times it appears in the lyrics
+                Let's have a look at the singer's favourite words! The larger the font size of a word is, the more times it appears in the lyrics.
             </p>
         </div>
     </div>
@@ -463,7 +463,7 @@ export default {
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-right">
                 The audio feature of the discography
             </h3>
-            <p class="text-xl text-gray-400 flex-grow text-right">Here, the artist’s musical characteristics are revealed! we computed the average value of all songs from the singer. </p>
+            <p class="text-xl text-gray-400 flex-grow text-right">Here, the artist's musical characteristics are revealed! </p>
             <br>
             <p class="text-sm text-gray-400 flex-grow text-right">Acousticness: confidence measures whether the songs have acoustic instruments</p>
             <p class="text-sm text-gray-400 flex-grow text-right">Danceability: how suitable the songs are for dancing</p>
@@ -487,7 +487,7 @@ export default {
                 The key and pace
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-left">
-                Does the singer prefers fast tempo? In which key are songs usually composed? What are the relationships between these two audio features? Check this scatter plot to have an insight!
+                Does the singer prefer a fast tempo? In which key are songs usually composed? What are the relationships between these two audio features? Check this scatter plot to have an insight!
             </p>
         </div>
     </div>
@@ -522,7 +522,7 @@ export default {
                 The evolution of the singer's style
             </h3>
             <p class="text-xl text-gray-400 flex-grow text-right">
-                People changes style from time to time, so does your favorite singer
+                People change their style from time to time so does your favourite singer.
             </p>
         </div>
         <div class="flex items-center justify-center">

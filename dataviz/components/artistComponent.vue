@@ -36,7 +36,7 @@ export default {
         var ret = []
           if(this.text.length > 0) {
                ret = this.all_singers.filter(value => {
-                   console.log(value, this.text, value.includes(this.text))
+                //    console.log(value, this.text, value.includes(this.text))
                    return value.toLowerCase().includes(this.text.toLowerCase())
                })
           } else {
