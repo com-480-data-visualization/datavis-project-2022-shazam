@@ -171,6 +171,8 @@ let _barChartData = {
     }]
 }
 
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/qq/108/"
+
 export default {
   name: 'WeeklyTimeline',
 
@@ -178,7 +180,13 @@ export default {
     return {
       year: -1,
       week: -1,
-      shouldDisplay: 0,
+
+      weekData: null,
+
+      weekOptions: [],
+
+      shouldDisplayAllComponents: 0,
+      shouldDisplayWeekButton: false,
 
       bubbleRef: null,
       bubbleChartData: _bubbleChartData,
@@ -189,14 +197,42 @@ export default {
   },
 
   methods: {
+    async fetchData() {
+      this.singerData = null
+
+    console.log(github_base_url + this.year + "_" + this.week + ".json")
+      const res = await fetch(
+        github_base_url + encodeURIComponent(this.year + "_" + this.week) + ".json"
+      )
+      this.weekData = await res.json()
+
+      console.log(JSON.stringify(this.weekData, null, 2))
+    },
     updateShouldDisplay() {
       if(this.year !== -1 && this.week !== -1) {
-          this.shouldDisplay += 1
+          this.shouldDisplayAllComponents += 1
       }
     },
     updateYear(e) {
       this.year = e.path[0].innerHTML
     //   console.log(this.year)
+
+      this.shouldDisplayWeekButton = true
+
+      this.weekOptions = []
+      if(this.year == 2018) {
+          for(var i = 2; i <= 52; i++) {
+              this.weekOptions.push({ value: i, element: "href=\"#\" @click=\"updateYear($event)\""})
+          }
+      } else if(2019 <= this.year && this.year <= 2021) {
+          for(var i = 1; i <= 52; i++) {
+              this.weekOptions.push({ value: i, element: "href=\"#\" @click=\"updateYear($event)\""})
+          }
+      } else { // 2022
+          for(var i = 1; i <= 14; i++) {
+              this.weekOptions.push({ value: i, element: "href=\"#\" @click=\"updateYear($event)\""})
+          }
+      }
 
       this.updateShouldDisplay()
     },
@@ -222,9 +258,10 @@ export default {
   },
 
   watch: {
-      shouldDisplay() {
+      shouldDisplayAllComponents() {
           // refresh the page according to the year and week number
           console.log("Updating the page")
+          this.fetchData()
       }
   },
 
@@ -235,19 +272,9 @@ export default {
 }
 </script>
 
-
-
-<!-- <style type="text/css">
-    #visualization {
-      width: 600px;
-      height: 400px;
-      border: 1px solid lightgray;
-    }
-</style> -->
-
 <template>
 
-<div class="container mx-auto min-h-screen">
+<div class="mx-auto min-h-screen">
 
     <!-- timeline scroller -->
     <!-- <div class="container mx-auto grid grid-cols-1 place-content-center mt-6">
@@ -262,22 +289,22 @@ export default {
 
         <div class="flex items-center justify-center">
             <b-dropdown id="dropdown-1" :text="this.yearDisplayString" variant="primary" class="m-md-2">
-                <b-dropdown-item href="#" @click="updateYear($event)" active>2018</b-dropdown-item>
+                <b-dropdown-item href="#" @click="updateYear($event)">2018</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2019</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2020</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2021</b-dropdown-item>
                 <b-dropdown-item href="#" @click="updateYear($event)">2022</b-dropdown-item>
             </b-dropdown>
-            <b-dropdown id="dropdown-1" :text="this.weekDisplayString" variant="primary" class="m-md-2">
-                <b-dropdown-item href="#" @click="updateWeek($event)" active>1</b-dropdown-item>
-                <b-dropdown-item href="#" @click="updateWeek($event)">2</b-dropdown-item>
-                <b-dropdown-item href="#" @click="updateWeek($event)">3</b-dropdown-item>
+
+            <b-dropdown v-show="shouldDisplayWeekButton" id="dropdown-2" :text="this.weekDisplayString" variant="primary" class="m-md-2">
+                <!-- <b-dropdown-item href="#" @click="updateWeek($event)">1</b-dropdown-item> -->
+                <component :is="`b-dropdown-item`" href="#" @click="updateWeek($event)" v-for="(option, index) in weekOptions" :key="index">{{ option.value }}</component>
             </b-dropdown>
         </div>
     </div>
     
     <!-- bubble -->
-    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <p class="text-xl text-gray-400 flex-grow text-center">Who are the most popular artists that have the most listened songs?</p>
         <p class="text-xl text-gray-400 flex-grow text-center">Here each bubble represent a singer whose songs figured in the top 20 of this week.</p>
         <p class="text-xl text-gray-400 flex-grow text-center">The larger the size of the bubble is, the more songs from this singer are hitting.</p>
@@ -289,7 +316,7 @@ export default {
     </div>
 
     <!-- leaderboard -->
-    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div id="barChart"></div>
@@ -298,7 +325,7 @@ export default {
     </div>
 
     <!-- TMP -->
-    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">
             <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg gap-4" role="group">
@@ -311,7 +338,7 @@ export default {
     </div>
 
     <!-- back button -->
-    <div v-show="shouldDisplay" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-3 place-content-center mt-6">
         <div></div>
         <div class="flex items-center justify-center">  
             <a href="" @click.prevent="$router.back()">      
