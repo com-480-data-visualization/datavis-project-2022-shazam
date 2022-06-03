@@ -248,6 +248,7 @@ export default {
 
       singerDiscographyData: null, // raw JSON data
       singerProfileData: {image: "https://picsum.photos/200"}, // raw singer info
+      singerWordCloudPath: "~/assets/wordcloud.svg",
 
       radarRef: null,
       radarChartData: _radarChartData,
@@ -370,6 +371,7 @@ export default {
   mounted() {
     this.singerName = this.$route.params['singer'] || "Taylor Swift"
     console.log(this.singerName)
+    this.singerWordCloudPath = "~/assets/" + this.singerName,
 
     this.fetchData()
 
@@ -443,7 +445,7 @@ export default {
     <!-- word cloud -->
     <div class="container mx-auto grid grid-cols-2 place-content-center mt-6">
         <div class="flex items-center justify-center">
-            <img src = "~/assets/wordcloud.svg" alt="Word cloud" class="h-80 flex-no-shrink fill-current"/>
+            <img v-bind:src="this.singerWordCloudPath" alt="Word cloud" class="h-80 flex-no-shrink fill-current"/>
         </div>
         <div class="container self-center">
             <h3 class="text-2xl lg:text-3xl font-bold leading-tight mb-2 text-gray-100 text-left">
