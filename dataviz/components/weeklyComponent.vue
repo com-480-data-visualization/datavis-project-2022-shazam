@@ -2,14 +2,14 @@
 const _bubbleChartData = {
     chart: {
         type: 'packedbubble',
-        height: '80%',
+        height: '100%',
         backgroundColor: 'transparent',
     },
     credits: {
         enabled: false
     },
     title: {
-        text: 'Top singers of the week',
+        text: 'Singers for the top 20 tracks of the week',
         style: {
             color: 'white',
             fontWeight: 'normal'
@@ -17,14 +17,14 @@ const _bubbleChartData = {
     },
     tooltip: {
         useHTML: true,
-        pointFormat: '<b>{point.name}:</b> {point.value}m CO<sub>2</sub>'
+        pointFormat: '<b>{point.name}:</b> {point.orig} tracks this week'
     },
     plotOptions: {
         packedbubble: {
-            minSize: '50%',
-            maxSize: '100%',
+            minSize: '20%',
+            maxSize: '120%',
             zMin: 0,
-            zMax: 1000,
+            zMax: 500,
             layoutAlgorithm: {
                 splitSeries: false,
                 gravitationalConstant: 0.02
@@ -32,11 +32,11 @@ const _bubbleChartData = {
             dataLabels: {
                 enabled: true,
                 format: '{point.name}',
-                filter: {
-                    property: 'y',
-                    operator: '>',
-                    value: 250
-                },
+                // filter: {
+                //     property: 'y',
+                //     operator: '>',
+                //     value: 0
+                // },
                 style: {
                     color: 'white',
                     textOutline: 'none',
@@ -45,40 +45,7 @@ const _bubbleChartData = {
             }
         }
     },
-    series: [{
-        name: 'Singers',
-        data: [{
-            name: 'Taylor Swift',
-            value: 500
-        }, {
-            name: 'Hello World!',
-            value: 100
-        }, {
-            name: 'Hello World!',
-            value: 1000
-        }, {
-            name: 'Hello World!',
-            value: 1000
-        }, {
-            name: 'Hello World!',
-            value: 1000
-        }, {
-            name: 'Hello World!',
-            value: 1000
-        }, {
-            name: "Lady Gaga",
-            value: 1000
-        }, {
-            name: "Lady Gaga",
-            value: 1000
-        }, {
-            name: "Lady Gaga",
-            value: 1000
-        }, {
-            name: "Lady Gaga",
-            value: 1000
-        }]
-    }]
+    series: []
 }
 
 let _barChartData = {
@@ -171,7 +138,7 @@ let _barChartData = {
     }]
 }
 
-const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/qq/108/"
+const github_base_url = "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-shazam/main/dataset/crawler/data/singers/weekly/"
 
 export default {
   name: 'WeeklyTimeline',
@@ -181,7 +148,7 @@ export default {
       year: -1,
       week: -1,
 
-      weekData: null,
+      weeklySingerData: null,
 
       weekOptions: [],
 
@@ -204,9 +171,33 @@ export default {
       const res = await fetch(
         github_base_url + encodeURIComponent(this.year + "_" + this.week) + ".json"
       )
-      this.weekData = await res.json()
+      this.weeklySingerData = await res.json()
 
-      console.log(JSON.stringify(this.weekData, null, 2))
+        // console.log(JSON.stringify(this.weeklySingerData, null, 2))
+      this.processData()
+    },
+    processData() {
+        /*
+        {
+            name: "Lady Gaga",
+            value: 1000
+        }
+        */
+        var arr = []
+        this.weeklySingerData.forEach(function(value) {
+            arr.push({
+                name: value.name,
+                value: value.count * 100,
+                orig: value.count,
+            })
+        })
+
+        this.bubbleChartData.series = [{
+            name: 'Singers',
+            data: arr,
+        }]
+        console.log(this.bubbleChartData.series)
+        this.bubbleRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
     },
     updateShouldDisplay() {
       if(this.year !== -1 && this.week !== -1) {
@@ -266,8 +257,8 @@ export default {
   },
 
   mounted() {
-    this.radarRef = Highcharts.chart('barChart', this.barChartData);
-    this.scatterRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
+    this.bubbleRef = Highcharts.chart('bubbleChart', this.bubbleChartData);
+    this.barRef = Highcharts.chart('barChart', this.barChartData);
   },
 }
 </script>
