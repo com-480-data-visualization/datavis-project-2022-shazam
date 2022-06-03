@@ -2,7 +2,7 @@
 const _bubbleChartData = {
     chart: {
         type: 'packedbubble',
-        height: '100%',
+        height: '80%',
         backgroundColor: 'transparent',
     },
     credits: {
@@ -15,10 +15,18 @@ const _bubbleChartData = {
             fontWeight: 'normal'
         }
     },
+    subtitle: {
+        text: 'Click on the bubble to check the profile of the singer!',
+        style: {
+            color: 'white',
+            fontWeight: 'normal'
+        }
+    },
     tooltip: {
         useHTML: true,
         pointFormat: '<b>{point.name}:</b> {point.orig} tracks this week'
     },
+    legend:{ enabled:false },
     plotOptions: {
         packedbubble: {
             minSize: '20%',
@@ -340,16 +348,17 @@ export default {
     </div>
     
     <!-- bubble -->
-    <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
-        <p class="text-xl text-gray-400 flex-grow text-center">Who are the most popular artists that have the most listened songs?</p>
-        <p class="text-xl text-gray-400 flex-grow text-center">Here each bubble represent a singer whose songs figured in the top 20 of this week.</p>
-        <p class="text-xl text-gray-400 flex-grow text-center">The larger the size of the bubble is, the more songs from this singer are hitting.</p>
-        <p class="text-xl text-gray-400 flex-grow text-center">Click on the bubble to check the profile of the singer!</p>
+    <div v-show="shouldDisplayAllComponents" class="container mx-auto w-2/3 grid grid-cols-1 place-content-center mt-6">
+        <p class="text-xl text-gray-400 flex-grow text-center">Who are the most popular artists that have the most listened songs? Here each bubble represents a singer whose songs figured in the top 20 of this week. The larger the size of the bubble is, the more popular his songs are this week.</p>
     </div>
     <div v-show="shouldDisplayAllComponents" class="container mx-auto grid grid-cols-1 place-content-center mt-6">
         <div class="flex items-center justify-center">
             <div id="bubbleChart"></div>
         </div>
+    </div>
+
+    <div v-show="shouldDisplayAllComponents" class="container w-2/3 mx-auto grid grid-cols-1 place-content-center">
+        <p class="text-xl text-gray-400 flex-grow text-center">Meanwhile, are you curious about the artist's leaderboard based on the number of times his/her songs have been on the Billboard since 2018 to the selected week? The histogram shows the answer.</p>
     </div>
 
     <!-- leaderboard -->
