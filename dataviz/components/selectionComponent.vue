@@ -18,7 +18,7 @@ export default {
 <div class="mx-auto grid grid-cols-1 place-content-center mt-20">
     <div class="container rounded-xl p-6">
         <div class="text-center">
-            <p id="introTopic1" class="text-6xl font-medium text-gray-50">Weekly analysis</p>
+            <p id="introTopic1" class="text-6xl font-medium text-gray-50">Weekly Analysis</p>
             <p class="text-xl p-2 text-gray-50 mt-3">Curious about the top artists of the week?</p> 
             <p class="text-xl p-2 text-gray-50">Choose the year and the week that interest you to get the weekly summary, including the selected weekly and historical leaderboards.</p>
         </div>
@@ -38,7 +38,7 @@ export default {
 
     <div class="container rounded-xl p-6">
         <div class="text-center">
-            <p id="introTopic2" class="text-6xl font-medium text-gray-50">Yearly analysis</p>
+            <p id="introTopic2" class="text-6xl font-medium text-gray-50">Yearly Analysis</p>
             <p class="text-xl p-2 text-gray-50 mt-3">What are the music trends on a larger scale?</p>
             <p class="text-xl p-2 text-gray-50">You should first select the year to check the annual report.</p>
         </div>

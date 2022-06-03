@@ -20,7 +20,10 @@ export default {
                 Everyone can be a massive fan of music once their own style is found. Because music is within us, around us and everywhere. Like any other effectively advancing field, the music industry evolves and produces new trends from time to time, affected by the shifting preferences of the audience or artists.
             </p>
             <p class="text-xl p-2 text-gray-50">
-                Who are the trending singers during the past four years?<br>Which are their musical characteristics and emotional expression?<br>How does the trend evolve?<br>Let's explore the data from BillBoard to get the answers to these questions!
+                Who are the trending singers during the past four years?<br>Which are their musical characteristics and emotional expression?<br>How does the trend evolve?
+            </p>
+            <p id="introTopic" class="text-xl p-2 text-gray-50">
+                Let's explore the data from BillBoard to get the answers to these questions!
             </p>
         </div>
     </div>
